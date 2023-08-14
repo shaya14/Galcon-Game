@@ -6,11 +6,6 @@ using UnityEngine;
 
 public class MouseInputs : MonoBehaviour
 {
-    [SerializeField] private GameObject _selectionPrefab;
-    private GameObject _newSelection;
-
-    public bool _isSelected;
-
     private List<GameObject> _planets;
     void Start()
     {
@@ -28,6 +23,7 @@ public class MouseInputs : MonoBehaviour
                 GameObject planet = rayHit.collider.gameObject;               
                 planet.GetComponent<SpriteRenderer>().color = planet.GetComponent<Planet>()._selectedColor;
                 planet.GetComponent<Planet>()._isSelected = true;
+                planet.GetComponent<TargetGlow>()._isClicked = true;  
                 _planets.Add(planet);                
             }
             else if (rayHit.collider.gameObject.tag == "Background")
@@ -36,30 +32,10 @@ public class MouseInputs : MonoBehaviour
                 {
                     planet.GetComponent<SpriteRenderer>().color = planet.GetComponent<Planet>()._defaultColor;
                     planet.GetComponent<Planet>()._isSelected = false;
+                    planet.GetComponent<TargetGlow>().SetGlowOff();
                 }
                 _planets.Clear();
             }
-        }
-    }
-
-    private void OnMouseDown()
-    {
-        if(_newSelection == null)
-        {
-            _newSelection = Instantiate(_selectionPrefab, transform.position, Quaternion.identity);
-            _newSelection.transform.SetParent(gameObject.transform);
-            _newSelection.SetActive(false);
-        }
-
-        _isSelected = !_isSelected;
-
-        if (_isSelected)
-        {
-            _newSelection.SetActive(true);
-        }
-        else
-        {
-            _newSelection.SetActive(false);
         }
     }
 }
