@@ -36,33 +36,20 @@ public class Planet : MonoBehaviour
    public bool _isSelected;
    private SpriteRenderer _spriteRenderer;
    private float _timer;
-   private float size = 1;
+   public float _size = 1;
 
    void Awake()
    {
-      _numberOfShips = _iniaitalShips;
       _shipCounterText.text = _numberOfShips.ToString();
       _neutralColor = GetComponent<SpriteRenderer>().color;
       _spriteRenderer = GetComponent<SpriteRenderer>();
-      UpdateDefineState();
    }
    private void Start()
    {
       _isSelected = false;
       _spriteRenderer.color = _updateColor;
-
-      if (size <= 0.8f)
-      {
-         _shipPerSecond /= size;
-      }
-      else if (size > 0.8f && PlanetSize() <= 1.2f)
-      {
-         _shipPerSecond /= size;
-      }
-      else if (size > 1.2f)
-      {
-         _shipPerSecond /= size;
-      }
+      _numberOfShips = _iniaitalShips;
+      _shipPerSecond /= _size;
    }
 
    private void Update()
@@ -140,11 +127,11 @@ public class Planet : MonoBehaviour
       _shipCounterText.text = _numberOfShips.ToString();
    }
 
-   private float PlanetSize()
+   public float PlanetSize()
    {
-      size = Random.Range(0.6f, 1.6f);
-      transform.localScale = new Vector3(size, size, size);
-      return size;
+      _size = Random.Range(0.6f, 1.6f);
+      transform.localScale = new Vector3(_size, _size, _size);
+      return _size;
    }
 
    public void RandomizePlanet()
@@ -153,38 +140,47 @@ public class Planet : MonoBehaviour
       switch (randomColor)
       {
          case 0:
-            _planetColor = PlanetColor.Enemy;
+            _isFreindly = true;
+            _isEnemy = false;
+            _isNeutral = false;
             break;
          case 1:
-            _planetColor = PlanetColor.Friendly;
+            _isFreindly = false;
+            _isEnemy = true;
+            _isNeutral = false;
             break;
          case 2:
-            _planetColor = PlanetColor.Neutral;
+            _isFreindly = false;
+            _isEnemy = false;
+            _isNeutral = true;
             break;
          default:
-            _planetColor = PlanetColor.Neutral;
+            _isFreindly = false;
+            _isEnemy = false;
+            _isNeutral = true;
             break;
       }
+   }
 
-      PlanetSize();
-
+   public void PlanetSetteings()
+   {
       if (PlanetSize() <= 0.8f)
       {
-         _numberOfShips = Random.Range(1, 5);
-         _maxShips = Random.Range(5, 10);
+         _numberOfShips = Random.Range(2, 3);
+         _maxShips = Random.Range(4, 5);
          _iniaitalShips = Random.Range(1, _numberOfShips);
       }
       else if (PlanetSize() > 0.8f && PlanetSize() <= 1.2f)
       {
-         _numberOfShips = Random.Range(10, 20);
-         _maxShips = Random.Range(20, 40);
-         _iniaitalShips = Random.Range(6, _numberOfShips);
+         _numberOfShips = Random.Range(19, 20);
+         _maxShips = Random.Range(20, 30);
+         _iniaitalShips = Random.Range(10, _numberOfShips);
       }
       else if (PlanetSize() > 1.2f)
       {
-         _numberOfShips = Random.Range(20, 40);
-         _maxShips = Random.Range(40, 80);
-         _iniaitalShips = Random.Range(21, _numberOfShips);
+         _numberOfShips = Random.Range(45, 46);
+         _maxShips = Random.Range(50, 60);
+         _iniaitalShips = Random.Range(40, _numberOfShips);
       }
    }
 }

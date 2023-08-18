@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7196761770172136966}
   m_Layer: 0
   m_Name: Planet
-  m_TagString: Player
+  m_TagString: Friendly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30,7 +30,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.81, y: -0.058540776, z: -0.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2941256416443015403}
   - {fileID: 6445280934508822853}
@@ -103,20 +103,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 726130c8b64a1f345a16618050c99637, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _planetColor: 2
+  _planetColor: 1
   _shipPerSecond: 1
-  _iniaitalShips: 10
-  _maxShips: 2
-  _numberOfShips: 12
-  _playerColor: {r: 0.19496846, g: 0.4672732, b: 1, a: 0.7019608}
-  _enemyColor: {r: 0.8018868, g: 0.20929745, b: 0.20929745, a: 0.6156863}
+  _iniaitalShips: 1
+  _maxShips: 4
+  _numberOfShips: 2
+  _playerColor: {r: 0.19496846, g: 0.4672732, b: 1, a: 0.88235295}
+  _enemyColor: {r: 0.8018868, g: 0.20929745, b: 0.20929745, a: 0.88235295}
   _neutralColor: {r: 0, g: 0, b: 0, a: 0}
-  _updateColor: {r: 0, g: 0, b: 0, a: 0}
+  _updateColor: {r: 0.19496846, g: 0.4672732, b: 1, a: 0.7019608}
   _shipCounterText: {fileID: 4496170600140630852}
-  _isFreindly: 0
+  _isFreindly: 1
   _isEnemy: 0
   _isNeutral: 0
   _isSelected: 0
+  _size: 0.8526532
 --- !u!114 &2130193576567537355
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -269,7 +270,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0
+  m_text: 43
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

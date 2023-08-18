@@ -963,8 +963,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 165e3fe0cd7e5d94995a2a06cd955144, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mapPlanets: {fileID: 1729734016447677606, guid: 45c3211db3410f744ab7389d0e57b5d1, type: 3}
-  _numberOfPlanets: 5
+  _mapPlanets:
+  - {fileID: 1729734016447677606, guid: 45c3211db3410f744ab7389d0e57b5d1, type: 3}
+  _mapPlanet: {fileID: 0}
+  _numberOfPlanets: 30
   _attackingShips: {fileID: 6117789951486688954, guid: fc58eca5d4a511a4f93ef0efa92c5d83, type: 3}
   _planets: []
   _enemies: []
