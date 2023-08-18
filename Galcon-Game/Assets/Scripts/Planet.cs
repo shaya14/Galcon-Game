@@ -50,17 +50,18 @@ public class Planet : MonoBehaviour
    {
       _isSelected = false;
       _spriteRenderer.color = _updateColor;
+
       if (size <= 0.8f)
       {
-         _shipPerSecond *= size;
+         _shipPerSecond /= size;
       }
       else if (size > 0.8f && PlanetSize() <= 1.2f)
       {
-         _shipPerSecond = 1f;
+         _shipPerSecond /= size;
       }
       else if (size > 1.2f)
       {
-         _shipPerSecond = 0.5f;
+         _shipPerSecond /= size;
       }
    }
 
