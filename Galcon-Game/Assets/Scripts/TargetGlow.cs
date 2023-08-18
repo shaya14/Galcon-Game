@@ -6,7 +6,6 @@ using UnityEngine;
 public class TargetGlow : MonoBehaviour
 {
     [SerializeField] GameObject _selectedGlow;
-    [SerializeField] GameObject _glowLines;
     public bool _isClicked; // When a planet is clicked, it will glow until it is clicked again or another planet is clicked
     public bool _isSelected; // When a planet is hovered over, it will glow until the mouse exits the planet
     public bool _glowingEnabled = false;
@@ -41,11 +40,12 @@ public class TargetGlow : MonoBehaviour
                 if (_isSelected)
                 {
                     _selectedGlow.SetActive(true);
-                    // Add a glow lines
-                    for (int i = 0; i < GameManager.Instance._planets.Count; i++)
+                    foreach (GameObject targetPlanet in GameManager.Instance._planets)
                     {
-                        Debug.DrawLine(this.transform.position, GameManager.Instance._planets[i].transform.position, Color.red, 1f);
-                        GameObject glowLines = Instantiate(_glowLines, this.transform.position, Quaternion.identity);
+                        if (targetPlanet != this && targetPlanet.GetComponent<TargetGlow>()._isSelected)
+                        {
+                            DrawLines._instance.DrawFewLines(targetPlanet.transform, this.transform);
+                        }
                     }
                 }
                 else
@@ -62,6 +62,7 @@ public class TargetGlow : MonoBehaviour
         {
             _isSelected = false;
             _selectedGlow.SetActive(false);
+            DrawLines._instance.ClearLines();
         }
     }
 
