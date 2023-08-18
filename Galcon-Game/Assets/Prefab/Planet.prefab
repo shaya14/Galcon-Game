@@ -130,6 +130,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _selectedGlow: {fileID: 4787735927061252381}
+  _glowLines: {fileID: -8722792879179705899, guid: 753bc40a4250f334b83e8dd00be9885c, type: 3}
   _isClicked: 0
   _isSelected: 0
   _glowingEnabled: 0
