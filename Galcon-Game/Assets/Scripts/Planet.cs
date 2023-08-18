@@ -14,6 +14,7 @@ public class Planet : MonoBehaviour
 {
    [SerializeField] private TextMeshProUGUI _shipCounterText;
    [SerializeField] private float _shipPerSecond;
+   [SerializeField] private GameObject _attackingShips;
    public int _numberOfShips;
 
    public PlanetColor _planetColor;
@@ -40,11 +41,11 @@ public class Planet : MonoBehaviour
       _shipCounterText.text = _numberOfShips.ToString();
       _defaultColor = GetComponent<SpriteRenderer>().color;
       _spriteRenderer = GetComponent<SpriteRenderer>();
+      UpdateDefineState();
    }
    private void Start()
    {
       _isSelected = false;
-      UpdateDefineState();
       _spriteRenderer.color = _updateColor;
    }
 
@@ -52,9 +53,9 @@ public class Planet : MonoBehaviour
    {
       NewShipTimer();
       UpdateState();
+      UpdateDefineState();
       _defaultColor = _updateColor;
       _spriteRenderer.color = _updateColor;
-      //GetComponent<SpriteRenderer>().color = Color.Lerp(GetComponent<SpriteRenderer>().color, _updateColor, Time.deltaTime);
    }
 
    public void UpdateDefineState()
@@ -86,18 +87,18 @@ public class Planet : MonoBehaviour
 
    public void UpdateState()
    {
-      if(_isFreindly)
+      if (_isFreindly)
       {
          _planetColor = PlanetColor.Friendly;
       }
-      else if(_isEnemy)
+      else if (_isEnemy)
       {
          _planetColor = PlanetColor.Enemy;
       }
-      else if(_isNeutral)
+      else if (_isNeutral)
       {
          _planetColor = PlanetColor.Neutral;
-      }  
+      }
    }
 
    void NewShipTimer()
@@ -120,15 +121,17 @@ public class Planet : MonoBehaviour
       _shipCounterText.text = _numberOfShips.ToString();
    }
 
-   // private void OnTriggerEnter2D(Collider2D collision)
-   // {
-   //    if (collision.gameObject.CompareTag("Ship"))
-   //    {
-   //       if(_numberOfShips <= 0)
-   //       {
-   //          _numberOfShips = 0;
-            
-   //       }
-   //    }
-   // }
+      public void SpawnShips(Planet planet)
+   {
+         planet.GetComponent<Planet>()._numberOfShips /= 2;
+         planet.GetComponent<Planet>().UpdateNumOfShipsText();
+         for (int i = 0; i < planet._numberOfShips; i++)
+         {
+            GameObject ship = Instantiate(_attackingShips, planet.transform.position, Quaternion.identity);
+         }
+      
+         planet.GetComponent<SpriteRenderer>().color = planet.GetComponent<Planet>()._defaultColor;
+         planet.GetComponent<Planet>()._isSelected = false;
+         planet.GetComponent<TargetGlow>().SetGlowOff();
+   }
 }

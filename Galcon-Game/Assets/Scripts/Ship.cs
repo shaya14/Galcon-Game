@@ -7,14 +7,6 @@ public class Ship : MonoBehaviour
     [SerializeField] private float _speed = 2f;
     [HideInInspector] public GameObject _targetPlanet;
 
-    bool _isUnderAttack = true;
-    bool _isConquered = false;
-
-    void Start()
-    {
-
-    }
-
     void Update()
     {
         Movement();
@@ -30,18 +22,17 @@ public class Ship : MonoBehaviour
     {
         if (collision.gameObject == _targetPlanet)
         {
-            _targetPlanet.GetComponent<Planet>().UpdateDefineState();
             if (_targetPlanet.GetComponent<Planet>()._isFreindly)
             {
-                if (_targetPlanet.GetComponent<Planet>()._numberOfShips > 0)
-                {
-                    _targetPlanet.GetComponent<Planet>()._numberOfShips++;
-                }
-                else if (_targetPlanet.GetComponent<Planet>()._numberOfShips <= 0)
-                {
-                    _targetPlanet.GetComponent<Planet>()._isFreindly = false;
-                    _targetPlanet.GetComponent<Planet>()._isEnemy = true;
-                }
+                // if (_targetPlanet.GetComponent<Planet>()._numberOfShips > 0)
+                // {
+                _targetPlanet.GetComponent<Planet>()._numberOfShips++;
+                //}
+                // else if (_targetPlanet.GetComponent<Planet>()._numberOfShips <= 0)
+                // {
+                //     _targetPlanet.GetComponent<Planet>()._isFreindly = false;
+                //     _targetPlanet.GetComponent<Planet>()._isEnemy = true;
+                // }
             }
             else if (_targetPlanet.GetComponent<Planet>()._isEnemy)
             {
@@ -67,7 +58,7 @@ public class Ship : MonoBehaviour
                     _targetPlanet.GetComponent<Planet>()._isNeutral = false;
                 }
             }
-            _targetPlanet.GetComponent<Planet>().UpdateNumOfShipsText();          
+            _targetPlanet.GetComponent<Planet>().UpdateNumOfShipsText();
             Destroy(gameObject);
         }
     }
