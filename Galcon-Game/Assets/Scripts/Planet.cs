@@ -12,34 +12,37 @@ public enum PlanetColor
 
 public class Planet : MonoBehaviour
 {
-   [SerializeField] private TextMeshProUGUI _shipCounterText;
-   [SerializeField] private float _shipPerSecond;
-   [SerializeField] private GameObject _attackingShips;
-   public int _numberOfShips;
 
+   [Header("Planet Settings")]
    public PlanetColor _planetColor;
-   public bool _isSelected;
+   [SerializeField] private float _shipPerSecond;
+   [SerializeField] public int _iniaitalShips;
+   [SerializeField] private int _maxShips;
+   [HideInInspector] public int _numberOfShips;
+
 
    [Header("Player Colors")]
-   [SerializeField] private Color _enemyColor;
    [SerializeField] private Color _playerColor;
+   [SerializeField] private Color _enemyColor;
+   [SerializeField] private Color _neutralColor;
+   [HideInInspector] public Color _updateColor;
 
-   [Header("Game Colors")]
-   public Color _defaultColor;
-   public Color _updateColor;
-   public Color _selectedColor;
+   [Header("UI Elements")]
+   [SerializeField] private TextMeshPro _shipCounterText;
 
    public bool _isFreindly;
    public bool _isEnemy;
    public bool _isNeutral;
-
+   public bool _isSelected;
    private SpriteRenderer _spriteRenderer;
    private float _timer;
+   private float size = 1;
 
    void Awake()
    {
+      _numberOfShips = _iniaitalShips;
       _shipCounterText.text = _numberOfShips.ToString();
-      _defaultColor = GetComponent<SpriteRenderer>().color;
+      _neutralColor = GetComponent<SpriteRenderer>().color;
       _spriteRenderer = GetComponent<SpriteRenderer>();
       UpdateDefineState();
    }
@@ -54,7 +57,6 @@ public class Planet : MonoBehaviour
       NewShipTimer();
       UpdateState();
       UpdateDefineState();
-      _defaultColor = _updateColor;
       _spriteRenderer.color = _updateColor;
    }
 
@@ -63,24 +65,29 @@ public class Planet : MonoBehaviour
       switch (_planetColor)
       {
          case PlanetColor.Enemy:
+            gameObject.name = "Enemy Planet";
             gameObject.tag = "Enemy";
             _isEnemy = true;
             _updateColor = _enemyColor;
             break;
          case PlanetColor.Friendly:
-            gameObject.tag = "Player";
+            gameObject.name = "Friendly Planet";
+            gameObject.tag = "Friendly";
             _isFreindly = true;
             _updateColor = _playerColor;
             break;
          case PlanetColor.Neutral:
+            gameObject.name = "Neutral Planet";
             gameObject.tag = "Neutral";
+            _shipCounterText.text = _iniaitalShips.ToString();
             _isNeutral = true;
-            _updateColor = _defaultColor;
+            _updateColor = _neutralColor;
             break;
          default:
+            gameObject.name = "Neutral Planet";
             gameObject.tag = "Neutral";
             _isNeutral = true;
-            _updateColor = _defaultColor;
+            _updateColor = _neutralColor;
             break;
       }
    }
@@ -103,12 +110,11 @@ public class Planet : MonoBehaviour
 
    void NewShipTimer()
    {
-      if (_timer > _shipPerSecond)
+      if (_timer > _shipPerSecond * size && _numberOfShips < _maxShips)
       {
          _timer = 0;
          _numberOfShips++;
          _shipCounterText.text = _numberOfShips.ToString();
-         //_shipCounterText.text = (int.Parse(_shipCounterText.text) + 1).ToString();
       }
       else
       {
@@ -121,17 +127,51 @@ public class Planet : MonoBehaviour
       _shipCounterText.text = _numberOfShips.ToString();
    }
 
-      public void SpawnShips(Planet planet)
+   public float PlanetSize()
    {
-         planet.GetComponent<Planet>()._numberOfShips /= 2;
-         planet.GetComponent<Planet>().UpdateNumOfShipsText();
-         for (int i = 0; i < planet._numberOfShips; i++)
-         {
-            GameObject ship = Instantiate(_attackingShips, planet.transform.position, Quaternion.identity);
-         }
-      
-         planet.GetComponent<SpriteRenderer>().color = planet.GetComponent<Planet>()._defaultColor;
-         planet.GetComponent<Planet>()._isSelected = false;
-         planet.GetComponent<TargetGlow>().SetGlowOff();
+      size = Random.Range(0.6f, 1.5f);
+      transform.localScale = new Vector3(size, size, size);
+      return size;
+   }
+
+   public void RandomizePlanet()
+   {
+      int randomColor = Random.Range(0, 3);
+      switch (randomColor)
+      {
+         case 0:
+            _planetColor = PlanetColor.Enemy;
+            break;
+         case 1:
+            _planetColor = PlanetColor.Friendly;
+            break;
+         case 2:
+            _planetColor = PlanetColor.Neutral;
+            break;
+         default:
+            _planetColor = PlanetColor.Neutral;
+            break;
+      }
+
+      PlanetSize();
+
+      if(PlanetSize() <= 0.8f)
+      {
+         _numberOfShips = Random.Range(1, 5);
+         _maxShips = Random.Range(5, 10);
+         _iniaitalShips = Random.Range(1, _numberOfShips);
+      }
+      else if(PlanetSize() > 0.8f && PlanetSize() <= 1.2f)
+      {
+         _numberOfShips = Random.Range(10, 20);
+         _maxShips = Random.Range(20, 40);
+         _iniaitalShips = Random.Range(6, _numberOfShips);
+      }
+      else if(PlanetSize() > 1.2f)
+      {
+         _numberOfShips = Random.Range(20, 40);
+         _maxShips = Random.Range(40, 80);
+         _iniaitalShips = Random.Range(21, _numberOfShips);
+      }
    }
 }

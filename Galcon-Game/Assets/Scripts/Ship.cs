@@ -44,18 +44,24 @@ public class Ship : MonoBehaviour
                 {
                     _targetPlanet.GetComponent<Planet>()._isFreindly = true;
                     _targetPlanet.GetComponent<Planet>()._isEnemy = false;
+
+                    // Why when its enable i get error?
+                    //GameManager.Instance._enemies.Remove(_targetPlanet);
                 }
             }
             else if (_targetPlanet.GetComponent<Planet>()._isNeutral)
             {
-                if (_targetPlanet.GetComponent<Planet>()._numberOfShips >= 0)
+
+                _targetPlanet.GetComponent<Planet>()._iniaitalShips--;
+
+                if (_targetPlanet.GetComponent<Planet>()._iniaitalShips <= 0)
                 {
-                    _targetPlanet.GetComponent<Planet>()._numberOfShips--;
-                }
-                else if (_targetPlanet.GetComponent<Planet>()._numberOfShips <= 0)
-                {
+                    _targetPlanet.GetComponent<Planet>()._numberOfShips = 0;
                     _targetPlanet.GetComponent<Planet>()._isFreindly = true;
                     _targetPlanet.GetComponent<Planet>()._isNeutral = false;
+
+                    // Why when its enable i get error?
+                    //GameManager.Instance._enemies.Remove(_targetPlanet);
                 }
             }
             _targetPlanet.GetComponent<Planet>().UpdateNumOfShipsText();

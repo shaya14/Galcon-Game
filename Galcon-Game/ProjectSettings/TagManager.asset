@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - Neutral
   - Ship
+  - Friendly
   layers:
   - Default
   - TransparentFX

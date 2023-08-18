@@ -18,7 +18,7 @@ public class TargetGlow : MonoBehaviour
     private void OnMouseEnter()
     {
         _isSelected = !_isSelected;
-        if (this.gameObject.tag == "Player")
+        if (this.gameObject.tag == "Friendly")
         {
             if (!_isClicked)
             {

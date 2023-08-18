@@ -12,13 +12,12 @@ public class MouseInputs : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            if (rayHit.collider.gameObject.tag == "Player" && !rayHit.collider.gameObject.GetComponent<Planet>()._isSelected)
+            if (rayHit.collider.gameObject.tag == "Friendly" && !rayHit.collider.gameObject.GetComponent<Planet>()._isSelected)
             {
-                GameObject player = rayHit.collider.gameObject;
-                player.GetComponent<SpriteRenderer>().color = player.GetComponent<Planet>()._selectedColor;
-                player.GetComponent<Planet>()._isSelected = true;
-                player.GetComponent<TargetGlow>()._isClicked = true;
-                GameManager.Instance._planets.Add(player);
+                GameObject friendly = rayHit.collider.gameObject;
+                friendly.GetComponent<Planet>()._isSelected = true;
+                friendly.GetComponent<TargetGlow>()._isClicked = true;
+                GameManager.Instance._planets.Add(friendly);
 
                 foreach (GameObject enemy in GameManager.Instance._enemies)
                 {
@@ -29,7 +28,6 @@ public class MouseInputs : MonoBehaviour
             {
                 foreach (GameObject planet in GameManager.Instance._planets)
                 {
-                    planet.GetComponent<SpriteRenderer>().color = planet.GetComponent<Planet>()._defaultColor;
                     planet.GetComponent<Planet>()._isSelected = false;
                     planet.GetComponent<TargetGlow>().SetGlowOff();
 
@@ -44,7 +42,7 @@ public class MouseInputs : MonoBehaviour
 
         if (Input.GetMouseButtonDown(1))
         {
-            if (rayHit.collider.gameObject.tag == "Player")
+            if (rayHit.collider.gameObject.tag == "Friendly")
             {
                 GameObject freindly = rayHit.collider.gameObject;
                 GameManager.Instance._attackingShips.GetComponent<Ship>()._targetPlanet = freindly;

@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private GameObject _mapPlanets;
+    [SerializeField] private int _numberOfPlanets;
+
     public GameObject _attackingShips;
     public List<GameObject> _planets;
     public List<GameObject> _enemies;
@@ -13,11 +16,17 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        InstatiatePlanets();
         Instance = this;
         _planets = new List<GameObject>();
         _enemies = new List<GameObject>();
         _enemies.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
-        _enemies.AddRange(GameObject.FindGameObjectsWithTag("Neutral"));
+        _enemies.AddRange(GameObject.FindGameObjectsWithTag("Neutral"));     
+    }
+
+    void Update()
+    {
+
     }
 
     public void SpawnShips()
@@ -34,7 +43,6 @@ public class GameManager : MonoBehaviour
 
         foreach (GameObject planet in GameManager.Instance._planets)
         {
-            planet.GetComponent<SpriteRenderer>().color = planet.GetComponent<Planet>()._defaultColor;
             planet.GetComponent<Planet>()._isSelected = false;
             planet.GetComponent<TargetGlow>().SetGlowOff();
         }
@@ -44,5 +52,20 @@ public class GameManager : MonoBehaviour
         {
             enemy.GetComponent<TargetGlow>()._glowingEnabled = false;
         }
+    }
+
+    public void RemoveFromList(Planet enemy)
+    {
+        _enemies.Remove(enemy.gameObject);
+    }
+
+    public void InstatiatePlanets()
+    {       
+        for (int i = 0; i < _numberOfPlanets; i++)
+        {
+            var position = new Vector3(Random.Range(-8f, 8f), Random.Range(-4f, 4f), -0.1f);
+            Instantiate(_mapPlanets, position, Quaternion.identity);
+            _mapPlanets.GetComponent<Planet>().RandomizePlanet();
+        }       
     }
 }

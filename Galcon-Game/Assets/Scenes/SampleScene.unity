@@ -251,7 +251,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &191237460
 GameObject:
@@ -283,7 +283,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &191237463
 MonoBehaviour:
@@ -297,7 +297,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88a61b0d8290f3849a4f27251420e71b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attackingShips: {fileID: 6117789951486688954, guid: fc58eca5d4a511a4f93ef0efa92c5d83, type: 3}
 --- !u!1 &221818625
 GameObject:
   m_ObjectHideFlags: 0
@@ -345,7 +344,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &317445350
 PrefabInstance:
@@ -357,7 +356,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 739547648244502039, guid: 45c3211db3410f744ab7389d0e57b5d1, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 739547648244502039, guid: 45c3211db3410f744ab7389d0e57b5d1, type: 3}
       propertyPath: m_LocalPosition.x
@@ -420,6 +419,14 @@ PrefabInstance:
       value: 0.8018868
       objectReference: {fileID: 0}
     - target: {fileID: 901599458154512910, guid: 45c3211db3410f744ab7389d0e57b5d1, type: 3}
+      propertyPath: _iniaitalShips
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 901599458154512910, guid: 45c3211db3410f744ab7389d0e57b5d1, type: 3}
+      propertyPath: _numberOfShips
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 901599458154512910, guid: 45c3211db3410f744ab7389d0e57b5d1, type: 3}
       propertyPath: _playerColor.a
       value: 0.7019608
       objectReference: {fileID: 0}
@@ -438,6 +445,10 @@ PrefabInstance:
     - target: {fileID: 1729734016447677606, guid: 45c3211db3410f744ab7389d0e57b5d1, type: 3}
       propertyPath: m_Name
       value: Planet Blue (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1729734016447677606, guid: 45c3211db3410f744ab7389d0e57b5d1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1729734016447677606, guid: 45c3211db3410f744ab7389d0e57b5d1, type: 3}
       propertyPath: m_TagString
@@ -670,7 +681,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &954776610
 PrefabInstance:
@@ -724,57 +735,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 901599458154512910, guid: 45c3211db3410f744ab7389d0e57b5d1, type: 3}
-      propertyPath: _planetColor
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 901599458154512910, guid: 45c3211db3410f744ab7389d0e57b5d1, type: 3}
-      propertyPath: _enemyColor.a
-      value: 0.6156863
-      objectReference: {fileID: 0}
-    - target: {fileID: 901599458154512910, guid: 45c3211db3410f744ab7389d0e57b5d1, type: 3}
-      propertyPath: _enemyColor.b
-      value: 0.20929745
-      objectReference: {fileID: 0}
-    - target: {fileID: 901599458154512910, guid: 45c3211db3410f744ab7389d0e57b5d1, type: 3}
-      propertyPath: _enemyColor.g
-      value: 0.20929745
-      objectReference: {fileID: 0}
-    - target: {fileID: 901599458154512910, guid: 45c3211db3410f744ab7389d0e57b5d1, type: 3}
-      propertyPath: _enemyColor.r
-      value: 0.8018868
-      objectReference: {fileID: 0}
-    - target: {fileID: 901599458154512910, guid: 45c3211db3410f744ab7389d0e57b5d1, type: 3}
-      propertyPath: _playerColor.a
-      value: 0.7019608
-      objectReference: {fileID: 0}
-    - target: {fileID: 901599458154512910, guid: 45c3211db3410f744ab7389d0e57b5d1, type: 3}
-      propertyPath: _playerColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 901599458154512910, guid: 45c3211db3410f744ab7389d0e57b5d1, type: 3}
-      propertyPath: _playerColor.g
-      value: 0.4672732
-      objectReference: {fileID: 0}
-    - target: {fileID: 901599458154512910, guid: 45c3211db3410f744ab7389d0e57b5d1, type: 3}
-      propertyPath: _playerColor.r
-      value: 0.19496846
-      objectReference: {fileID: 0}
     - target: {fileID: 1729734016447677606, guid: 45c3211db3410f744ab7389d0e57b5d1, type: 3}
       propertyPath: m_Name
       value: Planet Blue
       objectReference: {fileID: 0}
     - target: {fileID: 1729734016447677606, guid: 45c3211db3410f744ab7389d0e57b5d1, type: 3}
-      propertyPath: m_TagString
-      value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 4787735927061252381, guid: 45c3211db3410f744ab7389d0e57b5d1, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 3146907035452506589, guid: 45c3211db3410f744ab7389d0e57b5d1, type: 3}
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 45c3211db3410f744ab7389d0e57b5d1, type: 3}
@@ -834,9 +804,29 @@ PrefabInstance:
       propertyPath: _planetColor
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 901599458154512910, guid: 45c3211db3410f744ab7389d0e57b5d1, type: 3}
+      propertyPath: _iniaitalShips
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 901599458154512910, guid: 45c3211db3410f744ab7389d0e57b5d1, type: 3}
+      propertyPath: _playerColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 901599458154512910, guid: 45c3211db3410f744ab7389d0e57b5d1, type: 3}
+      propertyPath: _playerColor.g
+      value: 0.46666667
+      objectReference: {fileID: 0}
+    - target: {fileID: 901599458154512910, guid: 45c3211db3410f744ab7389d0e57b5d1, type: 3}
+      propertyPath: _playerColor.r
+      value: 0.19607843
+      objectReference: {fileID: 0}
     - target: {fileID: 1729734016447677606, guid: 45c3211db3410f744ab7389d0e57b5d1, type: 3}
       propertyPath: m_Name
       value: Planet Grey
+      objectReference: {fileID: 0}
+    - target: {fileID: 1729734016447677606, guid: 45c3211db3410f744ab7389d0e57b5d1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1729734016447677606, guid: 45c3211db3410f744ab7389d0e57b5d1, type: 3}
       propertyPath: m_TagString
@@ -862,7 +852,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 739547648244502039, guid: 45c3211db3410f744ab7389d0e57b5d1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.7169523
+      value: 1.07
       objectReference: {fileID: 0}
     - target: {fileID: 739547648244502039, guid: 45c3211db3410f744ab7389d0e57b5d1, type: 3}
       propertyPath: m_LocalPosition.y
@@ -900,12 +890,81 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 901599458154512910, guid: 45c3211db3410f744ab7389d0e57b5d1, type: 3}
+      propertyPath: _iniaitalShips
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 901599458154512910, guid: 45c3211db3410f744ab7389d0e57b5d1, type: 3}
+      propertyPath: _playerColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 901599458154512910, guid: 45c3211db3410f744ab7389d0e57b5d1, type: 3}
+      propertyPath: _playerColor.g
+      value: 0.46666667
+      objectReference: {fileID: 0}
+    - target: {fileID: 901599458154512910, guid: 45c3211db3410f744ab7389d0e57b5d1, type: 3}
+      propertyPath: _playerColor.r
+      value: 0.19607843
+      objectReference: {fileID: 0}
     - target: {fileID: 1729734016447677606, guid: 45c3211db3410f744ab7389d0e57b5d1, type: 3}
       propertyPath: m_Name
       value: Planet Red
+      objectReference: {fileID: 0}
+    - target: {fileID: 1729734016447677606, guid: 45c3211db3410f744ab7389d0e57b5d1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 45c3211db3410f744ab7389d0e57b5d1, type: 3}
+--- !u!1 &2006689359
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2006689361}
+  - component: {fileID: 2006689362}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2006689361
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2006689359}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.35639066, y: 0.021748189, z: -0.18683305}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2006689362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2006689359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 165e3fe0cd7e5d94995a2a06cd955144, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mapPlanets: {fileID: 1729734016447677606, guid: 45c3211db3410f744ab7389d0e57b5d1, type: 3}
+  _numberOfPlanets: 5
+  _attackingShips: {fileID: 6117789951486688954, guid: fc58eca5d4a511a4f93ef0efa92c5d83, type: 3}
+  _planets: []
+  _enemies: []
