@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class TargetGlow : MonoBehaviour
@@ -20,7 +21,6 @@ public class TargetGlow : MonoBehaviour
         _isSelected = !_isSelected;
         if (this.gameObject.tag == "Friendly")
         {
-
             if (!_isClicked)
             {
                 if (_isSelected)
@@ -41,7 +41,7 @@ public class TargetGlow : MonoBehaviour
                 if (_isSelected)
                 {
                     _selectedGlow.SetActive(true);
-                    foreach (GameObject targetPlanet in GameManager.Instance._planets)
+                    foreach (GameObject targetPlanet in GameManager.Instance._selectedPlanets)
                     {
                         if (targetPlanet != this && targetPlanet.GetComponent<TargetGlow>()._isSelected)
                         {

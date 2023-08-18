@@ -9,8 +9,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int _numberOfPlanets;
 
     public GameObject _attackingShips;
-    public List<GameObject> _planets;
+    public List<GameObject> _selectedPlanets;
     public List<GameObject> _enemies;
+
+    public List<GameObject> _friendlyPlanets;
+    public List<GameObject> _enemyPlanets;
 
     private static GameManager _instance;
     public static GameManager Instance { get; set; }
@@ -29,15 +32,31 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
-        _planets = new List<GameObject>();
+        _selectedPlanets = new List<GameObject>();
         _enemies = new List<GameObject>();
+        _friendlyPlanets = new List<GameObject>();
+        _enemyPlanets = new List<GameObject>(); 
         _enemies.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
         _enemies.AddRange(GameObject.FindGameObjectsWithTag("Neutral"));
+        _friendlyPlanets.AddRange(GameObject.FindGameObjectsWithTag("Friendly"));
+        _enemyPlanets.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
+    }
+
+    void Update()
+    {
+        if(_friendlyPlanets.Count <= 0)
+        {
+            Debug.Log("You Lose");
+        }
+        else if(_enemyPlanets.Count <= 0)
+        {
+            Debug.Log("You Win");
+        }
     }
 
     public void SpawnShips()
     {
-        foreach (GameObject planet in GameManager.Instance._planets)
+        foreach (GameObject planet in GameManager.Instance._selectedPlanets)
         {
             planet.GetComponent<Planet>()._numberOfShips /= 2;
             planet.GetComponent<Planet>().UpdateNumOfShipsText();
@@ -47,12 +66,12 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        foreach (GameObject planet in GameManager.Instance._planets)
+        foreach (GameObject planet in GameManager.Instance._selectedPlanets)
         {
             planet.GetComponent<Planet>()._isSelected = false;
             planet.GetComponent<TargetGlow>().SetGlowOff();
         }
-        GameManager.Instance._planets.Clear();
+        GameManager.Instance._selectedPlanets.Clear();
 
         foreach (GameObject enemy in GameManager.Instance._enemies)
         {

@@ -17,7 +17,7 @@ public class MouseInputs : MonoBehaviour
                 GameObject friendly = rayHit.collider.gameObject;
                 friendly.GetComponent<Planet>()._isSelected = true;
                 friendly.GetComponent<TargetGlow>()._isClicked = true;
-                GameManager.Instance._planets.Add(friendly);
+                GameManager.Instance._selectedPlanets.Add(friendly);
 
                 foreach (GameObject enemy in GameManager.Instance._enemies)
                 {
@@ -26,7 +26,7 @@ public class MouseInputs : MonoBehaviour
             }
             else if (rayHit.collider.gameObject.tag == "Background")
             {
-                foreach (GameObject planet in GameManager.Instance._planets)
+                foreach (GameObject planet in GameManager.Instance._selectedPlanets)
                 {
                     planet.GetComponent<Planet>()._isSelected = false;
                     planet.GetComponent<TargetGlow>().SetGlowOff();
@@ -36,7 +36,7 @@ public class MouseInputs : MonoBehaviour
                         enemy.GetComponent<TargetGlow>()._glowingEnabled = false;
                     }
                 }
-                GameManager.Instance._planets.Clear();
+                GameManager.Instance._selectedPlanets.Clear();
             }
         }
 
