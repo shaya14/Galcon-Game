@@ -47,12 +47,14 @@ public class MouseInputs : MonoBehaviour
                 GameObject freindly = rayHit.collider.gameObject;
                 GameManager.Instance._attackingShips.GetComponent<Ship>()._targetPlanet = freindly;
                 GameManager.Instance.SpawnShips();
+                DrawLines._instance.ClearLines();
             }
             else if (rayHit.collider.gameObject.tag == "Enemy" || rayHit.collider.gameObject.tag == "Neutral")
             {
                 GameObject enemy = rayHit.collider.gameObject;
                 GameManager.Instance._attackingShips.GetComponent<Ship>()._targetPlanet = enemy;
                 GameManager.Instance.SpawnShips();
+                DrawLines._instance.ClearLines();
             }
         }
     }

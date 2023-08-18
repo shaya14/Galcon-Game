@@ -20,6 +20,7 @@ public class TargetGlow : MonoBehaviour
         _isSelected = !_isSelected;
         if (this.gameObject.tag == "Friendly")
         {
+
             if (!_isClicked)
             {
                 if (_isSelected)
