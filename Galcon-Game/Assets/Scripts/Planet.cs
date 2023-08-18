@@ -36,7 +36,7 @@ public class Planet : MonoBehaviour
    public bool _isSelected;
    private SpriteRenderer _spriteRenderer;
    private float _timer;
-   public float _size = 1;
+   private float _size = 1;
 
    void Awake()
    {
@@ -50,6 +50,7 @@ public class Planet : MonoBehaviour
       _spriteRenderer.color = _updateColor;
       _numberOfShips = _iniaitalShips;
       _shipPerSecond /= _size;
+      UpdateNumOfShipsText();
    }
 
    private void Update()

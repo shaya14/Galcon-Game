@@ -94,6 +94,7 @@ public class GameManager : MonoBehaviour
             planet.UpdateDefineState();
             //Debug.Log("Planet " + planet.name + " created " + planet.GetComponent<Planet>()._size);
         }
+        
         // for (int i = 0; i < _numberOfPlanets; i++)
         // {
 

@@ -117,7 +117,6 @@ MonoBehaviour:
   _isEnemy: 0
   _isNeutral: 0
   _isSelected: 0
-  _size: 0.8526532
 --- !u!114 &2130193576567537355
 MonoBehaviour:
   m_ObjectHideFlags: 0

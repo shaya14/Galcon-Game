@@ -39,6 +39,11 @@ public class TargetGlow : MonoBehaviour
                 if (_isSelected)
                 {
                     _selectedGlow.SetActive(true);
+                    // Add a glow lines
+                    for (int i = 0; i < GameManager.Instance._planets.Count; i++)
+                    {
+                        Debug.DrawLine(this.transform.position, GameManager.Instance._planets[i].transform.position, Color.red, 1f);
+                    }
                 }
                 else
                 {
