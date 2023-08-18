@@ -24,11 +24,6 @@ public class GameManager : MonoBehaviour
         _enemies.AddRange(GameObject.FindGameObjectsWithTag("Neutral"));     
     }
 
-    void Update()
-    {
-
-    }
-
     public void SpawnShips()
     {
         foreach (GameObject planet in GameManager.Instance._planets)
