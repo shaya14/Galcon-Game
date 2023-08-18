@@ -50,6 +50,18 @@ public class Planet : MonoBehaviour
    {
       _isSelected = false;
       _spriteRenderer.color = _updateColor;
+      if (size <= 0.8f)
+      {
+         _shipPerSecond *= size;
+      }
+      else if (size > 0.8f && PlanetSize() <= 1.2f)
+      {
+         _shipPerSecond = 1f;
+      }
+      else if (size > 1.2f)
+      {
+         _shipPerSecond = 0.5f;
+      }
    }
 
    private void Update()
@@ -110,7 +122,7 @@ public class Planet : MonoBehaviour
 
    void NewShipTimer()
    {
-      if (_timer > _shipPerSecond * size && _numberOfShips < _maxShips)
+      if (_timer > _shipPerSecond && _numberOfShips < _maxShips)
       {
          _timer = 0;
          _numberOfShips++;
@@ -127,9 +139,9 @@ public class Planet : MonoBehaviour
       _shipCounterText.text = _numberOfShips.ToString();
    }
 
-   public float PlanetSize()
+   private float PlanetSize()
    {
-      size = Random.Range(0.6f, 1.5f);
+      size = Random.Range(0.6f, 1.6f);
       transform.localScale = new Vector3(size, size, size);
       return size;
    }
@@ -155,19 +167,19 @@ public class Planet : MonoBehaviour
 
       PlanetSize();
 
-      if(PlanetSize() <= 0.8f)
+      if (PlanetSize() <= 0.8f)
       {
          _numberOfShips = Random.Range(1, 5);
          _maxShips = Random.Range(5, 10);
          _iniaitalShips = Random.Range(1, _numberOfShips);
       }
-      else if(PlanetSize() > 0.8f && PlanetSize() <= 1.2f)
+      else if (PlanetSize() > 0.8f && PlanetSize() <= 1.2f)
       {
          _numberOfShips = Random.Range(10, 20);
          _maxShips = Random.Range(20, 40);
          _iniaitalShips = Random.Range(6, _numberOfShips);
       }
-      else if(PlanetSize() > 1.2f)
+      else if (PlanetSize() > 1.2f)
       {
          _numberOfShips = Random.Range(20, 40);
          _maxShips = Random.Range(40, 80);
