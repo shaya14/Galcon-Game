@@ -29,12 +29,14 @@ public class Planet : MonoBehaviour
 
    [Header("UI Elements")]
    [SerializeField] private TextMeshPro _shipCounterText;
+   [SerializeField] private TextMeshPro _maxShipCounterText;
 
    public bool _isFriendly;
    public bool _isEnemy;
    public bool _isNeutral;
    public bool _isSelected;
    private SpriteRenderer _spriteRenderer;
+   private LineRenderer _lineRenderer;
    private float _timer;
    public float _size = 1;
 
@@ -51,6 +53,7 @@ public class Planet : MonoBehaviour
       _numberOfShips = _iniaitalShips;
       _shipPerSecond /= _size;
       UpdateNumOfShipsText();
+      _lineRenderer = GetComponent<LineRenderer>();
    }
 
    private void Update()
@@ -60,7 +63,7 @@ public class Planet : MonoBehaviour
       UpdateDefineState();
       _spriteRenderer.color = _updateColor;
 
-      if(_numberOfShips >= _maxShips)
+      if (_numberOfShips >= _maxShips)
       {
          _numberOfShips = _maxShips;
       }
@@ -193,4 +196,31 @@ public class Planet : MonoBehaviour
          _iniaitalShips = Random.Range(35, _numberOfShips);
       }
    }
+
+   // private void OnMouseExit()
+   // {
+   //    PlanetManager.Instance.LineRendererOff();
+   // }
+
+   // private void OnMouseEnter()
+   // {
+   //    if (PlanetManager.Instance._selectedPlanets.Count > 0)
+   //    {
+   //       DrawLineToTarget(this);
+   //    }
+   // }
+
+   // public void DrawLineToTarget(Planet target)
+   // {
+   //    _lineRenderer.enabled = true;
+   //    _lineRenderer.SetPosition(0, this.transform.position);
+   //    _lineRenderer.SetPosition(1, target.transform.position);
+   // }
+
+   // public void LineRendererOff(Planet target)
+   // {
+   //    _lineRenderer.enabled = false;
+   //    _lineRenderer.SetPosition(0, Vector3.zero);
+   //    _lineRenderer.SetPosition(1, Vector3.zero);
+   // }
 }

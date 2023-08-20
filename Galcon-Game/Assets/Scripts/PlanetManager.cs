@@ -51,7 +51,7 @@ public class PlanetManager : MonoBehaviour
 
     void Update()
     {
-        
+
     }
 
     public void SpawnShips()
@@ -121,4 +121,21 @@ public class PlanetManager : MonoBehaviour
         //     newPlanet.GetComponent<Planet>().UpdateDefineState();
         // }
     }
+
+    // public void DrawLinesToTarget(Planet targetPlanet)
+    // {
+    //     foreach (GameObject planet in _selectedPlanets)
+    //     {
+    //             planet.GetComponent<Planet>().DrawLineToTarget(targetPlanet);
+            
+    //     }
+    // }
+
+    // public void LineRendererOff()
+    // {
+    //     foreach (GameObject planet in _selectedPlanets)
+    //     {
+    //         planet.GetComponent<Planet>().LineRendererOff(planet.GetComponent<Planet>());
+    //     }
+    // }
 }
