@@ -38,7 +38,7 @@ public class EnemyAI : MonoBehaviour
 
     public void Attack()
     {
-        //InstatiateAttackingShips(ChooseTarget());
+        InstatiateAttackingShips(ChooseTarget());
     }
 
     private GameObject ChooseTarget()
@@ -51,10 +51,18 @@ public class EnemyAI : MonoBehaviour
         switch (randomChoose)
         {
             case 0:
+                if (GameManager.Instance._friendlyPlanets.Count <= 0)
+                {
+                    return ChooseTarget();
+                }
                 friendlyTarget = GameManager.Instance._friendlyPlanets[Random.Range(0, GameManager.Instance._friendlyPlanets.Count)];
                 target = friendlyTarget;
                 break;
             case 1:
+                if (GameManager.Instance._neutralPlanets.Count <= 0)
+                {
+                    return ChooseTarget();
+                }
                 neutralTarget = GameManager.Instance._neutralPlanets[Random.Range(0, GameManager.Instance._neutralPlanets.Count)];
                 target = neutralTarget;
                 break;
@@ -78,7 +86,7 @@ public class EnemyAI : MonoBehaviour
                 return ChooseTarget();
             }
         }
-        Debug.Log("Target: " + target.name);
+
         return target.gameObject;
     }
 

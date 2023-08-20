@@ -4,14 +4,19 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("Map Prefabs")]
     [SerializeField] private GameObject _mapPlanet;
-    [SerializeField] private int _numberOfPlanets;
     public GameObject _attackingShips;
-    
+
+    [Header("Map Settings")]
+    [SerializeField] private int _numberOfPlanets;
+
+    [Header("Map & Settings Planets")]
     [SerializeField] private List<Planet> _mapPlanets;
     public List<GameObject> _selectedPlanets;
     public List<GameObject> _enemiesToSelect;
 
+    [Header("Game Planets")]
     public List<GameObject> _friendlyPlanets;
     public List<GameObject> _enemyPlanets;
     public List<GameObject> _neutralPlanets;
@@ -36,7 +41,7 @@ public class GameManager : MonoBehaviour
         _selectedPlanets = new List<GameObject>();
         _enemiesToSelect = new List<GameObject>();
         _friendlyPlanets = new List<GameObject>();
-        _enemyPlanets = new List<GameObject>(); 
+        _enemyPlanets = new List<GameObject>();
         _enemiesToSelect.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
         _enemiesToSelect.AddRange(GameObject.FindGameObjectsWithTag("Neutral"));
         _friendlyPlanets.AddRange(GameObject.FindGameObjectsWithTag("Friendly"));
@@ -46,11 +51,11 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if(_friendlyPlanets.Count <= 0)
+        if (_friendlyPlanets.Count <= 0)
         {
             Debug.Log("You Lose");
         }
-        else if(_enemyPlanets.Count <= 0)
+        else if (_enemyPlanets.Count <= 0)
         {
             Debug.Log("You Win");
         }
@@ -115,10 +120,9 @@ public class GameManager : MonoBehaviour
             planet.UpdateDefineState();
             //Debug.Log("Planet " + planet.name + " created " + planet.GetComponent<Planet>()._size);
         }
-        
+
         // for (int i = 0; i < _numberOfPlanets; i++)
         // {
-
         // var position = new Vector3(Random.Range(-8f, 8f), Random.Range(-4f, 4f), -0.1f);
         // Instantiate(_mapPlanets, position, Quaternion.identity);
         // Debug.Log("Planet " + _mapPlanets.name + " created " + _mapPlanets.GetComponent<Planet>()._size);
