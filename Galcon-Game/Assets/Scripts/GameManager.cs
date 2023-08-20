@@ -56,7 +56,7 @@ public class GameManager : MonoBehaviour
 
     public void SpawnShips()
     {
-        foreach (GameObject planet in GameManager.Instance._selectedPlanets)
+        foreach (GameObject planet in _selectedPlanets)
         {
             planet.GetComponent<Planet>()._numberOfShips /= 2;
             planet.GetComponent<Planet>().UpdateNumOfShipsText();
@@ -66,14 +66,14 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        foreach (GameObject planet in GameManager.Instance._selectedPlanets)
+        foreach (GameObject planet in _selectedPlanets)
         {
             planet.GetComponent<Planet>()._isSelected = false;
             planet.GetComponent<TargetGlow>().SetGlowOff();
         }
-        GameManager.Instance._selectedPlanets.Clear();
+        _selectedPlanets.Clear();
 
-        foreach (GameObject enemy in GameManager.Instance._enemies)
+        foreach (GameObject enemy in _enemies)
         {
             enemy.GetComponent<TargetGlow>()._glowingEnabled = false;
         }

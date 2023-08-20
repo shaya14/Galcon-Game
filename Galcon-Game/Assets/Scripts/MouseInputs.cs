@@ -18,6 +18,7 @@ public class MouseInputs : MonoBehaviour
                 friendly.GetComponent<Planet>()._isSelected = true;
                 friendly.GetComponent<TargetGlow>()._isClicked = true;
                 GameManager.Instance._selectedPlanets.Add(friendly);
+                DrawLines._instance.ClearLines();
 
                 foreach (GameObject enemy in GameManager.Instance._enemies)
                 {

@@ -26,6 +26,13 @@ public class TargetGlow : MonoBehaviour
                 if (_isSelected)
                 {
                     _selectedGlow.SetActive(true);
+                    foreach (GameObject targetPlanet in GameManager.Instance._selectedPlanets)
+                    {
+                        if (targetPlanet != this && targetPlanet.GetComponent<TargetGlow>()._isSelected)
+                        {
+                            DrawLines._instance.DrawFewLines(targetPlanet.transform, this.transform);
+                        }
+                    }
                 }
                 else
                 {
@@ -35,7 +42,6 @@ public class TargetGlow : MonoBehaviour
         }
         else if (this.gameObject.tag == "Enemy" || this.gameObject.tag == "Neutral")
         {
-            GameObject enemy = this.gameObject;
             if (_glowingEnabled)
             {
                 if (_isSelected)
