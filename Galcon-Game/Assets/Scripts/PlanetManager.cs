@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class PlanetManager : MonoBehaviour
 {
     [Header("Map Prefabs")]
     [SerializeField] private GameObject _mapPlanet;
@@ -21,8 +21,8 @@ public class GameManager : MonoBehaviour
     public List<GameObject> _enemyPlanets;
     public List<GameObject> _neutralPlanets;
 
-    private static GameManager _instance;
-    public static GameManager Instance { get; set; }
+    private static PlanetManager _instance;
+    public static PlanetManager Instance { get; set; }
     void Awake()
     {
         if (Instance == null)
@@ -54,10 +54,12 @@ public class GameManager : MonoBehaviour
         if (_friendlyPlanets.Count <= 0)
         {
             Debug.Log("You Lose");
+            // call game over
         }
         else if (_enemyPlanets.Count <= 0)
         {
             Debug.Log("You Win");
+            // call win screen
         }
     }
 
@@ -84,11 +86,6 @@ public class GameManager : MonoBehaviour
         {
             enemy.GetComponent<TargetGlow>()._glowingEnabled = false;
         }
-    }
-
-    public void RemoveFromList(Planet enemy)
-    {
-        _enemiesToSelect.Remove(enemy.gameObject);
     }
 
     public void InstatiatePlanets()
@@ -118,19 +115,18 @@ public class GameManager : MonoBehaviour
             planet.RandomizePlanet();
             planet.UpdateState();
             planet.UpdateDefineState();
-            //Debug.Log("Planet " + planet.name + " created " + planet.GetComponent<Planet>()._size);
         }
 
         // for (int i = 0; i < _numberOfPlanets; i++)
         // {
-        // var position = new Vector3(Random.Range(-8f, 8f), Random.Range(-4f, 4f), -0.1f);
-        // Instantiate(_mapPlanets, position, Quaternion.identity);
-        // Debug.Log("Planet " + _mapPlanets.name + " created " + _mapPlanets.GetComponent<Planet>()._size);
-        //  _mapPlanets.GetComponent<Planet>().PlanetSize();
-        // _mapPlanets.GetComponent<Planet>().PlanetSetteings();
-        // _mapPlanets.GetComponent<Planet>().RandomizePlanet();
-        // _mapPlanets.GetComponent<Planet>().UpdateState();
-        // _mapPlanets.GetComponent<Planet>().UpdateDefineState();
+        //     var position = new Vector3(Random.Range(-8f, 8f), Random.Range(-4f, 4f), -0.1f);
+        //     GameObject newPlanet = Instantiate(_mapPlanet, position, Quaternion.identity);
+        //     Debug.Log("Planet " + newPlanet.name + " created " + newPlanet.GetComponent<Planet>()._size);
+        //     newPlanet.GetComponent<Planet>().PlanetSize();
+        //     newPlanet.GetComponent<Planet>().PlanetSetteings();
+        //     newPlanet.GetComponent<Planet>().RandomizePlanet();
+        //     newPlanet.GetComponent<Planet>().UpdateState();
+        //     newPlanet.GetComponent<Planet>().UpdateDefineState();
         // }
     }
 }

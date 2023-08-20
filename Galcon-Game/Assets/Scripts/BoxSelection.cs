@@ -69,7 +69,7 @@ public class BoxSelection : MonoBehaviour
                 GameObject friendly = selectable.gameObject;
                 friendly.GetComponent<Planet>()._isSelected = true;
                 friendly.GetComponent<TargetGlow>()._isClicked = true;
-                GameManager.Instance._selectedPlanets.Add(friendly);
+                PlanetManager.Instance._selectedPlanets.Add(friendly);
             }
         }
     }

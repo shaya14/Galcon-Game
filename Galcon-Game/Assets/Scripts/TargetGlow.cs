@@ -26,7 +26,7 @@ public class TargetGlow : MonoBehaviour
                 if (_isSelected)
                 {
                     _selectedGlow.SetActive(true);
-                    foreach (GameObject targetPlanet in GameManager.Instance._selectedPlanets)
+                    foreach (GameObject targetPlanet in PlanetManager.Instance._selectedPlanets)
                     {
                         if (targetPlanet != this && targetPlanet.GetComponent<TargetGlow>()._isSelected)
                         {
@@ -47,7 +47,7 @@ public class TargetGlow : MonoBehaviour
                 if (_isSelected)
                 {
                     _selectedGlow.SetActive(true);
-                    foreach (GameObject targetPlanet in GameManager.Instance._selectedPlanets)
+                    foreach (GameObject targetPlanet in PlanetManager.Instance._selectedPlanets)
                     {
                         if (targetPlanet != this && targetPlanet.GetComponent<TargetGlow>()._isSelected)
                         {

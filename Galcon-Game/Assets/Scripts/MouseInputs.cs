@@ -17,27 +17,27 @@ public class MouseInputs : MonoBehaviour
                 GameObject friendly = rayHit.collider.gameObject;
                 friendly.GetComponent<Planet>()._isSelected = true;
                 friendly.GetComponent<TargetGlow>()._isClicked = true;
-                GameManager.Instance._selectedPlanets.Add(friendly);
+                PlanetManager.Instance._selectedPlanets.Add(friendly);
                 DrawLines._instance.ClearLines();
 
-                foreach (GameObject enemy in GameManager.Instance._enemiesToSelect)
+                foreach (GameObject enemy in PlanetManager.Instance._enemiesToSelect)
                 {
                     enemy.GetComponent<TargetGlow>()._glowingEnabled = true;
                 }
             }
             else if (rayHit.collider.gameObject.tag == "Background")
             {
-                foreach (GameObject planet in GameManager.Instance._selectedPlanets)
+                foreach (GameObject planet in PlanetManager.Instance._selectedPlanets)
                 {
                     planet.GetComponent<Planet>()._isSelected = false;
                     planet.GetComponent<TargetGlow>().SetGlowOff();
 
-                    foreach (GameObject enemy in GameManager.Instance._enemiesToSelect)
+                    foreach (GameObject enemy in PlanetManager.Instance._enemiesToSelect)
                     {
                         enemy.GetComponent<TargetGlow>()._glowingEnabled = false;
                     }
                 }
-                GameManager.Instance._selectedPlanets.Clear();
+                PlanetManager.Instance._selectedPlanets.Clear();
             }
         }
 
@@ -46,15 +46,15 @@ public class MouseInputs : MonoBehaviour
             if (rayHit.collider.gameObject.tag == "Friendly")
             {
                 GameObject freindly = rayHit.collider.gameObject;
-                GameManager.Instance._attackingShips.GetComponent<Ship>()._targetPlanet = freindly;
-                GameManager.Instance.SpawnShips();
+                PlanetManager.Instance._attackingShips.GetComponent<Ship>()._targetPlanet = freindly;
+                PlanetManager.Instance.SpawnShips();
                 DrawLines._instance.ClearLines();
             }
             else if (rayHit.collider.gameObject.tag == "Enemy" || rayHit.collider.gameObject.tag == "Neutral")
             {
                 GameObject enemy = rayHit.collider.gameObject;
-                GameManager.Instance._attackingShips.GetComponent<Ship>()._targetPlanet = enemy;
-                GameManager.Instance.SpawnShips();
+                PlanetManager.Instance._attackingShips.GetComponent<Ship>()._targetPlanet = enemy;
+                PlanetManager.Instance.SpawnShips();
                 DrawLines._instance.ClearLines();
             }
         }

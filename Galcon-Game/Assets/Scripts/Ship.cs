@@ -43,9 +43,9 @@ public class Ship : MonoBehaviour
                 {
                     targetPlanet._isFriendly = true;
                     targetPlanet._isEnemy = false;
-                    GameManager.Instance._enemyPlanets.Remove(targetPlanet.gameObject);
-                    GameManager.Instance._friendlyPlanets.Add(targetPlanet.gameObject);
-                    GameManager.Instance._enemiesToSelect.Remove(targetPlanet.gameObject);
+                    PlanetManager.Instance._enemyPlanets.Remove(targetPlanet.gameObject);
+                    PlanetManager.Instance._friendlyPlanets.Add(targetPlanet.gameObject);
+                    PlanetManager.Instance._enemiesToSelect.Remove(targetPlanet.gameObject);
 
                     // Why when its enable i get error?
                     //GameManager.Instance._enemies.Remove(_targetPlanet);
@@ -59,9 +59,9 @@ public class Ship : MonoBehaviour
                     targetPlanet._numberOfShips = 0;
                     targetPlanet._isFriendly = true;
                     targetPlanet._isNeutral = false;
-                    GameManager.Instance._friendlyPlanets.Add(targetPlanet.gameObject);
-                    GameManager.Instance._enemiesToSelect.Remove(targetPlanet.gameObject);
-                    GameManager.Instance._neutralPlanets.Remove(targetPlanet.gameObject);
+                    PlanetManager.Instance._friendlyPlanets.Add(targetPlanet.gameObject);
+                    PlanetManager.Instance._enemiesToSelect.Remove(targetPlanet.gameObject);
+                    PlanetManager.Instance._neutralPlanets.Remove(targetPlanet.gameObject);
 
                     // Why when its enable i get error?
                     //GameManager.Instance._enemies.Remove(_targetPlanet);
@@ -81,8 +81,8 @@ public class Ship : MonoBehaviour
                     targetPlanet._numberOfShips = 0;
                     targetPlanet._isEnemy = true;
                     targetPlanet._isFriendly = false;
-                    GameManager.Instance._enemyPlanets.Add(targetPlanet.gameObject);
-                    GameManager.Instance._friendlyPlanets.Remove(targetPlanet.gameObject);
+                    PlanetManager.Instance._enemyPlanets.Add(targetPlanet.gameObject);
+                    PlanetManager.Instance._friendlyPlanets.Remove(targetPlanet.gameObject);
                 }
             }
             else if (targetPlanet._isEnemy)
@@ -101,9 +101,9 @@ public class Ship : MonoBehaviour
                     targetPlanet._numberOfShips = 0;
                     targetPlanet._isEnemy = true;
                     targetPlanet._isNeutral = false;
-                    GameManager.Instance._enemyPlanets.Add(targetPlanet.gameObject);
-                    GameManager.Instance._enemiesToSelect.Add(targetPlanet.gameObject);
-                    GameManager.Instance._neutralPlanets.Remove(targetPlanet.gameObject);
+                    PlanetManager.Instance._enemyPlanets.Add(targetPlanet.gameObject);
+                    PlanetManager.Instance._enemiesToSelect.Add(targetPlanet.gameObject);
+                    PlanetManager.Instance._neutralPlanets.Remove(targetPlanet.gameObject);
                 }
             }
 
