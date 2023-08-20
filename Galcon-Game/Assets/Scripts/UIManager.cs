@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
-    [SerializeField] private GameObject _losePanel;
-    [SerializeField] private GameObject _winPanel;
-    [SerializeField] private GameObject _pausePanel;
+    public GameObject _losePanel;
+    public GameObject _winPanel;
+    public GameObject _pausePanel;
 
     public static UIManager _instance;
     void Start()

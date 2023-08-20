@@ -83,6 +83,7 @@ public class Ship : MonoBehaviour
                     targetPlanet._isFriendly = false;
                     PlanetManager.Instance._enemyPlanets.Add(targetPlanet.gameObject);
                     PlanetManager.Instance._friendlyPlanets.Remove(targetPlanet.gameObject);
+                    PlanetManager.Instance._enemiesToSelect.Add(targetPlanet.gameObject);
                 }
             }
             else if (targetPlanet._isEnemy)
