@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class TargetGlow : MonoBehaviour
@@ -78,5 +79,12 @@ public class TargetGlow : MonoBehaviour
         _selectedGlow.SetActive(false);
         _isClicked = false;
         _isSelected = false;
+    }
+
+    public void SetGlowOn()
+    {
+        _selectedGlow.SetActive(true);
+        _isClicked = true;
+        _isSelected = true;
     }
 }

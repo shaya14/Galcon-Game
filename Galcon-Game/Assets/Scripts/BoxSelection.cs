@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -10,6 +11,7 @@ public class BoxSelection : MonoBehaviour
     private BoxCollider2D _boxCollider2D;
 
     public static BoxSelection _instance;
+
     void Start()
     {
         _instance = this;
@@ -17,7 +19,6 @@ public class BoxSelection : MonoBehaviour
         _lineRenderer.positionCount = 0;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -48,7 +49,7 @@ public class BoxSelection : MonoBehaviour
             _boxCollider2D.size = new Vector2(
                 Mathf.Abs(_initalMousePosition.x - _currentMousePosition.x),
                 Mathf.Abs(_initalMousePosition.y - _currentMousePosition.y));
-            //SelectObjects();
+            SelectObjects();
         }
 
         if (Input.GetMouseButtonUp(0))
@@ -67,9 +68,13 @@ public class BoxSelection : MonoBehaviour
             if (selectable.gameObject.tag == "Friendly" && !selectable.gameObject.GetComponent<Planet>()._isSelected)
             {
                 GameObject friendly = selectable.gameObject;
-                friendly.GetComponent<Planet>()._isSelected = true;
-                friendly.GetComponent<TargetGlow>()._isClicked = true;
+                friendly.GetComponent<TargetGlow>().SetGlowOn();
                 PlanetManager.Instance._selectedPlanets.Add(friendly);
+                
+                foreach (GameObject enemy in PlanetManager.Instance._enemiesToSelect)
+                {
+                    enemy.GetComponent<TargetGlow>()._glowingEnabled = true;
+                }
             }
         }
     }

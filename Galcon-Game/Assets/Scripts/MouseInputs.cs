@@ -8,6 +8,7 @@ public class MouseInputs : MonoBehaviour
 {
     void Update()
     {
+        //DrawLines._instance.ClearLines();
         RaycastHit2D rayHit = Physics2D.GetRayIntersection(Camera.main.ScreenPointToRay(Input.mousePosition));
 
         if (Input.GetMouseButtonDown(0))

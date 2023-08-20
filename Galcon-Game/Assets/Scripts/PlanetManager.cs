@@ -106,6 +106,7 @@ public class PlanetManager : MonoBehaviour
             planet.RandomizePlanet();
             planet.UpdateState();
             planet.UpdateDefineState();
+            //Debug.Log("Planet " + planet.name + " created " + planet._size);
         }
 
         // for (int i = 0; i < _numberOfPlanets; i++)

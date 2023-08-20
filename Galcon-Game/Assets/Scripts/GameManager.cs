@@ -48,6 +48,7 @@ public class GameManager : MonoBehaviour
     {
         _isPaused = !_isPaused;
         PauseScreen(_isPaused);
+        EnablePlanetFunctions();
     }
 
     public void RestartButton()
@@ -55,6 +56,7 @@ public class GameManager : MonoBehaviour
         StartTime();
         _screenOn = false;
         SceneManager.LoadScene(0);
+        EnablePlanetFunctions();
     }
 
     public void ExitButton()
@@ -69,6 +71,7 @@ public class GameManager : MonoBehaviour
         _screenOn = true;
         UIManager._instance._losePanel.SetActive(true);
         UIManager._instance._backgroundPanel.SetActive(true);
+        DisablePlanetFunctions();
     }
 
     public void WinScreen()
@@ -77,6 +80,7 @@ public class GameManager : MonoBehaviour
         _screenOn = true;
         UIManager._instance._winPanel.SetActive(true);
         UIManager._instance._backgroundPanel.SetActive(true);
+        DisablePlanetFunctions();
     }
 
     private void PauseScreen(bool isPaused)
@@ -84,6 +88,7 @@ public class GameManager : MonoBehaviour
         StopTime();
         UIManager._instance._pausePanel.SetActive(isPaused);
         UIManager._instance._backgroundPanel.SetActive(isPaused);
+        DisablePlanetFunctions();
         if (!isPaused)
         {
             StartTime();
@@ -102,4 +107,41 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
     }
     #endregion
+
+    private void DisablePlanetFunctions()
+    {
+        foreach (GameObject planet in PlanetManager.Instance._enemyPlanets)
+        {
+            planet.GetComponent<TargetGlow>().enabled = false;
+        }
+
+        foreach (GameObject planet in PlanetManager.Instance._friendlyPlanets)
+        {
+            planet.GetComponent<TargetGlow>().enabled = false;
+        }
+
+        foreach (GameObject planet in PlanetManager.Instance._neutralPlanets)
+        {
+            planet.GetComponent<TargetGlow>().enabled = false;
+        }
+    }
+
+    private void EnablePlanetFunctions()
+    {
+        foreach (GameObject planet in PlanetManager.Instance._enemyPlanets)
+        {
+            planet.GetComponent<TargetGlow>().enabled = true;
+        }
+
+        foreach (GameObject planet in PlanetManager.Instance._friendlyPlanets)
+        {
+            planet.GetComponent<TargetGlow>().enabled = true;
+        }
+
+        foreach (GameObject planet in PlanetManager.Instance._neutralPlanets)
+        {
+            planet.GetComponent<TargetGlow>().enabled = true;
+        }
+    }
+
 }
