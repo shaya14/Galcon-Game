@@ -6,6 +6,7 @@ public class Ship : MonoBehaviour
 {
     [SerializeField] private float _speed = 2f;
     [HideInInspector] public GameObject _targetPlanet;
+    [SerializeField] private ParticleSystem _BlastParticlePrefab;
 
     public bool _imEnemyShip;
 
@@ -38,6 +39,8 @@ public class Ship : MonoBehaviour
                 if (targetPlanet._numberOfShips > 0)
                 {
                     targetPlanet._numberOfShips--;
+                    ParticleSystem blast = Instantiate(_BlastParticlePrefab, transform.position, Quaternion.identity);
+                    Destroy(blast.gameObject, 1f);
                 }
                 else if (targetPlanet._numberOfShips <= 0)
                 {
@@ -54,6 +57,9 @@ public class Ship : MonoBehaviour
             else if (targetPlanet._isNeutral)
             {
                 targetPlanet._iniaitalShips--;
+                ParticleSystem blast = Instantiate(_BlastParticlePrefab, transform.position, Quaternion.identity);
+                Destroy(blast.gameObject, 1f);
+
                 if (targetPlanet._iniaitalShips <= 0)
                 {
                     targetPlanet._numberOfShips = 0;
@@ -75,6 +81,8 @@ public class Ship : MonoBehaviour
             if (targetPlanet._isFriendly)
             {
                 targetPlanet._numberOfShips--;
+                ParticleSystem blast = Instantiate(_BlastParticlePrefab, transform.position, Quaternion.identity);
+                Destroy(blast.gameObject, 1f);
 
                 if (targetPlanet._numberOfShips <= 0)
                 {
@@ -96,7 +104,8 @@ public class Ship : MonoBehaviour
             else if (targetPlanet._isNeutral)
             {
                 targetPlanet._iniaitalShips--;
-
+                ParticleSystem blast = Instantiate(_BlastParticlePrefab, transform.position, Quaternion.identity);
+                Destroy(blast.gameObject, 1f);
                 if (targetPlanet._iniaitalShips <= 0)
                 {
                     targetPlanet._numberOfShips = 0;

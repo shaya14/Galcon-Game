@@ -51,16 +51,7 @@ public class PlanetManager : MonoBehaviour
 
     void Update()
     {
-        if (_friendlyPlanets.Count <= 0)
-        {
-            Debug.Log("You Lose");
-            // call game over
-        }
-        else if (_enemyPlanets.Count <= 0)
-        {
-            Debug.Log("You Win");
-            // call win screen
-        }
+        
     }
 
     public void SpawnShips()

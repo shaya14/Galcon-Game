@@ -7,6 +7,7 @@ public class UIManager : MonoBehaviour
     public GameObject _losePanel;
     public GameObject _winPanel;
     public GameObject _pausePanel;
+    public GameObject _backgroundPanel;
 
     public static UIManager _instance;
     void Start()

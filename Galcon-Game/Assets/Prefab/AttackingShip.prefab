@@ -101,6 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 2
   _targetPlanet: {fileID: 0}
+  _BlastParticlePrefab: {fileID: 7307384921464928118, guid: c8ddee1b7fa5e8a41a1723724181279e, type: 3}
   _imEnemyShip: 0
 --- !u!60 &6198023541825325235
 PolygonCollider2D:
