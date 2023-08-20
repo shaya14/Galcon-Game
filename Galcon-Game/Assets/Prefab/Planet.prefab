@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4805456339486622083}
   - component: {fileID: 901599458154512910}
   - component: {fileID: 2130193576567537355}
+  - component: {fileID: 6283401622858081399}
   - component: {fileID: 7196761770172136966}
   m_Layer: 0
   m_Name: Planet
@@ -113,7 +114,7 @@ MonoBehaviour:
   _neutralColor: {r: 0, g: 0, b: 0, a: 0}
   _updateColor: {r: 0.19496846, g: 0.4672732, b: 1, a: 0.7019608}
   _shipCounterText: {fileID: 4496170600140630852}
-  _isFreindly: 1
+  _isFriendly: 0
   _isEnemy: 0
   _isNeutral: 0
   _isSelected: 0
@@ -133,6 +134,23 @@ MonoBehaviour:
   _isClicked: 0
   _isSelected: 0
   _glowingEnabled: 0
+--- !u!114 &6283401622858081399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1729734016447677606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cb4d31988e39d040afd5be795f65d97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _attackingShip: {fileID: 9215633573012952669, guid: fc58eca5d4a511a4f93ef0efa92c5d83, type: 3}
+  _enemyColor: {r: 0.8, g: 0.20784314, b: 0.20784314, a: 0.88235295}
+  _mixAttackRate: 1
+  _maxAttackRate: 5
+  _hasTargets: 1
 --- !u!58 &7196761770172136966
 CircleCollider2D:
   m_ObjectHideFlags: 0

@@ -20,7 +20,7 @@ public class MouseInputs : MonoBehaviour
                 GameManager.Instance._selectedPlanets.Add(friendly);
                 DrawLines._instance.ClearLines();
 
-                foreach (GameObject enemy in GameManager.Instance._enemies)
+                foreach (GameObject enemy in GameManager.Instance._enemiesToSelect)
                 {
                     enemy.GetComponent<TargetGlow>()._glowingEnabled = true;
                 }
@@ -32,7 +32,7 @@ public class MouseInputs : MonoBehaviour
                     planet.GetComponent<Planet>()._isSelected = false;
                     planet.GetComponent<TargetGlow>().SetGlowOff();
 
-                    foreach (GameObject enemy in GameManager.Instance._enemies)
+                    foreach (GameObject enemy in GameManager.Instance._enemiesToSelect)
                     {
                         enemy.GetComponent<TargetGlow>()._glowingEnabled = false;
                     }

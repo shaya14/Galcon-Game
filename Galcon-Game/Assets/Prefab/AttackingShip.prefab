@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 2
   m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
-  m_Color: {r: 0, g: 0.55579805, b: 1, a: 1}
+  m_Color: {r: 0.19607843, g: 0.46666667, b: 1, a: 0.88235295}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -101,6 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 2
   _targetPlanet: {fileID: 0}
+  _imEnemyShip: 0
 --- !u!60 &6198023541825325235
 PolygonCollider2D:
   m_ObjectHideFlags: 0

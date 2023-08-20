@@ -7,6 +7,8 @@ public class Ship : MonoBehaviour
     [SerializeField] private float _speed = 2f;
     [HideInInspector] public GameObject _targetPlanet;
 
+    public bool _imEnemyShip;
+
     void Update()
     {
         Movement();
@@ -20,53 +22,92 @@ public class Ship : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject == _targetPlanet)
+        Planet targetPlanet = _targetPlanet.GetComponent<Planet>();
+
+        if (collision.gameObject == _targetPlanet && !_imEnemyShip)
         {
-            if (_targetPlanet.GetComponent<Planet>()._isFreindly)
+            if (targetPlanet._isFriendly)
             {
-                // if (_targetPlanet.GetComponent<Planet>()._numberOfShips > 0)
-                // {
-                _targetPlanet.GetComponent<Planet>()._numberOfShips++;
-                //}
-                // else if (_targetPlanet.GetComponent<Planet>()._numberOfShips <= 0)
-                // {
-                //     _targetPlanet.GetComponent<Planet>()._isFreindly = false;
-                //     _targetPlanet.GetComponent<Planet>()._isEnemy = true;
-                // }
-            }
-            else if (_targetPlanet.GetComponent<Planet>()._isEnemy)
-            {
-                if (_targetPlanet.GetComponent<Planet>()._numberOfShips > 0)
+                if (targetPlanet._numberOfShips < targetPlanet._maxShips)
                 {
-                    _targetPlanet.GetComponent<Planet>()._numberOfShips--;
+                    targetPlanet._numberOfShips++;
                 }
-                else if (_targetPlanet.GetComponent<Planet>()._numberOfShips <= 0)
+            }
+            else if (targetPlanet._isEnemy)
+            {
+                if (targetPlanet._numberOfShips > 0)
                 {
-                    _targetPlanet.GetComponent<Planet>()._isFreindly = true;
-                    _targetPlanet.GetComponent<Planet>()._isEnemy = false;
-                    GameManager.Instance._enemyPlanets.Remove(_targetPlanet);
-                    GameManager.Instance._friendlyPlanets.Add(_targetPlanet);
+                    targetPlanet._numberOfShips--;
+                }
+                else if (targetPlanet._numberOfShips <= 0)
+                {
+                    targetPlanet._isFriendly = true;
+                    targetPlanet._isEnemy = false;
+                    GameManager.Instance._enemyPlanets.Remove(targetPlanet.gameObject);
+                    GameManager.Instance._friendlyPlanets.Add(targetPlanet.gameObject);
+                    GameManager.Instance._enemiesToSelect.Remove(targetPlanet.gameObject);
 
                     // Why when its enable i get error?
                     //GameManager.Instance._enemies.Remove(_targetPlanet);
                 }
             }
-            else if (_targetPlanet.GetComponent<Planet>()._isNeutral)
+            else if (targetPlanet._isNeutral)
             {
-
-                _targetPlanet.GetComponent<Planet>()._iniaitalShips--;
-
-                if (_targetPlanet.GetComponent<Planet>()._iniaitalShips <= 0)
+                targetPlanet._iniaitalShips--;
+                if (targetPlanet._iniaitalShips <= 0)
                 {
-                    _targetPlanet.GetComponent<Planet>()._numberOfShips = 0;
-                    _targetPlanet.GetComponent<Planet>()._isFreindly = true;
-                    _targetPlanet.GetComponent<Planet>()._isNeutral = false;
+                    targetPlanet._numberOfShips = 0;
+                    targetPlanet._isFriendly = true;
+                    targetPlanet._isNeutral = false;
+                    GameManager.Instance._friendlyPlanets.Add(targetPlanet.gameObject);
+                    GameManager.Instance._enemiesToSelect.Remove(targetPlanet.gameObject);
+                    GameManager.Instance._neutralPlanets.Remove(targetPlanet.gameObject);
 
                     // Why when its enable i get error?
                     //GameManager.Instance._enemies.Remove(_targetPlanet);
                 }
             }
-            _targetPlanet.GetComponent<Planet>().UpdateNumOfShipsText();
+            targetPlanet.UpdateNumOfShipsText();
+            Destroy(gameObject);
+        }
+        else if (collision.gameObject == _targetPlanet && _imEnemyShip)
+        {
+            if (targetPlanet._isFriendly)
+            {
+                targetPlanet._numberOfShips--;
+
+                if (targetPlanet._numberOfShips <= 0)
+                {
+                    targetPlanet._numberOfShips = 0;
+                    targetPlanet._isEnemy = true;
+                    targetPlanet._isFriendly = false;
+                    GameManager.Instance._enemyPlanets.Add(targetPlanet.gameObject);
+                    GameManager.Instance._friendlyPlanets.Remove(targetPlanet.gameObject);
+                }
+            }
+            else if (targetPlanet._isEnemy)
+            {
+                if (targetPlanet._numberOfShips < targetPlanet._maxShips)
+                {
+                    targetPlanet._numberOfShips++;
+                }
+            }
+            else if (targetPlanet._isNeutral)
+            {
+                targetPlanet._iniaitalShips--;
+
+                if (targetPlanet._iniaitalShips <= 0)
+                {
+                    targetPlanet._numberOfShips = 0;
+                    targetPlanet._isEnemy = true;
+                    targetPlanet._isNeutral = false;
+                    GameManager.Instance._enemyPlanets.Add(targetPlanet.gameObject);
+                    GameManager.Instance._enemiesToSelect.Add(targetPlanet.gameObject);
+                    GameManager.Instance._neutralPlanets.Remove(targetPlanet.gameObject);
+                }
+            }
+
+            targetPlanet.UpdateNumOfShipsText();
             Destroy(gameObject);
         }
     }

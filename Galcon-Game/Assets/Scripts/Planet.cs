@@ -17,7 +17,7 @@ public class Planet : MonoBehaviour
    public PlanetColor _planetColor;
    [SerializeField] private float _shipPerSecond;
    [SerializeField] public int _iniaitalShips;
-   [SerializeField] private int _maxShips;
+   [SerializeField] public int _maxShips;
    [HideInInspector] public int _numberOfShips;
 
 
@@ -30,7 +30,7 @@ public class Planet : MonoBehaviour
    [Header("UI Elements")]
    [SerializeField] private TextMeshPro _shipCounterText;
 
-   public bool _isFreindly;
+   public bool _isFriendly;
    public bool _isEnemy;
    public bool _isNeutral;
    public bool _isSelected;
@@ -59,6 +59,11 @@ public class Planet : MonoBehaviour
       UpdateState();
       UpdateDefineState();
       _spriteRenderer.color = _updateColor;
+
+      if(_numberOfShips >= _maxShips)
+      {
+         _numberOfShips = _maxShips;
+      }
    }
 
    public void UpdateDefineState()
@@ -68,25 +73,29 @@ public class Planet : MonoBehaviour
          case PlanetColor.Enemy:
             gameObject.name = "Enemy Planet";
             gameObject.tag = "Enemy";
+            GetComponent<EnemyAI>().enabled = true;
             _isEnemy = true;
             _updateColor = _enemyColor;
             break;
          case PlanetColor.Friendly:
             gameObject.name = "Friendly Planet";
             gameObject.tag = "Friendly";
-            _isFreindly = true;
+            GetComponent<EnemyAI>().enabled = false;
+            _isFriendly = true;
             _updateColor = _playerColor;
             break;
          case PlanetColor.Neutral:
             gameObject.name = "Neutral Planet";
             gameObject.tag = "Neutral";
             _shipCounterText.text = _iniaitalShips.ToString();
+            GetComponent<EnemyAI>().enabled = false;
             _isNeutral = true;
             _updateColor = _neutralColor;
             break;
          default:
             gameObject.name = "Neutral Planet";
             gameObject.tag = "Neutral";
+            GetComponent<EnemyAI>().enabled = false;
             _isNeutral = true;
             _updateColor = _neutralColor;
             break;
@@ -95,7 +104,7 @@ public class Planet : MonoBehaviour
 
    public void UpdateState()
    {
-      if (_isFreindly)
+      if (_isFriendly)
       {
          _planetColor = PlanetColor.Friendly;
       }
@@ -141,22 +150,22 @@ public class Planet : MonoBehaviour
       switch (randomColor)
       {
          case 0:
-            _isFreindly = true;
+            _isFriendly = true;
             _isEnemy = false;
             _isNeutral = false;
             break;
          case 1:
-            _isFreindly = false;
+            _isFriendly = false;
             _isEnemy = true;
             _isNeutral = false;
             break;
          case 2:
-            _isFreindly = false;
+            _isFriendly = false;
             _isEnemy = false;
             _isNeutral = true;
             break;
          default:
-            _isFreindly = false;
+            _isFriendly = false;
             _isEnemy = false;
             _isNeutral = true;
             break;
@@ -167,21 +176,21 @@ public class Planet : MonoBehaviour
    {
       if (PlanetSize() <= 0.8f)
       {
-         _numberOfShips = Random.Range(2, 3);
-         _maxShips = Random.Range(4, 5);
-         _iniaitalShips = Random.Range(1, _numberOfShips);
+         _numberOfShips = Random.Range(8, 10);
+         _maxShips = Random.Range(12, 25);
+         _iniaitalShips = Random.Range(2, _numberOfShips);
       }
       else if (PlanetSize() > 0.8f && PlanetSize() <= 1.2f)
       {
-         _numberOfShips = Random.Range(19, 20);
-         _maxShips = Random.Range(20, 30);
+         _numberOfShips = Random.Range(25, 35);
+         _maxShips = Random.Range(37, 60);
          _iniaitalShips = Random.Range(10, _numberOfShips);
       }
       else if (PlanetSize() > 1.2f)
       {
-         _numberOfShips = Random.Range(45, 46);
-         _maxShips = Random.Range(50, 60);
-         _iniaitalShips = Random.Range(40, _numberOfShips);
+         _numberOfShips = Random.Range(37, 50);
+         _maxShips = Random.Range(60, 100);
+         _iniaitalShips = Random.Range(35, _numberOfShips);
       }
    }
 }

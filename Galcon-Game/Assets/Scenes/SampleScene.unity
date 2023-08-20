@@ -683,6 +683,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &714443008 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1729734016447677606, guid: 45c3211db3410f744ab7389d0e57b5d1, type: 3}
+  m_PrefabInstance: {fileID: 1142959287}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &714443014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 714443008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cb4d31988e39d040afd5be795f65d97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _attackingShip: {fileID: 9215633573012952669, guid: fc58eca5d4a511a4f93ef0efa92c5d83, type: 3}
+  _enemyColor: {r: 0.8, g: 0.20784314, b: 0.20784314, a: 0.88235295}
+  _mixAttackRate: 0
+  _maxAttackRate: 0
+  _hasTargets: 1
 --- !u!1001 &954776610
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -734,6 +756,18 @@ PrefabInstance:
     - target: {fileID: 739547648244502039, guid: 45c3211db3410f744ab7389d0e57b5d1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 901599458154512910, guid: 45c3211db3410f744ab7389d0e57b5d1, type: 3}
+      propertyPath: _maxShips
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 901599458154512910, guid: 45c3211db3410f744ab7389d0e57b5d1, type: 3}
+      propertyPath: _isFriendly
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 901599458154512910, guid: 45c3211db3410f744ab7389d0e57b5d1, type: 3}
+      propertyPath: _iniaitalShips
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1729734016447677606, guid: 45c3211db3410f744ab7389d0e57b5d1, type: 3}
       propertyPath: m_Name
@@ -996,8 +1030,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 901599458154512910, guid: 45c3211db3410f744ab7389d0e57b5d1, type: 3}
+      propertyPath: _isNeutral
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 901599458154512910, guid: 45c3211db3410f744ab7389d0e57b5d1, type: 3}
+      propertyPath: _isFriendly
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 901599458154512910, guid: 45c3211db3410f744ab7389d0e57b5d1, type: 3}
       propertyPath: _planetColor
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 901599458154512910, guid: 45c3211db3410f744ab7389d0e57b5d1, type: 3}
       propertyPath: _iniaitalShips
@@ -1086,6 +1128,18 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 901599458154512910, guid: 45c3211db3410f744ab7389d0e57b5d1, type: 3}
+      propertyPath: _isEnemy
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 901599458154512910, guid: 45c3211db3410f744ab7389d0e57b5d1, type: 3}
+      propertyPath: _maxShips
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 901599458154512910, guid: 45c3211db3410f744ab7389d0e57b5d1, type: 3}
+      propertyPath: _planetColor
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 901599458154512910, guid: 45c3211db3410f744ab7389d0e57b5d1, type: 3}
       propertyPath: _iniaitalShips
       value: 30
       objectReference: {fileID: 0}
@@ -1109,10 +1163,17 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1729734016447677606, guid: 45c3211db3410f744ab7389d0e57b5d1, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1729734016447677606, guid: 45c3211db3410f744ab7389d0e57b5d1, type: 3}
+      insertIndex: 4
+      addedObject: {fileID: 714443014}
   m_SourcePrefab: {fileID: 100100000, guid: 45c3211db3410f744ab7389d0e57b5d1, type: 3}
 --- !u!1 &2006689359
 GameObject:
@@ -1160,12 +1221,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _mapPlanets: []
   _mapPlanet: {fileID: 1729734016447677606, guid: 45c3211db3410f744ab7389d0e57b5d1, type: 3}
-  _numberOfPlanets: 10
+  _numberOfPlanets: 6
   _attackingShips: {fileID: 6117789951486688954, guid: fc58eca5d4a511a4f93ef0efa92c5d83, type: 3}
   _selectedPlanets: []
-  _enemies: []
+  _enemiesToSelect: []
   _friendlyPlanets: []
   _enemyPlanets: []
+  _neutralPlanets: []
+  _enemyAttackingCrew: []
 --- !u!1 &2101895774
 GameObject:
   m_ObjectHideFlags: 0

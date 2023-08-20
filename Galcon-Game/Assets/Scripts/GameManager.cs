@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private List<Planet> _mapPlanets;
     [SerializeField] private GameObject _mapPlanet;
     [SerializeField] private int _numberOfPlanets;
-
     public GameObject _attackingShips;
+    
+    [SerializeField] private List<Planet> _mapPlanets;
     public List<GameObject> _selectedPlanets;
-    public List<GameObject> _enemies;
+    public List<GameObject> _enemiesToSelect;
 
     public List<GameObject> _friendlyPlanets;
     public List<GameObject> _enemyPlanets;
+    public List<GameObject> _neutralPlanets;
 
     private static GameManager _instance;
     public static GameManager Instance { get; set; }
@@ -33,13 +34,14 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         _selectedPlanets = new List<GameObject>();
-        _enemies = new List<GameObject>();
+        _enemiesToSelect = new List<GameObject>();
         _friendlyPlanets = new List<GameObject>();
         _enemyPlanets = new List<GameObject>(); 
-        _enemies.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
-        _enemies.AddRange(GameObject.FindGameObjectsWithTag("Neutral"));
+        _enemiesToSelect.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
+        _enemiesToSelect.AddRange(GameObject.FindGameObjectsWithTag("Neutral"));
         _friendlyPlanets.AddRange(GameObject.FindGameObjectsWithTag("Friendly"));
         _enemyPlanets.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
+        _neutralPlanets.AddRange(GameObject.FindGameObjectsWithTag("Neutral"));
     }
 
     void Update()
@@ -73,7 +75,7 @@ public class GameManager : MonoBehaviour
         }
         _selectedPlanets.Clear();
 
-        foreach (GameObject enemy in _enemies)
+        foreach (GameObject enemy in _enemiesToSelect)
         {
             enemy.GetComponent<TargetGlow>()._glowingEnabled = false;
         }
@@ -81,7 +83,7 @@ public class GameManager : MonoBehaviour
 
     public void RemoveFromList(Planet enemy)
     {
-        _enemies.Remove(enemy.gameObject);
+        _enemiesToSelect.Remove(enemy.gameObject);
     }
 
     public void InstatiatePlanets()
