@@ -8,6 +8,7 @@ using UnityEngine;
 public class TargetGlow : MonoBehaviour
 {
     [SerializeField] GameObject _selectedGlow;
+    [SerializeField] GameObject _maxShipTextObject;
     public bool _isClicked; // When a planet is clicked, it will glow until it is clicked again or another planet is clicked
     public bool _isSelected; // When a planet is hovered over, it will glow until the mouse exits the planet
     public bool _glowingEnabled = false;
@@ -20,6 +21,7 @@ public class TargetGlow : MonoBehaviour
     private void OnMouseEnter()
     {
         _isSelected = !_isSelected;
+        _maxShipTextObject.SetActive(true);
         if (this.gameObject.tag == "Friendly")
         {
             if (!_isClicked)
@@ -66,6 +68,7 @@ public class TargetGlow : MonoBehaviour
 
     private void OnMouseExit()
     {
+        _maxShipTextObject.SetActive(false);
         if (!_isClicked)
         {
             _isSelected = false;

@@ -104,6 +104,8 @@ public class PlanetManager : MonoBehaviour
             planet.PlanetSize();
             planet.PlanetSetteings();
             planet.RandomizePlanet();
+            planet.UpdateMaxNumOfShipsText();
+            planet.UpdateNumOfShipsText();
             planet.UpdateState();
             planet.UpdateDefineState();
             //Debug.Log("Planet " + planet.name + " created " + planet._size);

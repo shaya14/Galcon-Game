@@ -43,6 +43,7 @@ public class Planet : MonoBehaviour
    void Awake()
    {
       _shipCounterText.text = _numberOfShips.ToString();
+      _maxShipCounterText.text = _maxShips.ToString();
       _neutralColor = GetComponent<SpriteRenderer>().color;
       _spriteRenderer = GetComponent<SpriteRenderer>();
    }
@@ -138,6 +139,11 @@ public class Planet : MonoBehaviour
    public void UpdateNumOfShipsText()
    {
       _shipCounterText.text = _numberOfShips.ToString();
+   }
+
+   public void UpdateMaxNumOfShipsText()
+   {
+      _maxShipCounterText.text = _maxShips.ToString();
    }
 
    public float PlanetSize()
