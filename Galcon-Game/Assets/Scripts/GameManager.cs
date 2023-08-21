@@ -33,17 +33,23 @@ public class GameManager : MonoBehaviour
                 PauseScreen(_isPaused);
             }
         }
-
-        if (PlanetManager.Instance._friendlyPlanets.Count <= 0)
+        if (PlanetManager.Instance != null)
         {
-            LoseScreen();
-        }
-        else if (PlanetManager.Instance._enemyPlanets.Count <= 0)
-        {
-            WinScreen();
+            if (PlanetManager.Instance._friendlyPlanets.Count <= 0)
+            {
+                LoseScreen();
+            }
+            else if (PlanetManager.Instance._enemyPlanets.Count <= 0)
+            {
+                WinScreen();
+            }
         }
     }
     #region Buttons
+    public void Play()
+    {
+        SceneManager.LoadScene("Game");
+    }
     public void ResumeButton()
     {
         _isPaused = !_isPaused;
@@ -61,7 +67,7 @@ public class GameManager : MonoBehaviour
 
     public void ExitButton()
     {
-        Application.Quit();
+        SceneManager.LoadScene("MainMenu");
     }
     #endregion
     #region Screens
