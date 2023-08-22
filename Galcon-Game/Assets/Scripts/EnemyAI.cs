@@ -6,7 +6,7 @@ public class EnemyAI : MonoBehaviour
 {
     [SerializeField] private Ship _attackingShip;
     [SerializeField] private Color _enemyColor;
-    [SerializeField] private float _mixAttackRate;
+    [SerializeField] private float _minAttackRate;
     [SerializeField] private float _maxAttackRate;
     private float _attackRate = 5f;
     private float _timer;
@@ -109,17 +109,9 @@ public class EnemyAI : MonoBehaviour
         _timer += Time.deltaTime;
         if (_timer >= _attackRate)
         {
-            _attackRate = Random.Range(_mixAttackRate, _maxAttackRate);
+            _attackRate = Random.Range(_minAttackRate, _maxAttackRate);
             if (_hasTargets)
                 Attack();
-            // foreach (GameObject planet in GameManager.Instance._enemyPlanets)
-            // {
-            //     if (planet.GetComponent<Planet>()._numberOfShips > 0)
-            //     {
-            //         Attack();
-            //         break;
-            //     }
-            // }
             _timer = 0;
         }
     }
