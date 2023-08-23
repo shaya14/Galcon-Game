@@ -12,7 +12,6 @@ public enum PlanetColor
 
 public class Planet : MonoBehaviour
 {
-    // CR: not public.
    [Header("Planet Settings")]
    public PlanetColor planetColor;
    
