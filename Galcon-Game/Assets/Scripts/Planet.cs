@@ -72,26 +72,22 @@ public class Planet : MonoBehaviour
       {
          case PlanetColor.Enemy:
             gameObject.name = "Enemy Planet";
-            gameObject.tag = "Enemy";
             GetComponent<EnemyAI>().enabled = true;
             _updateColor = _enemyColor;
             break;
          case PlanetColor.Friendly:
             gameObject.name = "Friendly Planet";
-            gameObject.tag = "Friendly";
             GetComponent<EnemyAI>().enabled = false;
             _updateColor = _playerColor;
             break;
          case PlanetColor.Neutral:
             gameObject.name = "Neutral Planet";
-            gameObject.tag = "Neutral";
             _shipCounterText.text = _iniaitalShips.ToString();
             GetComponent<EnemyAI>().enabled = false;
             _updateColor = _neutralColor;
             break;
          default:
             gameObject.name = "Neutral Planet";
-            gameObject.tag = "Neutral";
             GetComponent<EnemyAI>().enabled = false;
             _updateColor = _neutralColor;
             break;

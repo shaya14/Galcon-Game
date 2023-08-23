@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// CR: try to keep object referneces as 'Planet' or 'Ship' instead of 'GameObject' ...
+//     This will reduce the need for 'GetComponent' calls.
+
 public class PlanetManager : MonoBehaviour
 {
     [Header("Map Prefabs")]
-    [SerializeField] private GameObject _mapPlanet;
+    [SerializeField] private Planet _mapPlanet;
     public GameObject _attackingShips;
 
     [Header("Map Settings")]
@@ -13,13 +16,13 @@ public class PlanetManager : MonoBehaviour
 
     [Header("Map & Settings Planets")]
     [SerializeField] private List<Planet> _mapPlanets;
-    public List<GameObject> _selectedPlanets;
-    public List<GameObject> _enemiesToSelect;
+    public List<Planet> _selectedPlanets;
+    public List<Planet> _enemiesToSelect;
 
     [Header("Game Planets")]
-    public List<GameObject> _friendlyPlanets;
-    public List<GameObject> _enemyPlanets;
-    public List<GameObject> _neutralPlanets;
+    public List<Planet> _friendlyPlanets;
+    public List<Planet> _enemyPlanets;
+    public List<Planet> _neutralPlanets;
 
     private static PlanetManager _instance;
     public static PlanetManager Instance { get; set; }
@@ -38,25 +41,32 @@ public class PlanetManager : MonoBehaviour
     }
     void Start()
     {
-        _selectedPlanets = new List<GameObject>();
-        _enemiesToSelect = new List<GameObject>();
-        _friendlyPlanets = new List<GameObject>();
-        _enemyPlanets = new List<GameObject>();
-        _enemiesToSelect.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
-        _enemiesToSelect.AddRange(GameObject.FindGameObjectsWithTag("Neutral"));
-        _friendlyPlanets.AddRange(GameObject.FindGameObjectsWithTag("Friendly"));
-        _enemyPlanets.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
-        _neutralPlanets.AddRange(GameObject.FindGameObjectsWithTag("Neutral"));
-    }
+        _selectedPlanets = new List<Planet>();
+        _enemiesToSelect = new List<Planet>();
+        _friendlyPlanets = new List<Planet>();
+        _enemyPlanets = new List<Planet>();
 
-    void Update()
-    {
-
+        var planets = FindObjectsOfType<Planet>();
+        foreach (Planet planet in planets) {
+            switch (planet.planetColor) {
+                case PlanetColor.Friendly:
+                   _friendlyPlanets.Add(planet);
+                    break;
+                case PlanetColor.Enemy:
+                  _enemiesToSelect.Add(planet);
+                  _enemyPlanets.Add(planet);
+                  break;
+                case PlanetColor.Neutral:
+                  _enemiesToSelect.Add(planet);
+                  _neutralPlanets.Add(planet);
+                  break;
+            }
+        }
     }
 
     public void SpawnShips()
     {
-        foreach (GameObject planet in _selectedPlanets)
+        foreach (Planet planet in _selectedPlanets)
         {
             planet.GetComponent<Planet>()._numberOfShips /= 2;
             planet.GetComponent<Planet>().UpdateNumOfShipsText();
@@ -66,14 +76,14 @@ public class PlanetManager : MonoBehaviour
             }
         }
 
-        foreach (GameObject planet in _selectedPlanets)
+        foreach (Planet planet in _selectedPlanets)
         {
             planet.GetComponent<Planet>()._isSelected = false;
             planet.GetComponent<TargetGlow>().SetGlowOff();
         }
         _selectedPlanets.Clear();
 
-        foreach (GameObject enemy in _enemiesToSelect)
+        foreach (Planet enemy in _enemiesToSelect)
         {
             enemy.GetComponent<TargetGlow>()._glowingEnabled = false;
         }
@@ -83,8 +93,8 @@ public class PlanetManager : MonoBehaviour
     {
         for (int i = 0; i < _numberOfPlanets; i++)
         {
-            GameObject planet = Instantiate(_mapPlanet);
-            _mapPlanets.Add(planet.GetComponent<Planet>());
+            var planet = Instantiate<Planet>(_mapPlanet);
+            _mapPlanets.Add(planet);
             planet.gameObject.SetActive(false);
         }
 

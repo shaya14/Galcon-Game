@@ -22,14 +22,14 @@ public class TargetGlow : MonoBehaviour
     {
         _isSelected = !_isSelected;
         _maxShipTextObject.SetActive(true);
-        if (this.gameObject.tag == "Friendly")
+        if (GetComponent<Planet>().isFriendly)
         {
             if (!_isClicked)
             {
                 if (_isSelected)
                 {
                     _selectedGlow.SetActive(true);
-                    foreach (GameObject targetPlanet in PlanetManager.Instance._selectedPlanets)
+                    foreach (Planet targetPlanet in PlanetManager.Instance._selectedPlanets)
                     {
                         if (targetPlanet != this && targetPlanet.GetComponent<TargetGlow>()._isSelected)
                         {
@@ -43,14 +43,14 @@ public class TargetGlow : MonoBehaviour
                 }
             }
         }
-        else if (this.gameObject.tag == "Enemy" || this.gameObject.tag == "Neutral")
+        else if (GetComponent<Planet>().isEnemy || GetComponent<Planet>().isNeutral)
         {
             if (_glowingEnabled)
             {
                 if (_isSelected)
                 {
                     _selectedGlow.SetActive(true);
-                    foreach (GameObject targetPlanet in PlanetManager.Instance._selectedPlanets)
+                    foreach (Planet targetPlanet in PlanetManager.Instance._selectedPlanets)
                     {
                         if (targetPlanet != this && targetPlanet.GetComponent<TargetGlow>()._isSelected)
                         {

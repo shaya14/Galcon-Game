@@ -13,27 +13,27 @@ public class MouseInputs : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            if (rayHit.collider.gameObject.tag == "Friendly" && !rayHit.collider.gameObject.GetComponent<Planet>()._isSelected)
+            var planet = rayHit.collider.GetComponent<Planet>();
+            if (planet != null && planet.isFriendly && !planet._isSelected)
             {
-                GameObject friendly = rayHit.collider.gameObject;
-                friendly.GetComponent<Planet>()._isSelected = true;
-                friendly.GetComponent<TargetGlow>()._isClicked = true;
-                PlanetManager.Instance._selectedPlanets.Add(friendly);
+                planet._isSelected = true;
+                planet.GetComponent<TargetGlow>()._isClicked = true;
+                PlanetManager.Instance._selectedPlanets.Add(planet);
                 DrawLines._instance.ClearLines();
 
-                foreach (GameObject enemy in PlanetManager.Instance._enemiesToSelect)
+                foreach (Planet enemy in PlanetManager.Instance._enemiesToSelect)
                 {
                     enemy.GetComponent<TargetGlow>()._glowingEnabled = true;
                 }
             }
             else if (rayHit.collider.gameObject.tag == "Background")
             {
-                foreach (GameObject planet in PlanetManager.Instance._selectedPlanets)
+                foreach (Planet selectedPlanet in PlanetManager.Instance._selectedPlanets)
                 {
-                    planet.GetComponent<Planet>()._isSelected = false;
-                    planet.GetComponent<TargetGlow>().SetGlowOff();
+                    selectedPlanet.GetComponent<Planet>()._isSelected = false;
+                    selectedPlanet.GetComponent<TargetGlow>().SetGlowOff();
 
-                    foreach (GameObject enemy in PlanetManager.Instance._enemiesToSelect)
+                    foreach (Planet enemy in PlanetManager.Instance._enemiesToSelect)
                     {
                         enemy.GetComponent<TargetGlow>()._glowingEnabled = false;
                     }
@@ -44,17 +44,19 @@ public class MouseInputs : MonoBehaviour
 
         if (Input.GetMouseButtonDown(1))
         {
-            if (rayHit.collider.gameObject.tag == "Friendly")
+            var planet = rayHit.collider.GetComponent<Planet>();
+            if (planet == null) {
+              return;
+            }
+            if (planet.isFriendly)
             {
-                GameObject freindly = rayHit.collider.gameObject;
-                PlanetManager.Instance._attackingShips.GetComponent<Ship>()._targetPlanet = freindly;
+                PlanetManager.Instance._attackingShips.GetComponent<Ship>()._targetPlanet = planet;
                 PlanetManager.Instance.SpawnShips();
                 DrawLines._instance.ClearLines();
             }
-            else if (rayHit.collider.gameObject.tag == "Enemy" || rayHit.collider.gameObject.tag == "Neutral")
+            else if (planet.isEnemy || planet.isNeutral)
             {
-                GameObject enemy = rayHit.collider.gameObject;
-                PlanetManager.Instance._attackingShips.GetComponent<Ship>()._targetPlanet = enemy;
+                PlanetManager.Instance._attackingShips.GetComponent<Ship>()._targetPlanet = planet;
                 PlanetManager.Instance.SpawnShips();
                 DrawLines._instance.ClearLines();
             }

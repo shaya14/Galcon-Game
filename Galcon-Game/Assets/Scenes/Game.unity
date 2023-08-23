@@ -1896,7 +1896,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _attackingShip: {fileID: 9215633573012952669, guid: fc58eca5d4a511a4f93ef0efa92c5d83, type: 3}
   _enemyColor: {r: 0.8, g: 0.20784314, b: 0.20784314, a: 0.88235295}
-  _mixAttackRate: 0
+  _minAttackRate: 0
   _maxAttackRate: 0
   _hasTargets: 1
 --- !u!1 &734372997
@@ -3727,9 +3727,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 165e3fe0cd7e5d94995a2a06cd955144, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mapPlanet: {fileID: 1729734016447677606, guid: 45c3211db3410f744ab7389d0e57b5d1, type: 3}
+  _mapPlanet: {fileID: 901599458154512910, guid: 45c3211db3410f744ab7389d0e57b5d1, type: 3}
   _attackingShips: {fileID: 6117789951486688954, guid: fc58eca5d4a511a4f93ef0efa92c5d83, type: 3}
-  _numberOfPlanets: 8
+  _numberOfPlanets: 25
   _mapPlanets: []
   _selectedPlanets: []
   _enemiesToSelect: []

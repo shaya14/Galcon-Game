@@ -65,13 +65,16 @@ public class BoxSelection : MonoBehaviour
         Collider2D[] objectsToSelect = Physics2D.OverlapBoxAll(transform.position, _boxCollider2D.size, 0);
         foreach (Collider2D selectable in objectsToSelect)
         {
-            if (selectable.gameObject.tag == "Friendly" && !selectable.gameObject.GetComponent<Planet>()._isSelected)
+            Planet planet = selectable.GetComponent<Planet>();
+            if (planet == null) {
+              continue;
+            }
+            if (planet.isFriendly && !planet._isSelected)
             {
-                GameObject friendly = selectable.gameObject;
-                friendly.GetComponent<TargetGlow>().SetGlowOn();
-                PlanetManager.Instance._selectedPlanets.Add(friendly);
+                planet.GetComponent<TargetGlow>().SetGlowOn();
+                PlanetManager.Instance._selectedPlanets.Add(planet);
                 
-                foreach (GameObject enemy in PlanetManager.Instance._enemiesToSelect)
+                foreach (Planet enemy in PlanetManager.Instance._enemiesToSelect)
                 {
                     enemy.GetComponent<TargetGlow>()._glowingEnabled = true;
                 }

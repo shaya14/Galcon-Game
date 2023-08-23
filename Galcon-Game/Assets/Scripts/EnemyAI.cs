@@ -41,11 +41,11 @@ public class EnemyAI : MonoBehaviour
         InstatiateAttackingShips(ChooseTarget());
     }
 
-    private GameObject ChooseTarget()
+    private Planet ChooseTarget()
     {
-        GameObject friendlyTarget = null;
-        GameObject neutralTarget = null;
-        GameObject target = null;
+        Planet friendlyTarget = null;
+        Planet neutralTarget = null;
+        Planet target = null;
 
         int randomChoose = Random.Range(0, 2);
         switch (randomChoose)
@@ -79,18 +79,18 @@ public class EnemyAI : MonoBehaviour
             target = neutralTarget;
         }
 
-        if (target.GetComponent<Planet>().isEnemy)
+        if (target.isEnemy)
         {
-            if (target.GetComponent<Planet>()._numberOfShips >= target.GetComponent<Planet>()._maxShips)
+            if (target._numberOfShips >= target._maxShips)
             {
                 return ChooseTarget();
             }
         }
 
-        return target.gameObject;
+        return target;
     }
 
-    private void InstatiateAttackingShips(GameObject _target)
+    private void InstatiateAttackingShips(Planet _target)
     {
         _thisPlanet._numberOfShips /= 2;
         _thisPlanet.UpdateNumOfShipsText();

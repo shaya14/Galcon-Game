@@ -5,9 +5,12 @@ using UnityEngine;
 public class Ship : MonoBehaviour
 {
     [SerializeField] private float _speed = 2f;
-    [HideInInspector] public GameObject _targetPlanet;
+    [HideInInspector] public Planet _targetPlanet;
     [SerializeField] private ParticleSystem _BlastParticlePrefab;
 
+    // CR: instead if '_imEnemyShip', I suggest 
+    //       private PlanetColor _myColor; 
+    //     This will allow you to reduce code duplication in OnTriggerEnter.
     public bool _imEnemyShip;
 
     void Update()
@@ -23,97 +26,97 @@ public class Ship : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Planet targetPlanet = _targetPlanet.GetComponent<Planet>();
-
-        if (collision.gameObject == _targetPlanet && !_imEnemyShip)
+        if (collision.gameObject.GetInstanceID() == _targetPlanet.gameObject.GetInstanceID() 
+            && !_imEnemyShip)
         {
-            if (targetPlanet.isFriendly)
+            if (_targetPlanet.isFriendly)
             {
-                if (targetPlanet._numberOfShips < targetPlanet._maxShips)
+                if (_targetPlanet._numberOfShips < _targetPlanet._maxShips)
                 {
-                    targetPlanet._numberOfShips++;
+                    _targetPlanet._numberOfShips++;
                 }
             }
-            else if (targetPlanet.isEnemy)
+            else if (_targetPlanet.isEnemy)
             {
-                if (targetPlanet._numberOfShips > 0)
+                if (_targetPlanet._numberOfShips > 0)
                 {
-                    targetPlanet._numberOfShips--;
+                    _targetPlanet._numberOfShips--;
                     ParticleSystem blast = Instantiate(_BlastParticlePrefab, transform.position, Quaternion.identity);
                     Destroy(blast.gameObject, 1f);
                 }
-                else if (targetPlanet._numberOfShips <= 0)
+                else if (_targetPlanet._numberOfShips <= 0)
                 {
-                    targetPlanet.planetColor = PlanetColor.Friendly;
-                    PlanetManager.Instance._enemyPlanets.Remove(targetPlanet.gameObject);
-                    PlanetManager.Instance._friendlyPlanets.Add(targetPlanet.gameObject);
-                    PlanetManager.Instance._enemiesToSelect.Remove(targetPlanet.gameObject);
+                    _targetPlanet.planetColor = PlanetColor.Friendly;
+                    PlanetManager.Instance._enemyPlanets.Remove(_targetPlanet);
+                    PlanetManager.Instance._friendlyPlanets.Add(_targetPlanet);
+                    PlanetManager.Instance._enemiesToSelect.Remove(_targetPlanet);
 
                     // Why when its enable i get error?
                     //GameManager.Instance._enemies.Remove(_targetPlanet);
                 }
             }
-            else if (targetPlanet.isNeutral)
+            else if (_targetPlanet.isNeutral)
             {
-                targetPlanet._iniaitalShips--;
+                _targetPlanet._iniaitalShips--;
                 ParticleSystem blast = Instantiate(_BlastParticlePrefab, transform.position, Quaternion.identity);
                 Destroy(blast.gameObject, 1f);
 
-                if (targetPlanet._iniaitalShips <= 0)
+                if (_targetPlanet._iniaitalShips <= 0)
                 {
-                    targetPlanet._numberOfShips = 0;
-                    targetPlanet.planetColor = PlanetColor.Friendly;
-                    PlanetManager.Instance._friendlyPlanets.Add(targetPlanet.gameObject);
-                    PlanetManager.Instance._enemiesToSelect.Remove(targetPlanet.gameObject);
-                    PlanetManager.Instance._neutralPlanets.Remove(targetPlanet.gameObject);
+                    _targetPlanet._numberOfShips = 0;
+                    _targetPlanet.planetColor = PlanetColor.Friendly;
+                    PlanetManager.Instance._friendlyPlanets.Add(_targetPlanet);
+                    PlanetManager.Instance._enemiesToSelect.Remove(_targetPlanet);
+                    PlanetManager.Instance._neutralPlanets.Remove(_targetPlanet);
 
                     // Why when its enable i get error?
                     //GameManager.Instance._enemies.Remove(_targetPlanet);
                 }
             }
-            targetPlanet.UpdateNumOfShipsText();
+            _targetPlanet.UpdateNumOfShipsText();
             Destroy(gameObject);
         }
-        else if (collision.gameObject == _targetPlanet && _imEnemyShip)
+        else if (collision.gameObject.GetInstanceID() == _targetPlanet.gameObject.GetInstanceID() 
+                 && _imEnemyShip)
         {
-            if (targetPlanet.isFriendly)
+            if (_targetPlanet.isFriendly)
             {
-                targetPlanet._numberOfShips--;
+                _targetPlanet._numberOfShips--;
                 ParticleSystem blast = Instantiate(_BlastParticlePrefab, transform.position, Quaternion.identity);
                 Destroy(blast.gameObject, 1f);
 
-                if (targetPlanet._numberOfShips <= 0)
+                if (_targetPlanet._numberOfShips <= 0)
                 {
-                    targetPlanet._numberOfShips = 0;
-                    targetPlanet.planetColor = PlanetColor.Enemy;
-                    PlanetManager.Instance._enemyPlanets.Add(targetPlanet.gameObject);
-                    PlanetManager.Instance._friendlyPlanets.Remove(targetPlanet.gameObject);
-                    PlanetManager.Instance._enemiesToSelect.Add(targetPlanet.gameObject);
+                    _targetPlanet._numberOfShips = 0;
+                    _targetPlanet.planetColor = PlanetColor.Enemy;
+                    PlanetManager.Instance._enemyPlanets.Add(_targetPlanet);
+                    PlanetManager.Instance._friendlyPlanets.Remove(_targetPlanet);
+                    PlanetManager.Instance._enemiesToSelect.Add(_targetPlanet);
                 }
             }
-            else if (targetPlanet.isEnemy)
+            else if (_targetPlanet.isEnemy)
             {
-                if (targetPlanet._numberOfShips < targetPlanet._maxShips)
+                if (_targetPlanet._numberOfShips < _targetPlanet._maxShips)
                 {
-                    targetPlanet._numberOfShips++;
+                    _targetPlanet._numberOfShips++;
                 }
             }
-            else if (targetPlanet.isNeutral)
+            else if (_targetPlanet.isNeutral)
             {
-                targetPlanet._iniaitalShips--;
+                _targetPlanet._iniaitalShips--;
                 ParticleSystem blast = Instantiate(_BlastParticlePrefab, transform.position, Quaternion.identity);
                 Destroy(blast.gameObject, 1f);
-                if (targetPlanet._iniaitalShips <= 0)
+                if (_targetPlanet._iniaitalShips <= 0)
                 {
-                    targetPlanet._numberOfShips = 0;
-                    targetPlanet.planetColor = PlanetColor.Enemy;
-                    PlanetManager.Instance._enemyPlanets.Add(targetPlanet.gameObject);
-                    PlanetManager.Instance._enemiesToSelect.Add(targetPlanet.gameObject);
-                    PlanetManager.Instance._neutralPlanets.Remove(targetPlanet.gameObject);
+                    _targetPlanet._numberOfShips = 0;
+                    _targetPlanet.planetColor = PlanetColor.Enemy;
+                    PlanetManager.Instance._enemyPlanets.Add(_targetPlanet);
+                    PlanetManager.Instance._enemiesToSelect.Add(_targetPlanet);
+                    PlanetManager.Instance._neutralPlanets.Remove(_targetPlanet);
                 }
             }
 
-            targetPlanet.UpdateNumOfShipsText();
+            _targetPlanet.UpdateNumOfShipsText();
             Destroy(gameObject);
         }
     }

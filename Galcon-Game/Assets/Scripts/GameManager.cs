@@ -116,17 +116,17 @@ public class GameManager : MonoBehaviour
 
     private void DisablePlanetFunctions()
     {
-        foreach (GameObject planet in PlanetManager.Instance._enemyPlanets)
+        foreach (Planet planet in PlanetManager.Instance._enemyPlanets)
         {
             planet.GetComponent<TargetGlow>().enabled = false;
         }
 
-        foreach (GameObject planet in PlanetManager.Instance._friendlyPlanets)
+        foreach (Planet planet in PlanetManager.Instance._friendlyPlanets)
         {
             planet.GetComponent<TargetGlow>().enabled = false;
         }
 
-        foreach (GameObject planet in PlanetManager.Instance._neutralPlanets)
+        foreach (Planet planet in PlanetManager.Instance._neutralPlanets)
         {
             planet.GetComponent<TargetGlow>().enabled = false;
         }
@@ -134,17 +134,17 @@ public class GameManager : MonoBehaviour
 
     private void EnablePlanetFunctions()
     {
-        foreach (GameObject planet in PlanetManager.Instance._enemyPlanets)
+        foreach (Planet planet in PlanetManager.Instance._enemyPlanets)
         {
             planet.GetComponent<TargetGlow>().enabled = true;
         }
 
-        foreach (GameObject planet in PlanetManager.Instance._friendlyPlanets)
+        foreach (Planet planet in PlanetManager.Instance._friendlyPlanets)
         {
             planet.GetComponent<TargetGlow>().enabled = true;
         }
 
-        foreach (GameObject planet in PlanetManager.Instance._neutralPlanets)
+        foreach (Planet planet in PlanetManager.Instance._neutralPlanets)
         {
             planet.GetComponent<TargetGlow>().enabled = true;
         }
