@@ -79,7 +79,7 @@ public class EnemyAI : MonoBehaviour
             target = neutralTarget;
         }
 
-        if (target.GetComponent<Planet>()._isEnemy)
+        if (target.GetComponent<Planet>().isEnemy)
         {
             if (target.GetComponent<Planet>()._numberOfShips >= target.GetComponent<Planet>()._maxShips)
             {

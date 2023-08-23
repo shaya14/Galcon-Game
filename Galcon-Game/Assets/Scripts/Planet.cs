@@ -12,14 +12,14 @@ public enum PlanetColor
 
 public class Planet : MonoBehaviour
 {
-
+    // CR: not public.
    [Header("Planet Settings")]
-   public PlanetColor _planetColor;
+   public PlanetColor planetColor;
+   
    [SerializeField] private float _shipPerSecond;
    [SerializeField] public int _iniaitalShips;
    [SerializeField] public int _maxShips;
    [HideInInspector] public int _numberOfShips;
-
 
    [Header("Player Colors")]
    [SerializeField] private Color _playerColor;
@@ -31,9 +31,6 @@ public class Planet : MonoBehaviour
    [SerializeField] private TextMeshPro _shipCounterText;
    [SerializeField] private TextMeshPro _maxShipCounterText;
 
-   public bool _isFriendly;
-   public bool _isEnemy;
-   public bool _isNeutral;
    public bool _isSelected;
    private SpriteRenderer _spriteRenderer;
    private LineRenderer _lineRenderer;
@@ -60,7 +57,6 @@ public class Planet : MonoBehaviour
    private void Update()
    {
       NewShipTimer();
-      UpdateState();
       UpdateDefineState();
       _spriteRenderer.color = _updateColor;
 
@@ -72,20 +68,18 @@ public class Planet : MonoBehaviour
 
    public void UpdateDefineState()
    {
-      switch (_planetColor)
+      switch (planetColor)
       {
          case PlanetColor.Enemy:
             gameObject.name = "Enemy Planet";
             gameObject.tag = "Enemy";
             GetComponent<EnemyAI>().enabled = true;
-            _isEnemy = true;
             _updateColor = _enemyColor;
             break;
          case PlanetColor.Friendly:
             gameObject.name = "Friendly Planet";
             gameObject.tag = "Friendly";
             GetComponent<EnemyAI>().enabled = false;
-            _isFriendly = true;
             _updateColor = _playerColor;
             break;
          case PlanetColor.Neutral:
@@ -93,32 +87,14 @@ public class Planet : MonoBehaviour
             gameObject.tag = "Neutral";
             _shipCounterText.text = _iniaitalShips.ToString();
             GetComponent<EnemyAI>().enabled = false;
-            _isNeutral = true;
             _updateColor = _neutralColor;
             break;
          default:
             gameObject.name = "Neutral Planet";
             gameObject.tag = "Neutral";
             GetComponent<EnemyAI>().enabled = false;
-            _isNeutral = true;
             _updateColor = _neutralColor;
             break;
-      }
-   }
-
-   public void UpdateState()
-   {
-      if (_isFriendly)
-      {
-         _planetColor = PlanetColor.Friendly;
-      }
-      else if (_isEnemy)
-      {
-         _planetColor = PlanetColor.Enemy;
-      }
-      else if (_isNeutral)
-      {
-         _planetColor = PlanetColor.Neutral;
       }
    }
 
@@ -159,24 +135,13 @@ public class Planet : MonoBehaviour
       switch (randomColor)
       {
          case 0:
-            _isFriendly = true;
-            _isEnemy = false;
-            _isNeutral = false;
+            planetColor = PlanetColor.Friendly;
             break;
          case 1:
-            _isFriendly = false;
-            _isEnemy = true;
-            _isNeutral = false;
+            planetColor = PlanetColor.Enemy;
             break;
          case 2:
-            _isFriendly = false;
-            _isEnemy = false;
-            _isNeutral = true;
-            break;
-         default:
-            _isFriendly = false;
-            _isEnemy = false;
-            _isNeutral = true;
+            planetColor = PlanetColor.Neutral;
             break;
       }
    }
@@ -202,6 +167,10 @@ public class Planet : MonoBehaviour
          _iniaitalShips = Random.Range(35, _numberOfShips);
       }
    }
+
+    public bool isFriendly => planetColor == PlanetColor.Friendly;
+    public bool isEnemy => planetColor == PlanetColor.Enemy;
+    public bool isNeutral => planetColor == PlanetColor.Neutral;
 
    // private void OnMouseExit()
    // {

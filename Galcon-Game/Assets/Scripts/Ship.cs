@@ -27,14 +27,14 @@ public class Ship : MonoBehaviour
 
         if (collision.gameObject == _targetPlanet && !_imEnemyShip)
         {
-            if (targetPlanet._isFriendly)
+            if (targetPlanet.isFriendly)
             {
                 if (targetPlanet._numberOfShips < targetPlanet._maxShips)
                 {
                     targetPlanet._numberOfShips++;
                 }
             }
-            else if (targetPlanet._isEnemy)
+            else if (targetPlanet.isEnemy)
             {
                 if (targetPlanet._numberOfShips > 0)
                 {
@@ -44,8 +44,7 @@ public class Ship : MonoBehaviour
                 }
                 else if (targetPlanet._numberOfShips <= 0)
                 {
-                    targetPlanet._isFriendly = true;
-                    targetPlanet._isEnemy = false;
+                    targetPlanet.planetColor = PlanetColor.Friendly;
                     PlanetManager.Instance._enemyPlanets.Remove(targetPlanet.gameObject);
                     PlanetManager.Instance._friendlyPlanets.Add(targetPlanet.gameObject);
                     PlanetManager.Instance._enemiesToSelect.Remove(targetPlanet.gameObject);
@@ -54,7 +53,7 @@ public class Ship : MonoBehaviour
                     //GameManager.Instance._enemies.Remove(_targetPlanet);
                 }
             }
-            else if (targetPlanet._isNeutral)
+            else if (targetPlanet.isNeutral)
             {
                 targetPlanet._iniaitalShips--;
                 ParticleSystem blast = Instantiate(_BlastParticlePrefab, transform.position, Quaternion.identity);
@@ -63,8 +62,7 @@ public class Ship : MonoBehaviour
                 if (targetPlanet._iniaitalShips <= 0)
                 {
                     targetPlanet._numberOfShips = 0;
-                    targetPlanet._isFriendly = true;
-                    targetPlanet._isNeutral = false;
+                    targetPlanet.planetColor = PlanetColor.Friendly;
                     PlanetManager.Instance._friendlyPlanets.Add(targetPlanet.gameObject);
                     PlanetManager.Instance._enemiesToSelect.Remove(targetPlanet.gameObject);
                     PlanetManager.Instance._neutralPlanets.Remove(targetPlanet.gameObject);
@@ -78,7 +76,7 @@ public class Ship : MonoBehaviour
         }
         else if (collision.gameObject == _targetPlanet && _imEnemyShip)
         {
-            if (targetPlanet._isFriendly)
+            if (targetPlanet.isFriendly)
             {
                 targetPlanet._numberOfShips--;
                 ParticleSystem blast = Instantiate(_BlastParticlePrefab, transform.position, Quaternion.identity);
@@ -87,21 +85,20 @@ public class Ship : MonoBehaviour
                 if (targetPlanet._numberOfShips <= 0)
                 {
                     targetPlanet._numberOfShips = 0;
-                    targetPlanet._isEnemy = true;
-                    targetPlanet._isFriendly = false;
+                    targetPlanet.planetColor = PlanetColor.Enemy;
                     PlanetManager.Instance._enemyPlanets.Add(targetPlanet.gameObject);
                     PlanetManager.Instance._friendlyPlanets.Remove(targetPlanet.gameObject);
                     PlanetManager.Instance._enemiesToSelect.Add(targetPlanet.gameObject);
                 }
             }
-            else if (targetPlanet._isEnemy)
+            else if (targetPlanet.isEnemy)
             {
                 if (targetPlanet._numberOfShips < targetPlanet._maxShips)
                 {
                     targetPlanet._numberOfShips++;
                 }
             }
-            else if (targetPlanet._isNeutral)
+            else if (targetPlanet.isNeutral)
             {
                 targetPlanet._iniaitalShips--;
                 ParticleSystem blast = Instantiate(_BlastParticlePrefab, transform.position, Quaternion.identity);
@@ -109,8 +106,7 @@ public class Ship : MonoBehaviour
                 if (targetPlanet._iniaitalShips <= 0)
                 {
                     targetPlanet._numberOfShips = 0;
-                    targetPlanet._isEnemy = true;
-                    targetPlanet._isNeutral = false;
+                    targetPlanet.planetColor = PlanetColor.Enemy;
                     PlanetManager.Instance._enemyPlanets.Add(targetPlanet.gameObject);
                     PlanetManager.Instance._enemiesToSelect.Add(targetPlanet.gameObject);
                     PlanetManager.Instance._neutralPlanets.Remove(targetPlanet.gameObject);
