@@ -98,7 +98,8 @@ public class EnemyAI : MonoBehaviour
         for (int i = 0; i < _thisPlanet._numberOfShips; i++)
         {
             Ship ship = Instantiate<Ship>(_attackingShip, this.transform.position, Quaternion.identity);
-            ship.GetComponent<SpriteRenderer>().color = _enemyColor;
+            //ship.GetComponent<SpriteRenderer>().color = _enemyColor;
+            ship.ShipColor("red");
             ship._targetPlanet = _target;
             ship._imEnemyShip = true;
         }

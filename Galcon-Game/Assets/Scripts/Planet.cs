@@ -14,7 +14,7 @@ public class Planet : MonoBehaviour
 {
    [Header("Planet Settings")]
    public PlanetColor planetColor;
-   
+
    [SerializeField] private float _shipPerSecond;
    [SerializeField] public int _iniaitalShips;
    [SerializeField] public int _maxShips;
@@ -57,6 +57,7 @@ public class Planet : MonoBehaviour
    {
       NewShipTimer();
       UpdateDefineState();
+      UpdateNumOfShipsText();
       _spriteRenderer.color = _updateColor;
 
       if (_numberOfShips >= _maxShips)
@@ -163,9 +164,31 @@ public class Planet : MonoBehaviour
       }
    }
 
-    public bool isFriendly => planetColor == PlanetColor.Friendly;
-    public bool isEnemy => planetColor == PlanetColor.Enemy;
-    public bool isNeutral => planetColor == PlanetColor.Neutral;
+   public bool isFriendly => planetColor == PlanetColor.Friendly;
+   public bool isEnemy => planetColor == PlanetColor.Enemy;
+   public bool isNeutral => planetColor == PlanetColor.Neutral;
+
+   public void Hit(Ship ship)
+   {
+      if (_numberOfShips == 0)
+      {
+         _numberOfShips = 1;
+         planetColor = ship._shipColor;
+         if (planetColor != ship._shipColor)
+         {
+            _numberOfShips--;
+         }
+         return;
+      }
+      if(planetColor == ship._shipColor)
+      {
+         _numberOfShips++;
+      }
+      else
+      {
+         _numberOfShips--;
+      }
+   }
 
    // private void OnMouseExit()
    // {
