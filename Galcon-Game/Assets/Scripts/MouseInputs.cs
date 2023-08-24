@@ -30,7 +30,7 @@ public class MouseInputs : MonoBehaviour
             {
                 foreach (Planet selectedPlanet in PlanetManager.Instance._selectedPlanets)
                 {
-                    selectedPlanet.GetComponent<Planet>()._isSelected = false;
+                    selectedPlanet._isSelected = false;
                     selectedPlanet.GetComponent<TargetGlow>().SetGlowOff();
 
                     foreach (Planet enemy in PlanetManager.Instance._enemiesToSelect)

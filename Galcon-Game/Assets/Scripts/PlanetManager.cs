@@ -68,9 +68,9 @@ public class PlanetManager : MonoBehaviour
     {
         foreach (Planet planet in _selectedPlanets)
         {
-            planet.GetComponent<Planet>()._numberOfShips /= 2;
-            planet.GetComponent<Planet>().UpdateNumOfShipsText();
-            for (int i = 0; i < planet.GetComponent<Planet>()._numberOfShips; i++)
+            planet._numberOfShips /= 2;
+            planet.UpdateNumOfShipsText();
+            for (int i = 0; i < planet._numberOfShips; i++)
             {
                 GameObject ship = Instantiate(_attackingShips, planet.transform.position, Quaternion.identity);
             }
@@ -78,7 +78,7 @@ public class PlanetManager : MonoBehaviour
 
         foreach (Planet planet in _selectedPlanets)
         {
-            planet.GetComponent<Planet>()._isSelected = false;
+            planet._isSelected = false;
             planet.GetComponent<TargetGlow>().SetGlowOff();
         }
         _selectedPlanets.Clear();
