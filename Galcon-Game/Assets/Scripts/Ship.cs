@@ -152,5 +152,5 @@ public class Ship : MonoBehaviour
     //         _targetPlanet.UpdateNumOfShipsText();
     //         Destroy(gameObject);
     //     }
-    //}
+    // }
 }

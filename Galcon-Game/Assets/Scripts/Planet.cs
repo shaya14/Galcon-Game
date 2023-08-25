@@ -139,6 +139,22 @@ public class Planet : MonoBehaviour
       }
    }
 
+   public void SetSettings(PlanetColor color, int numOfShips, int maxShips, float size)
+   {
+      planetColor = color;
+      _iniaitalShips = numOfShips;
+      _numberOfShips = _iniaitalShips;
+      _maxShips = maxShips;
+      transform.localScale = new Vector3(size, size, size);
+   }
+
+   public void SetSettings(PlanetColor color, float size)
+   {
+      planetColor = color;
+      transform.localScale = new Vector3(size, size, size);
+      PlanetSetteings(size);
+   }
+
    public void PlanetSetteings()
    {
       if (PlanetSize() <= 0.8f)
@@ -161,6 +177,29 @@ public class Planet : MonoBehaviour
       }
    }
 
+
+   public void PlanetSetteings(float size)
+   {
+      if (size <= 0.8f)
+      {
+         _numberOfShips = Random.Range(8, 10);
+         _maxShips = Random.Range(12, 25);
+         _iniaitalShips = Random.Range(2, _numberOfShips);
+      }
+      else if (size > 0.8f && PlanetSize() <= 1.2f)
+      {
+         _numberOfShips = Random.Range(25, 35);
+         _maxShips = Random.Range(37, 60);
+         _iniaitalShips = Random.Range(10, _numberOfShips);
+      }
+      else if (size > 1.2f)
+      {
+         _numberOfShips = Random.Range(37, 50);
+         _maxShips = Random.Range(60, 100);
+         _iniaitalShips = Random.Range(35, _numberOfShips);
+      }
+   }
+
    public bool isFriendly => planetColor == PlanetColor.Friendly;
    public bool isEnemy => planetColor == PlanetColor.Enemy;
    public bool isNeutral => planetColor == PlanetColor.Neutral;
@@ -171,8 +210,7 @@ public class Planet : MonoBehaviour
       {
          _numberOfShips = 1;
          planetColor = ship._shipColor;
-         //PlanetManager.Instance.UpdateLists(ship._targetPlanet);
-         //PlanetManager.Instance.ClearListsFromDifrentPlanet();
+         PlanetManager.Instance.UpdateLists(ship._targetPlanet);
          if (planetColor != ship._shipColor)
          {
             _numberOfShips--;
@@ -188,6 +226,29 @@ public class Planet : MonoBehaviour
          _numberOfShips--;
       }
    }
+
+   // private void OnTriggerEnter2D(Collider2D col)
+   // {
+   //    if (col.gameObject.tag == "Planet")
+   //    {
+   //       Planet colPlanet = GetComponent<Planet>();
+   //       if (colPlanet.planetColor == PlanetColor.Friendly)
+   //       {
+   //          var position = new Vector3(Random.Range(-8f, -6f), Random.Range(-4f, 4f), -0.1f);
+   //          colPlanet.transform.position = position;
+   //       }
+   //       else if (colPlanet.planetColor == PlanetColor.Enemy)
+   //       {
+   //          var position = new Vector3(Random.Range(6f, 8f), Random.Range(-4f, 4f), -0.1f);
+   //          colPlanet.transform.position = position;
+   //       }
+   //       else if (colPlanet.planetColor == PlanetColor.Neutral)
+   //       {
+   //          var position = new Vector3(Random.Range(-8f, 8f), Random.Range(-4f, 4f), -0.1f);
+   //          colPlanet.transform.position = position;
+   //       }
+   //    }
+   // }
 
    // private void OnMouseExit()
    // {

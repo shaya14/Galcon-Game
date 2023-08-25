@@ -3729,7 +3729,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _mapPlanet: {fileID: 901599458154512910, guid: 45c3211db3410f744ab7389d0e57b5d1, type: 3}
   _attackingShips: {fileID: 9215633573012952669, guid: fc58eca5d4a511a4f93ef0efa92c5d83, type: 3}
-  _numberOfPlanets: 9
+  _numberOfRandomPlanets: 0
+  _numberOfEnemyPlanets: 1
+  _numberOfFriendlyPlanets: 1
+  _numberOfNeutralPlanets: 20
+  _randomeGenetate: 0
+  _specificGenerate: 1
   _mapPlanets: []
   _selectedPlanets: []
   _enemiesToSelect: []
