@@ -61,7 +61,7 @@ public class GameManager : MonoBehaviour
     {
         StartTime();
         _screenOn = false;
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene("Game");
         EnablePlanetFunctions();
     }
 

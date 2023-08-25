@@ -82,12 +82,6 @@ public class Planet : MonoBehaviour
             break;
          case PlanetColor.Neutral:
             gameObject.name = "Neutral Planet";
-            _shipCounterText.text = _iniaitalShips.ToString();
-            GetComponent<EnemyAI>().enabled = false;
-            _updateColor = _neutralColor;
-            break;
-         default:
-            gameObject.name = "Neutral Planet";
             GetComponent<EnemyAI>().enabled = false;
             _updateColor = _neutralColor;
             break;
@@ -99,7 +93,10 @@ public class Planet : MonoBehaviour
       if (_timer > _shipPerSecond && _numberOfShips < _maxShips)
       {
          _timer = 0;
-         _numberOfShips++;
+         if (isFriendly || isEnemy)
+         {
+            _numberOfShips++;
+         }
          _shipCounterText.text = _numberOfShips.ToString();
       }
       else
@@ -174,13 +171,15 @@ public class Planet : MonoBehaviour
       {
          _numberOfShips = 1;
          planetColor = ship._shipColor;
+         //PlanetManager.Instance.UpdateLists(ship._targetPlanet);
+         //PlanetManager.Instance.ClearListsFromDifrentPlanet();
          if (planetColor != ship._shipColor)
          {
             _numberOfShips--;
          }
          return;
       }
-      if(planetColor == ship._shipColor)
+      if (planetColor == ship._shipColor)
       {
          _numberOfShips++;
       }

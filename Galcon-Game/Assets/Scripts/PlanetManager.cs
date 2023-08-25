@@ -47,22 +47,109 @@ public class PlanetManager : MonoBehaviour
         _enemyPlanets = new List<Planet>();
 
         var planets = FindObjectsOfType<Planet>();
-        foreach (Planet planet in planets) {
-            switch (planet.planetColor) {
+        foreach (Planet planet in planets)
+        {
+            switch (planet.planetColor)
+            {
                 case PlanetColor.Friendly:
-                   _friendlyPlanets.Add(planet);
+                    _friendlyPlanets.Add(planet);
                     break;
                 case PlanetColor.Enemy:
-                  _enemiesToSelect.Add(planet);
-                  _enemyPlanets.Add(planet);
-                  break;
+                    _enemiesToSelect.Add(planet);
+                    _enemyPlanets.Add(planet);
+                    break;
                 case PlanetColor.Neutral:
-                  _enemiesToSelect.Add(planet);
-                  _neutralPlanets.Add(planet);
-                  break;
+                    _enemiesToSelect.Add(planet);
+                    _neutralPlanets.Add(planet);
+                    break;
             }
         }
     }
+
+    public void ClearListsFromDifrentPlanet()
+    {
+        foreach (Planet planet in _friendlyPlanets)
+        {
+            if (planet.planetColor != PlanetColor.Friendly)
+            {
+                if (planet.planetColor == PlanetColor.Enemy)
+                {
+                    _enemyPlanets.Add(planet);
+                    _enemiesToSelect.Add(planet);
+                }
+                _friendlyPlanets.Remove(planet);
+            }
+        }
+
+        foreach (Planet planet in _enemyPlanets)
+        {
+            if (planet.planetColor != PlanetColor.Enemy)
+            {
+                if (planet.planetColor == PlanetColor.Friendly)
+                {
+                    _friendlyPlanets.Add(planet);
+                }
+                _enemyPlanets.Remove(planet);
+                _enemiesToSelect.Remove(planet);
+            }
+        }
+
+        foreach (Planet planet in _neutralPlanets)
+        {
+            if (planet.planetColor != PlanetColor.Neutral)
+            {
+                if (planet.planetColor == PlanetColor.Friendly)
+                {
+                    _friendlyPlanets.Add(planet);
+                }
+                else if (planet.planetColor == PlanetColor.Enemy)
+                {
+                    _enemyPlanets.Add(planet);
+                    _enemiesToSelect.Add(planet);
+                }
+                _neutralPlanets.Remove(planet);
+                _enemiesToSelect.Remove(planet);
+            }
+        }
+
+        foreach (Planet planet in _enemiesToSelect)
+        {
+            if (planet.planetColor != PlanetColor.Enemy && planet.planetColor != PlanetColor.Neutral)
+            {
+                _enemiesToSelect.Remove(planet);
+            }
+        }
+    }
+
+    public void UpdateLists(Planet planet)
+    {
+        if (planet.planetColor == PlanetColor.Friendly)
+        {
+            _friendlyPlanets.Add(planet);
+            if (_enemyPlanets.Contains(planet))
+            {
+                _enemyPlanets.Remove(planet);
+            }
+            else if (_neutralPlanets.Contains(planet))
+            {
+                _neutralPlanets.Remove(planet);
+            }
+        }
+        else if (planet.planetColor == PlanetColor.Enemy)
+        {
+            _enemyPlanets.Add(planet);
+            _enemiesToSelect.Add(planet);
+            if (_friendlyPlanets.Contains(planet))
+            {
+                _friendlyPlanets.Remove(planet);
+            }
+            else if (_neutralPlanets.Contains(planet))
+            {
+                _neutralPlanets.Remove(planet);
+            }
+        }
+    }
+
     public void SpawnShips()
     {
         foreach (Planet planet in _selectedPlanets)
@@ -138,7 +225,7 @@ public class PlanetManager : MonoBehaviour
     //     foreach (GameObject planet in _selectedPlanets)
     //     {
     //             planet.GetComponent<Planet>().DrawLineToTarget(targetPlanet);
-            
+
     //     }
     // }
 

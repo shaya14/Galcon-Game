@@ -53,12 +53,14 @@ public class MouseInputs : MonoBehaviour
                 PlanetManager.Instance._attackingShips.GetComponent<Ship>()._targetPlanet = planet;
                 PlanetManager.Instance.SpawnShips();
                 DrawLines._instance.ClearLines();
+                PlanetManager.Instance._selectedPlanets.Clear();
             }
             else if (planet.isEnemy || planet.isNeutral)
             {
                 PlanetManager.Instance._attackingShips.GetComponent<Ship>()._targetPlanet = planet;
                 PlanetManager.Instance.SpawnShips();
                 DrawLines._instance.ClearLines();
+                PlanetManager.Instance._selectedPlanets.Clear();
             }
         }
     }

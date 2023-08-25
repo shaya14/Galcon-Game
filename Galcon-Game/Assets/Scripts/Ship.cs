@@ -6,7 +6,7 @@ public class Ship : MonoBehaviour
 {
     [SerializeField] private float _speed = 2f;
     [HideInInspector] public Planet _targetPlanet;
-    [SerializeField] private ParticleSystem _BlastParticlePrefab;
+    public ParticleSystem _BlastParticlePrefab;
 
     // CR: instead if '_imEnemyShip', I suggest 
     //       private PlanetColor _myColor; 
@@ -48,6 +48,11 @@ public class Ship : MonoBehaviour
         if (collision.gameObject.GetInstanceID() == _targetPlanet.gameObject.GetInstanceID())
         {
             _targetPlanet.Hit(this);
+            if (_targetPlanet.planetColor != _shipColor)
+            {
+                ParticleSystem blast = Instantiate(_BlastParticlePrefab, transform.position, Quaternion.identity);
+                Destroy(blast.gameObject, 1f);
+            }
             Destroy(gameObject);
         }
     }
