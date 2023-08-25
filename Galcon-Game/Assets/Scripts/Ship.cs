@@ -47,7 +47,14 @@ public class Ship : MonoBehaviour
     {
         if (collision.gameObject.GetInstanceID() == _targetPlanet.gameObject.GetInstanceID())
         {
+            // PlanetManager.Instance._attackingShipsList.Remove(this);
+
+            // if(PlanetManager.Instance._attackingShipsList.Count <= 0)
+            // {
+            //     _targetPlanet.GetComponent<CircleCollider2D>().isTrigger = false;
+            // }
             _targetPlanet.Hit(this);
+            
             if (_targetPlanet.planetColor != _shipColor)
             {
                 ParticleSystem blast = Instantiate(_BlastParticlePrefab, transform.position, Quaternion.identity);

@@ -45,12 +45,14 @@ public class MouseInputs : MonoBehaviour
         if (Input.GetMouseButtonDown(1))
         {
             var planet = rayHit.collider.GetComponent<Planet>();
-            if (planet == null) {
-              return;
+            if (planet == null)
+            {
+                return;
             }
             if (planet.isFriendly)
             {
                 PlanetManager.Instance._attackingShips.GetComponent<Ship>()._targetPlanet = planet;
+                //planet.GetComponent<CircleCollider2D>().isTrigger = true;
                 PlanetManager.Instance.SpawnShips();
                 DrawLines._instance.ClearLines();
                 PlanetManager.Instance._selectedPlanets.Clear();
@@ -58,10 +60,13 @@ public class MouseInputs : MonoBehaviour
             else if (planet.isEnemy || planet.isNeutral)
             {
                 PlanetManager.Instance._attackingShips.GetComponent<Ship>()._targetPlanet = planet;
+                //planet.GetComponent<CircleCollider2D>().isTrigger = true;
                 PlanetManager.Instance.SpawnShips();
                 DrawLines._instance.ClearLines();
                 PlanetManager.Instance._selectedPlanets.Clear();
             }
+
+
         }
     }
 }

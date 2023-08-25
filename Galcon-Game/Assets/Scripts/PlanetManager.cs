@@ -31,8 +31,12 @@ public class PlanetManager : MonoBehaviour
     public List<Planet> _enemyPlanets;
     public List<Planet> _neutralPlanets;
 
+    [SerializeField] LayerMask layerMask;
     private static PlanetManager _instance;
     public static PlanetManager Instance { get; set; }
+
+    //public List<Ship> _attackingShipsList;
+
     void Awake()
     {
         if (Instance == null)
@@ -43,7 +47,7 @@ public class PlanetManager : MonoBehaviour
         {
             Destroy(this);
         }
-        
+
         _mapPlanets = new List<Planet>();
 
         if (_randomeGenetate)
@@ -53,7 +57,9 @@ public class PlanetManager : MonoBehaviour
         }
         if (_specificGenerate)
         {
-            InstatiateSpecificPlanets();
+            //InstatiateSpecificPlanets();
+            InstantiateSpecPlanets();
+            //PlanetCollisionWithCollider();
             PlanetCollision();
             _randomeGenetate = false;
         }
@@ -64,6 +70,7 @@ public class PlanetManager : MonoBehaviour
         _enemiesToSelect = new List<Planet>();
         _friendlyPlanets = new List<Planet>();
         _enemyPlanets = new List<Planet>();
+        //_attackingShipsList = new List<Ship>();
 
         var planets = FindObjectsOfType<Planet>();
         foreach (Planet planet in planets)
@@ -178,6 +185,7 @@ public class PlanetManager : MonoBehaviour
             for (int i = 0; i < planet._numberOfShips; i++)
             {
                 Ship ship = Instantiate<Ship>(_attackingShips, planet.transform.position, Quaternion.identity);
+                //_attackingShipsList.Add(ship);
                 ship.ShipColor("blue");
             }
         }
@@ -227,44 +235,138 @@ public class PlanetManager : MonoBehaviour
         }
     }
 
-    public void InstatiateSpecificPlanets()
+    private void InstatiateFor(float numOfPlanets, Vector3 position, PlanetColor planetColor, int numOfShips, int maxShips, float size)
     {
-        for (int i = 0; i < _numberOfEnemyPlanets; i++)
+        for (int i = 0; i < numOfPlanets; i++)
         {
-            var planet = Instantiate<Planet>(_mapPlanet);
-            planet.SetSettings(PlanetColor.Enemy, 80, 100, 1.5f);
+            var planet = Instantiate<Planet>(_mapPlanet, position, Quaternion.identity);
+            planet.SetSettings(planetColor, numOfShips, maxShips, size);
             planet.UpdateMaxNumOfShipsText();
-            var position = new Vector3(Random.Range(6f, 8f), Random.Range(-4f, 4f), -0.1f);
             planet.transform.position = position;
-            // PlanetCollision(position);
-            planet.gameObject.SetActive(true);
-            _mapPlanets.Add(planet);
-        }
-
-        for (int i = 0; i < _numberOfFriendlyPlanets; i++)
-        {
-            var planet = Instantiate<Planet>(_mapPlanet);
-            planet.SetSettings(PlanetColor.Friendly, 80, 100, 1.5f);
-            planet.UpdateMaxNumOfShipsText();
-            var position = new Vector3(Random.Range(-8f, -6f), Random.Range(-4f, 4f), -0.1f);
-            planet.transform.position = position;
-            // PlanetCollision(position);
-            planet.gameObject.SetActive(true);
-            _mapPlanets.Add(planet);
-        }
-
-        for (int i = 0; i < _numberOfNeutralPlanets; i++)
-        {
-            var planet = Instantiate<Planet>(_mapPlanet);
-            planet.SetSettings(PlanetColor.Neutral, Random.Range(0.6f, 1.5f));
-            planet.UpdateMaxNumOfShipsText();
-            var position = new Vector3(Random.Range(-8f, 8f), Random.Range(-4f, 4f), -0.1f);
-            planet.transform.position = position;
-            // PlanetCollision(position);
-            planet.gameObject.SetActive(true);
+            planet.gameObject.SetActive(false);
             _mapPlanets.Add(planet);
         }
     }
+
+    private void InstatiateFor(float numOfPlanets, Vector3 position, PlanetColor planetColor)
+    {
+        for (int i = 0; i < numOfPlanets; i++)
+        {
+            var planet = Instantiate<Planet>(_mapPlanet, position, Quaternion.identity);
+            var size = Random.Range(0.6f, 1.5f);
+            planet.SetSettings(planetColor, size);
+            planet.UpdateMaxNumOfShipsText();
+            planet.transform.position = position;
+            planet.gameObject.SetActive(false);
+            _mapPlanets.Add(planet);
+        }
+    }
+
+    public void InstantiateSpecPlanets()
+    {
+        var position = new Vector3(Random.Range(6f, 8f), Random.Range(-4f, 4f), -0.1f);
+        var size = 1.5f;
+        InstatiateFor(_numberOfEnemyPlanets, position, PlanetColor.Enemy, 80, 100, size);
+
+        position = new Vector3(Random.Range(-8f, -6f), Random.Range(-4f, 4f), -0.1f);
+        InstatiateFor(_numberOfFriendlyPlanets, position, PlanetColor.Friendly, 80, 100, size);
+
+        position = new Vector3(Random.Range(-8f, 8f), Random.Range(-4f, 4f), -0.1f);
+        InstatiateFor(_numberOfNeutralPlanets, position, PlanetColor.Neutral);
+    }
+
+    // public void InstatiateSpecificPlanets()
+    // {
+    //     for (int i = 0; i < _numberOfNeutralPlanets; i++)
+    //     {
+    //         var position = new Vector3(Random.Range(-8f, 8f), Random.Range(-4f, 4f), -0.1f);
+    //         if (!CheckOverlap(position, 1.5f))
+    //         {
+    //             position = new Vector3(Random.Range(-8f, 8f), Random.Range(-4f, 4f), -0.1f);
+    //         }
+    //         else
+    //         {
+    //             i--;
+    //         }
+    //         var planet = Instantiate<Planet>(_mapPlanet, position, Quaternion.identity);
+    //         var size = Random.Range(0.6f, 1.5f);
+    //         planet.SetSettings(PlanetColor.Neutral, size);
+    //         planet.UpdateMaxNumOfShipsText();
+    //         //PlanetCollision(position);
+    //         planet.gameObject.SetActive(false);
+    //         _mapPlanets.Add(planet);
+    //     }
+    // }
+
+    public void PlanetCollisionWithCollider()
+    {
+        foreach (Planet planet in _mapPlanets)
+        {
+            for (int i = 0; i < _mapPlanets.Count; i++)
+            {
+                if (planet.isFriendly)
+                {
+                    var position = new Vector3(Random.Range(-8f, -6f), Random.Range(-4f, 4f), -0.1f);
+                    var size = 1.5f;
+                    var radius = size * 2 / (2 * Mathf.PI);
+                    if (!CheckOverlap(position, radius))
+                    {
+                        planet.transform.position = position;
+                        planet.gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        i--;
+                    }
+                }
+                else
+                {
+                    continue;
+                }
+
+                if (planet.isEnemy)
+                {
+                    var position = new Vector3(Random.Range(6f, 8f), Random.Range(-4f, 4f), -0.1f);
+                    var size = 1.5f;
+                    var radius = size * 2 / (2 * Mathf.PI);
+                    if (!CheckOverlap(position, radius))
+                    {
+                        planet.transform.position = position;
+                        planet.gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        i--;
+                    }
+                }
+                else
+                {
+                    continue;
+                }
+
+                if (planet.isNeutral)
+                {
+                    var position = new Vector3(Random.Range(-8f, 8f), Random.Range(-4f, 4f), -0.1f);
+                    var size = 1.5f;
+                    var radius = size * 2 / (2 * Mathf.PI);
+                    if (!CheckOverlap(position, radius))
+                    {
+                        planet.transform.position = position;
+                        planet.gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        i--;
+                    }
+                }
+                else
+                {
+                    continue;
+                }
+            }
+        }
+    }
+
 
     public void PlanetCollision()
     {
@@ -351,42 +453,22 @@ public class PlanetManager : MonoBehaviour
         }
     }
 
+    private bool CheckOverlap(Vector2 position, float radius)
+    {
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(position, radius + 1f, layerMask);
+        return colliders.Length > 0;
+    }
 
-    // public void InstatiateSpecificPlanets()
-    // {
-    //     for (int i = 0; i < _numberOfPlanets; i++)
-    //     {
-    //         var planet = Instantiate<Planet>(_mapPlanet);
-    //         _mapPlanets.Add(planet);
-    //         planet.gameObject.SetActive(false);
-    //     }
-
-    //     foreach (Planet planet in _mapPlanets)
-    //     {
-    //         var position = new Vector3(Random.Range(-8f, 8f), Random.Range(-4f, 4f), -0.1f);
-    //         for (int i = 0; i < _mapPlanets.Count; i++)
-    //         {
-    //             if (Vector3.Distance(position, _mapPlanets[i].transform.position) < 1.5f)
-    //             {
-    //                 position = new Vector3(Random.Range(-8f, 8f), Random.Range(-4f, 4f), -0.1f);
-    //                 i = 0;
-    //             }
-    //         }
-
-    //         planet.transform.position = position;
-    //         planet.gameObject.SetActive(true);
-    //         for (int i = 0; i < 1; i++)
-    //         {
-    //             if (_mapPlanets.Contains(planet))
-    //             {
-    //                 if (!planet.isEnemy)
-    //                 {
-    //                     planet.SetSettings(PlanetColor.Enemy, 100, 1.5f);
-    //                 }
-    //             }
-    //         }
-    //     }
-    // }
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        foreach (Planet planet in _mapPlanets)
+        {
+            var size = planet._size;
+            var radius = size * 2 / (2 * Mathf.PI);
+            Gizmos.DrawWireSphere(planet.transform.position, radius);
+        }
+    }
 
     // public void DrawLinesToTarget(Planet targetPlanet)
     // {

@@ -206,6 +206,7 @@ public class Planet : MonoBehaviour
 
    public void Hit(Ship ship)
    {
+      GetComponent<CircleCollider2D>().isTrigger = true;
       if (_numberOfShips == 0)
       {
          _numberOfShips = 1;
