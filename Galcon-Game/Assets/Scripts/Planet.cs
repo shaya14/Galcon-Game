@@ -16,9 +16,9 @@ public class Planet : MonoBehaviour
    public PlanetColor planetColor;
 
    [SerializeField] private float _shipPerSecond;
-   [SerializeField] public int _iniaitalShips;
+   [SerializeField] public int _iniaitalShips; // CR: change to private
    [SerializeField] public int _maxShips;
-   [HideInInspector] public int _numberOfShips;
+   [HideInInspector] public int _numberOfShips; // CR: since it's public, rename to 'public int numberOfShips'.
 
    [Header("Player Colors")]
    [SerializeField] private Color _playerColor;
@@ -30,10 +30,19 @@ public class Planet : MonoBehaviour
    [SerializeField] private TextMeshPro _shipCounterText;
    [SerializeField] private TextMeshPro _maxShipCounterText;
 
-   public bool _isSelected;
+   // CR: if it's public, rename to 'public bool isSelected' (the '_' is used only for private fields).
+   public bool _isSelected; 
    private SpriteRenderer _spriteRenderer;
    private LineRenderer _lineRenderer;
    private float _timer;
+
+   // CR: size doesn't need to be public ('Planet' is the only class that changes it).
+   //     Instead - make it private, and make a *public readonly property* so other classes can
+   //     access it.
+   //     
+   //     [SerializeField] private float _size;
+   //     public float size => _size;
+
    public float _size = 1;
 
    void Awake()
@@ -48,7 +57,7 @@ public class Planet : MonoBehaviour
       _isSelected = false;
       _spriteRenderer.color = _updateColor;
       _numberOfShips = _iniaitalShips;
-      _shipPerSecond /= _size;
+      _shipPerSecond /= _size; // CR: bigger planet => less ships per second? (size *= 2 => shipPerSecond /= 2)
       UpdateNumOfShipsText();
       _lineRenderer = GetComponent<LineRenderer>();
    }
@@ -73,10 +82,22 @@ public class Planet : MonoBehaviour
          case PlanetColor.Enemy:
             gameObject.name = "Enemy Planet";
             GetComponent<EnemyAI>().enabled = true;
+            // CR: Like we talked about in the lesson, we can delete the '_updateColor' - we don't
+            //     need to have this state.
+            //     Just do _spriteRenderer.color = _enemyColor;
             _updateColor = _enemyColor;
             break;
          case PlanetColor.Friendly:
             gameObject.name = "Friendly Planet";
+            // CR: same idea of single-source-of-state here.
+            //     Instead of enabling/disabling EnemyAI according to 'PlanetColor' (which makes it possible to 'forget' to enable/disable, and have 
+            //     bugs where neutral/friendly planets have it enabled).
+            //      Just add the following line to EnemyAI.Update:
+            //     if (!_thisPlanet.isEnemy) {
+            //       return;
+            //     }
+            //
+            //     This means that EnemyAI is always enabled - it just won't do anything for neutral/friendly planets.
             GetComponent<EnemyAI>().enabled = false;
             _updateColor = _playerColor;
             break;
@@ -88,6 +109,7 @@ public class Planet : MonoBehaviour
       }
    }
 
+   // CR: rename to 'UpdateShipTimer' (You are not actually creating anything new here).
    void NewShipTimer()
    {
       if (_timer > _shipPerSecond && _numberOfShips < _maxShips)
@@ -206,6 +228,7 @@ public class Planet : MonoBehaviour
 
    public void Hit(Ship ship)
    {
+      // CR: remove this line (the collider is defined in the prefab as isTrigger - so this line doesn't do anything).
       GetComponent<CircleCollider2D>().isTrigger = true;
       if (_numberOfShips == 0)
       {

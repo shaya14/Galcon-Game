@@ -2,9 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// CR: try to keep object referneces as 'Planet' or 'Ship' instead of 'GameObject' ...
-//     This will reduce the need for 'GetComponent' calls.
-
 public class PlanetManager : MonoBehaviour
 {
     [Header("Map Prefabs")]
@@ -367,91 +364,127 @@ public class PlanetManager : MonoBehaviour
         }
     }
 
+    // CR: note also, that 'distance < 1' is not the correct check (because 'distance' is the distance between the CENTERS of the planets).
+    //     larger planets need to be further away from each other, so you probably need to add 'localScale' or 'size' or similar to your check
 
-    public void PlanetCollision()
-    {
-        foreach (Planet planet in _mapPlanets)
-        {
-            for (int i = 0; i < _mapPlanets.Count; i++)
-            {
-                if (planet.isFriendly)
-                {
-                    var position = new Vector3(Random.Range(-8f, -6f), Random.Range(-4f, 4f), -0.1f);
-                    if (Vector3.Distance(position, _mapPlanets[i].transform.position) < 1f)
-                    {
-                        position = new Vector3(Random.Range(-8f, -6f), Random.Range(-4f, 4f), -0.1f);
-                        i = 0;
-                    }
-                    planet.transform.position = position;
-                    planet.gameObject.SetActive(true);
-                }
+    // CR: Your bug is that when choosing a position for a planet, you are changing the position randomly for every planet you 
+    //     chcking against! So, position = new Vector3(Random...) should be outside of the 'for (int i = 0;, i < _mapPlanets.Count; ...)'.
+    //     See my implementation attached:
 
-                if (planet.isEnemy)
-                {
-                    var position = new Vector3(Random.Range(6f, 8f), Random.Range(-4f, 4f), -0.1f);
-
-                    if (Vector3.Distance(position, _mapPlanets[i].transform.position) < 1f)
-                    {
-                        position = new Vector3(Random.Range(6f, 8f), Random.Range(-4f, 4f), -0.1f);
-                        i = 0;
-                    }
-                    planet.transform.position = position;
-                    planet.gameObject.SetActive(true);
-                }
-
-                if (planet.isNeutral)
-                {
-                    var position = new Vector3(Random.Range(-8f, 8f), Random.Range(-4f, 4f), -0.1f);
-
-                    if (Vector3.Distance(position, _mapPlanets[i].transform.position) < 1f)
-                    {
-                        position = new Vector3(Random.Range(-8f, 8f), Random.Range(-4f, 4f), -0.1f);
-                        i = 0;
-                    }
-                    planet.transform.position = position;
-                    planet.gameObject.SetActive(true);
-                }
-            }
+    // Checks collisions between _mapPlanets[planetIndex], and all the planets _mapPlanets[0,...,planetIndex-1].
+    // So, HasCollisions(0) will not check anything, HasCollisions(1) will check for collisions between 0 and 1.
+    // HasCollisions(2)  will check (0,2) and (1,2), ...
+    private bool HasCollisions(int planetIndex) {
+      for (int i = 0; i < planetIndex; i++) {
+        if (Vector3.Distance(_mapPlanets[planetIndex].transform.position, _mapPlanets[i].transform.position) < 1) {
+          return true;
         }
+      }
+
+      return false;
     }
 
-    public void PlanetCollision(Vector3 position)
-    {
-        foreach (Planet planet in _mapPlanets)
-        {
-            for (int i = 0; i < _mapPlanets.Count; i++)
-            {
-                if (Vector3.Distance(position, _mapPlanets[i].transform.position) < 1f)
-                {
-                    if (planet.isFriendly)
-                    {
-                        position = new Vector3(Random.Range(-8f, -6f), Random.Range(-4f, 4f), -0.1f);
-                        planet.transform.position = position;
-                        planet.gameObject.SetActive(true);
-                    }
+    public void PlanetCollision() {
+      for (int i = 0; i < _mapPlanets.Count; i++) {
+        while (HasCollisions(i)) {
 
-                    if (planet.isEnemy)
-                    {
-                        position = new Vector3(Random.Range(6f, 8f), Random.Range(-4f, 4f), -0.1f);
-                        planet.transform.position = position;
-                        planet.gameObject.SetActive(true);
-                    }
-
-                    if (planet.isNeutral)
-                    {
-                        position = new Vector3(Random.Range(-8f, 8f), Random.Range(-4f, 4f), -0.1f);
-                        planet.transform.position = position;
-                        planet.gameObject.SetActive(true);
-                    }
-                }
-                else
-                {
-                    planet.transform.position = position;
-                    planet.gameObject.SetActive(true);
-                }
-            }
+          if (_mapPlanets[i].isFriendly) {
+            _mapPlanets[i].transform.position = new Vector3(Random.Range(-8f, -6f), Random.Range(-4f, 4f), -0.1f);
+          } else if (_mapPlanets[i].isEnemy) {
+            _mapPlanets[i].transform.position = new Vector3(Random.Range(6f, 8f), Random.Range(-4f, 4f), -0.1f);
+          } else if (_mapPlanets[i].isNeutral) {
+            _mapPlanets[i].transform.position = new Vector3(Random.Range(-8f, 8f), Random.Range(-4f, 4f), -0.1f);
+          } else {
+          }
         }
+        _mapPlanets[i].gameObject.SetActive(true);
+      }
     }
+    
+    // public void PlanetCollision()
+    // {
+    //     foreach (Planet planet in _mapPlanets)
+    //     {
+    //         for (int i = 0; i < _mapPlanets.Count; i++)
+    //         {
+    //             if (planet.isFriendly)
+    //             {
+    //                 var position = new Vector3(Random.Range(-8f, -6f), Random.Range(-4f, 4f), -0.1f);
+    //                 if (Vector3.Distance(position, _mapPlanets[i].transform.position) < 1f)
+    //                 {
+    //                     position = new Vector3(Random.Range(-8f, -6f), Random.Range(-4f, 4f), -0.1f);
+    //                     i = -1;
+    //                 }
+    //                 planet.transform.position = position;
+    //                 planet.gameObject.SetActive(true);
+    //             }
+
+    //             if (planet.isEnemy)
+    //             {
+    //                 var position = new Vector3(Random.Range(6f, 8f), Random.Range(-4f, 4f), -0.1f);
+
+    //                 if (Vector3.Distance(position, _mapPlanets[i].transform.position) < 1f)
+    //                 {
+    //                     position = new Vector3(Random.Range(6f, 8f), Random.Range(-4f, 4f), -0.1f);
+    //                     i = -1;
+    //                 }
+    //                 planet.transform.position = position;
+    //                 planet.gameObject.SetActive(true);
+    //             }
+
+    //             if (planet.isNeutral)
+    //             {
+    //                 var position = new Vector3(Random.Range(-8f, 8f), Random.Range(-4f, 4f), -0.1f);
+
+    //                 if (Vector3.Distance(position, _mapPlanets[i].transform.position) < 1f)
+    //                 {
+    //                     position = new Vector3(Random.Range(-8f, 8f), Random.Range(-4f, 4f), -0.1f);
+    //                     i = -1;
+    //                 }
+    //                 planet.transform.position = position;
+    //                 planet.gameObject.SetActive(true);
+    //             }
+    //         }
+    //     }
+    // }
+
+    // public void PlanetCollision(Vector3 position)
+    // {
+    //     foreach (Planet planet in _mapPlanets)
+    //     {
+    //         for (int i = 0; i < _mapPlanets.Count; i++)
+    //         {
+    //             if (Vector3.Distance(position, _mapPlanets[i].transform.position) < 1f)
+    //             {
+    //                 if (planet.isFriendly)
+    //                 {
+    //                     position = new Vector3(Random.Range(-8f, -6f), Random.Range(-4f, 4f), -0.1f);
+    //                     planet.transform.position = position;
+    //                     planet.gameObject.SetActive(true);
+    //                 }
+
+    //                 if (planet.isEnemy)
+    //                 {
+    //                     position = new Vector3(Random.Range(6f, 8f), Random.Range(-4f, 4f), -0.1f);
+    //                     planet.transform.position = position;
+    //                     planet.gameObject.SetActive(true);
+    //                 }
+
+    //                 if (planet.isNeutral)
+    //                 {
+    //                     position = new Vector3(Random.Range(-8f, 8f), Random.Range(-4f, 4f), -0.1f);
+    //                     planet.transform.position = position;
+    //                     planet.gameObject.SetActive(true);
+    //                 }
+    //             }
+    //             else
+    //             {
+    //                 planet.transform.position = position;
+    //                 planet.gameObject.SetActive(true);
+    //             }
+    //         }
+    //     }
+    // }
 
     private bool CheckOverlap(Vector2 position, float radius)
     {
