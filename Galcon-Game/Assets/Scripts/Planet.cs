@@ -31,19 +31,16 @@ public class Planet : MonoBehaviour
    [SerializeField] private TextMeshPro _maxShipCounterText;
 
    // CR: if it's public, rename to 'public bool isSelected' (the '_' is used only for private fields).
-   public bool _isSelected; 
+   public bool _isSelected;
    private SpriteRenderer _spriteRenderer;
    private LineRenderer _lineRenderer;
    private float _timer;
+   private float _size = 1;
 
-   // CR: size doesn't need to be public ('Planet' is the only class that changes it).
-   //     Instead - make it private, and make a *public readonly property* so other classes can
-   //     access it.
-   //     
-   //     [SerializeField] private float _size;
-   //     public float size => _size;
-
-   public float _size = 1;
+   public bool isFriendly => planetColor == PlanetColor.Friendly;
+   public bool isEnemy => planetColor == PlanetColor.Enemy;
+   public bool isNeutral => planetColor == PlanetColor.Neutral;
+   public float size => _size;
 
    void Awake()
    {
@@ -55,7 +52,6 @@ public class Planet : MonoBehaviour
    private void Start()
    {
       _isSelected = false;
-      _spriteRenderer.color = _updateColor;
       _numberOfShips = _iniaitalShips;
       _shipPerSecond /= _size; // CR: bigger planet => less ships per second? (size *= 2 => shipPerSecond /= 2)
       UpdateNumOfShipsText();
@@ -64,10 +60,10 @@ public class Planet : MonoBehaviour
 
    private void Update()
    {
-      NewShipTimer();
+      UpdateShipTimer();
       UpdateDefineState();
       UpdateNumOfShipsText();
-      _spriteRenderer.color = _updateColor;
+
 
       if (_numberOfShips >= _maxShips)
       {
@@ -81,36 +77,20 @@ public class Planet : MonoBehaviour
       {
          case PlanetColor.Enemy:
             gameObject.name = "Enemy Planet";
-            GetComponent<EnemyAI>().enabled = true;
-            // CR: Like we talked about in the lesson, we can delete the '_updateColor' - we don't
-            //     need to have this state.
-            //     Just do _spriteRenderer.color = _enemyColor;
-            _updateColor = _enemyColor;
+            _spriteRenderer.color = _enemyColor;
             break;
          case PlanetColor.Friendly:
             gameObject.name = "Friendly Planet";
-            // CR: same idea of single-source-of-state here.
-            //     Instead of enabling/disabling EnemyAI according to 'PlanetColor' (which makes it possible to 'forget' to enable/disable, and have 
-            //     bugs where neutral/friendly planets have it enabled).
-            //      Just add the following line to EnemyAI.Update:
-            //     if (!_thisPlanet.isEnemy) {
-            //       return;
-            //     }
-            //
-            //     This means that EnemyAI is always enabled - it just won't do anything for neutral/friendly planets.
-            GetComponent<EnemyAI>().enabled = false;
-            _updateColor = _playerColor;
+            _spriteRenderer.color = _playerColor;
             break;
          case PlanetColor.Neutral:
             gameObject.name = "Neutral Planet";
-            GetComponent<EnemyAI>().enabled = false;
-            _updateColor = _neutralColor;
+            _spriteRenderer.color = _neutralColor;
             break;
       }
    }
 
-   // CR: rename to 'UpdateShipTimer' (You are not actually creating anything new here).
-   void NewShipTimer()
+   void UpdateShipTimer()
    {
       if (_timer > _shipPerSecond && _numberOfShips < _maxShips)
       {
@@ -222,14 +202,10 @@ public class Planet : MonoBehaviour
       }
    }
 
-   public bool isFriendly => planetColor == PlanetColor.Friendly;
-   public bool isEnemy => planetColor == PlanetColor.Enemy;
-   public bool isNeutral => planetColor == PlanetColor.Neutral;
-
    public void Hit(Ship ship)
    {
-      // CR: remove this line (the collider is defined in the prefab as isTrigger - so this line doesn't do anything).
-      GetComponent<CircleCollider2D>().isTrigger = true;
+
+      //GetComponent<CircleCollider2D>().isTrigger = true;
       if (_numberOfShips == 0)
       {
          _numberOfShips = 1;
@@ -250,29 +226,6 @@ public class Planet : MonoBehaviour
          _numberOfShips--;
       }
    }
-
-   // private void OnTriggerEnter2D(Collider2D col)
-   // {
-   //    if (col.gameObject.tag == "Planet")
-   //    {
-   //       Planet colPlanet = GetComponent<Planet>();
-   //       if (colPlanet.planetColor == PlanetColor.Friendly)
-   //       {
-   //          var position = new Vector3(Random.Range(-8f, -6f), Random.Range(-4f, 4f), -0.1f);
-   //          colPlanet.transform.position = position;
-   //       }
-   //       else if (colPlanet.planetColor == PlanetColor.Enemy)
-   //       {
-   //          var position = new Vector3(Random.Range(6f, 8f), Random.Range(-4f, 4f), -0.1f);
-   //          colPlanet.transform.position = position;
-   //       }
-   //       else if (colPlanet.planetColor == PlanetColor.Neutral)
-   //       {
-   //          var position = new Vector3(Random.Range(-8f, 8f), Random.Range(-4f, 4f), -0.1f);
-   //          colPlanet.transform.position = position;
-   //       }
-   //    }
-   // }
 
    // private void OnMouseExit()
    // {

@@ -21,6 +21,11 @@ public class EnemyAI : MonoBehaviour
 
     void Update()
     {
+        if (!_thisPlanet.isEnemy)
+        {
+            return;
+        }
+
         if (_thisPlanet._numberOfShips >= _thisPlanet._maxShips / 2)
         {
             TimeToNextAttack();

@@ -320,7 +320,7 @@ public class PlanetManager : MonoBehaviour
         Gizmos.color = Color.red;
         foreach (Planet planet in _mapPlanets)
         {
-            var size = planet._size;
+            var size = planet.size;
             var radius = size * 2 / (2 * Mathf.PI);
             Gizmos.DrawWireSphere(planet.transform.position, radius);
         }
