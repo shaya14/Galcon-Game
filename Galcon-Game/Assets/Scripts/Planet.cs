@@ -16,9 +16,9 @@ public class Planet : MonoBehaviour
    public PlanetColor planetColor;
 
    [SerializeField] private float _shipPerSecond;
-   [SerializeField] public int _iniaitalShips; // CR: change to private
+   [SerializeField] private int _iniaitalShips; 
    [SerializeField] public int _maxShips;
-   [HideInInspector] public int _numberOfShips; // CR: since it's public, rename to 'public int numberOfShips'.
+   [HideInInspector] public int numberOfShips; 
 
    [Header("Player Colors")]
    [SerializeField] private Color _playerColor;
@@ -29,9 +29,7 @@ public class Planet : MonoBehaviour
    [Header("UI Elements")]
    [SerializeField] private TextMeshPro _shipCounterText;
    [SerializeField] private TextMeshPro _maxShipCounterText;
-
-   // CR: if it's public, rename to 'public bool isSelected' (the '_' is used only for private fields).
-   public bool _isSelected;
+   public bool isSelected;
    private SpriteRenderer _spriteRenderer;
    private LineRenderer _lineRenderer;
    private float _timer;
@@ -44,15 +42,15 @@ public class Planet : MonoBehaviour
 
    void Awake()
    {
-      _shipCounterText.text = _numberOfShips.ToString();
+      _shipCounterText.text = numberOfShips.ToString();
       _maxShipCounterText.text = _maxShips.ToString();
       _neutralColor = GetComponent<SpriteRenderer>().color;
       _spriteRenderer = GetComponent<SpriteRenderer>();
    }
    private void Start()
    {
-      _isSelected = false;
-      _numberOfShips = _iniaitalShips;
+      isSelected = false;
+      numberOfShips = _iniaitalShips;
       _shipPerSecond /= _size; // CR: bigger planet => less ships per second? (size *= 2 => shipPerSecond /= 2)
       UpdateNumOfShipsText();
       _lineRenderer = GetComponent<LineRenderer>();
@@ -65,9 +63,9 @@ public class Planet : MonoBehaviour
       UpdateNumOfShipsText();
 
 
-      if (_numberOfShips >= _maxShips)
+      if (numberOfShips >= _maxShips)
       {
-         _numberOfShips = _maxShips;
+         numberOfShips = _maxShips;
       }
    }
 
@@ -92,14 +90,14 @@ public class Planet : MonoBehaviour
 
    void UpdateShipTimer()
    {
-      if (_timer > _shipPerSecond && _numberOfShips < _maxShips)
+      if (_timer > _shipPerSecond && numberOfShips < _maxShips)
       {
          _timer = 0;
          if (isFriendly || isEnemy)
          {
-            _numberOfShips++;
+            numberOfShips++;
          }
-         _shipCounterText.text = _numberOfShips.ToString();
+         _shipCounterText.text = numberOfShips.ToString();
       }
       else
       {
@@ -109,7 +107,7 @@ public class Planet : MonoBehaviour
 
    public void UpdateNumOfShipsText()
    {
-      _shipCounterText.text = _numberOfShips.ToString();
+      _shipCounterText.text = numberOfShips.ToString();
    }
 
    public void UpdateMaxNumOfShipsText()
@@ -145,7 +143,7 @@ public class Planet : MonoBehaviour
    {
       planetColor = color;
       _iniaitalShips = numOfShips;
-      _numberOfShips = _iniaitalShips;
+      numberOfShips = _iniaitalShips;
       _maxShips = maxShips;
       transform.localScale = new Vector3(size, size, size);
    }
@@ -161,21 +159,21 @@ public class Planet : MonoBehaviour
    {
       if (PlanetSize() <= 0.8f)
       {
-         _numberOfShips = Random.Range(8, 10);
+         numberOfShips = Random.Range(8, 10);
          _maxShips = Random.Range(12, 25);
-         _iniaitalShips = Random.Range(2, _numberOfShips);
+         _iniaitalShips = Random.Range(2, numberOfShips);
       }
       else if (PlanetSize() > 0.8f && PlanetSize() <= 1.2f)
       {
-         _numberOfShips = Random.Range(25, 35);
+         numberOfShips = Random.Range(25, 35);
          _maxShips = Random.Range(37, 60);
-         _iniaitalShips = Random.Range(10, _numberOfShips);
+         _iniaitalShips = Random.Range(10, numberOfShips);
       }
       else if (PlanetSize() > 1.2f)
       {
-         _numberOfShips = Random.Range(37, 50);
+         numberOfShips = Random.Range(37, 50);
          _maxShips = Random.Range(60, 100);
-         _iniaitalShips = Random.Range(35, _numberOfShips);
+         _iniaitalShips = Random.Range(35, numberOfShips);
       }
    }
 
@@ -184,21 +182,21 @@ public class Planet : MonoBehaviour
    {
       if (size <= 0.8f)
       {
-         _numberOfShips = Random.Range(8, 10);
+         numberOfShips = Random.Range(8, 10);
          _maxShips = Random.Range(12, 25);
-         _iniaitalShips = Random.Range(2, _numberOfShips);
+         _iniaitalShips = Random.Range(2, numberOfShips);
       }
       else if (size > 0.8f && PlanetSize() <= 1.2f)
       {
-         _numberOfShips = Random.Range(25, 35);
+         numberOfShips = Random.Range(25, 35);
          _maxShips = Random.Range(37, 60);
-         _iniaitalShips = Random.Range(10, _numberOfShips);
+         _iniaitalShips = Random.Range(10, numberOfShips);
       }
       else if (size > 1.2f)
       {
-         _numberOfShips = Random.Range(37, 50);
+         numberOfShips = Random.Range(37, 50);
          _maxShips = Random.Range(60, 100);
-         _iniaitalShips = Random.Range(35, _numberOfShips);
+         _iniaitalShips = Random.Range(35, numberOfShips);
       }
    }
 
@@ -206,24 +204,24 @@ public class Planet : MonoBehaviour
    {
 
       //GetComponent<CircleCollider2D>().isTrigger = true;
-      if (_numberOfShips == 0)
+      if (numberOfShips == 0)
       {
-         _numberOfShips = 1;
+         numberOfShips = 1;
          planetColor = ship._shipColor;
          PlanetManager.Instance.UpdateLists(ship._targetPlanet);
          if (planetColor != ship._shipColor)
          {
-            _numberOfShips--;
+            numberOfShips--;
          }
          return;
       }
       if (planetColor == ship._shipColor)
       {
-         _numberOfShips++;
+         numberOfShips++;
       }
       else
       {
-         _numberOfShips--;
+         numberOfShips--;
       }
    }
 

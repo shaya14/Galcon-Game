@@ -69,7 +69,7 @@ public class BoxSelection : MonoBehaviour
             if (planet == null) {
               continue;
             }
-            if (planet.isFriendly && !planet._isSelected)
+            if (planet.isFriendly && !planet.isSelected)
             {
                 planet.GetComponent<TargetGlow>().SetGlowOn();
                 PlanetManager.Instance._selectedPlanets.Add(planet);

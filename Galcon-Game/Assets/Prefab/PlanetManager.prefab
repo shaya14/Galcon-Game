@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &33704213056714470
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3709673227769287757}
+  - component: {fileID: 2943105046724601796}
+  m_Layer: 0
+  m_Name: PlanetManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3709673227769287757
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 33704213056714470}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.35639066, y: 0.021748189, z: -0.18683305}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2943105046724601796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 33704213056714470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 165e3fe0cd7e5d94995a2a06cd955144, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mapPlanet: {fileID: 901599458154512910, guid: 45c3211db3410f744ab7389d0e57b5d1, type: 3}
+  _attackingShips: {fileID: 9215633573012952669, guid: fc58eca5d4a511a4f93ef0efa92c5d83, type: 3}
+  _numberOfRandomPlanets: 0
+  _numberOfEnemyPlanets: 0
+  _numberOfFriendlyPlanets: 0
+  _numberOfNeutralPlanets: 0
+  _distanceBetweenPlanets: 0
+  _randomeGenetate: 0
+  _specificGenerate: 1
+  _mapPlanets: []
+  _selectedPlanets: []
+  _enemiesToSelect: []
+  _friendlyPlanets: []
+  _enemyPlanets: []
+  _neutralPlanets: []
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 0

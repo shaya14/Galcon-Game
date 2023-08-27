@@ -26,7 +26,7 @@ public class EnemyAI : MonoBehaviour
             return;
         }
 
-        if (_thisPlanet._numberOfShips >= _thisPlanet._maxShips / 2)
+        if (_thisPlanet.numberOfShips >= _thisPlanet._maxShips / 2)
         {
             TimeToNextAttack();
         }
@@ -86,7 +86,7 @@ public class EnemyAI : MonoBehaviour
 
         if (target.isEnemy)
         {
-            if (target._numberOfShips >= target._maxShips)
+            if (target.numberOfShips >= target._maxShips)
             {
                 return ChooseTarget();
             }
@@ -97,10 +97,10 @@ public class EnemyAI : MonoBehaviour
 
     private void InstatiateAttackingShips(Planet _target)
     {
-        _thisPlanet._numberOfShips /= 2;
+        _thisPlanet.numberOfShips /= 2;
         _thisPlanet.UpdateNumOfShipsText();
 
-        for (int i = 0; i < _thisPlanet._numberOfShips; i++)
+        for (int i = 0; i < _thisPlanet.numberOfShips; i++)
         {
             Ship ship = Instantiate<Ship>(_attackingShip, this.transform.position, Quaternion.identity);
             ship.ShipColor("red");

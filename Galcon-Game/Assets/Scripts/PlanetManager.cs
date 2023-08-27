@@ -46,6 +46,8 @@ public class PlanetManager : MonoBehaviour
             Destroy(this);
         }
 
+        //DontDestroyOnLoad(this);
+
         _mapPlanets = new List<Planet>();
 
         if (_randomeGenetate)
@@ -86,6 +88,11 @@ public class PlanetManager : MonoBehaviour
                     break;
             }
         }
+    }
+
+    void Update()
+    {
+        UIManager._instance.UpdateNumOfShips(_numberOfFriendlyPlanets, _numberOfEnemyPlanets, _numberOfNeutralPlanets);
     }
 
     public void ClearListsFromDifrentPlanet()
@@ -176,9 +183,9 @@ public class PlanetManager : MonoBehaviour
     {
         foreach (Planet planet in _selectedPlanets)
         {
-            planet._numberOfShips /= 2;
+            planet.numberOfShips /= 2;
             planet.UpdateNumOfShipsText();
-            for (int i = 0; i < planet._numberOfShips; i++)
+            for (int i = 0; i < planet.numberOfShips; i++)
             {
                 Ship ship = Instantiate<Ship>(_attackingShips, planet.transform.position, Quaternion.identity);
                 //_attackingShipsList.Add(ship);
@@ -188,7 +195,7 @@ public class PlanetManager : MonoBehaviour
 
         foreach (Planet planet in _selectedPlanets)
         {
-            planet._isSelected = false;
+            planet.isSelected = false;
             planet.GetComponent<TargetGlow>().SetGlowOff();
         }
         _selectedPlanets.Clear();
@@ -280,39 +287,60 @@ public class PlanetManager : MonoBehaviour
     // Checks collisions between _mapPlanets[planetIndex], and all the planets _mapPlanets[0,...,planetIndex-1].
     // So, HasCollisions(0) will not check anything, HasCollisions(1) will check for collisions between 0 and 1.
     // HasCollisions(2)  will check (0,2) and (1,2), ...
-    
-    private bool HasCollisions(int planetIndex) {
-      for (int i = 0; i < planetIndex; i++) {
-        if (Vector3.Distance(_mapPlanets[planetIndex].transform.position, _mapPlanets[i].transform.position) < _distanceBetweenPlanets) {
-          return true;
-        }
-      }
 
-      return false;
-    }
-
-    public void PlanetCollision() {
-      for (int i = 0; i < _mapPlanets.Count; i++) {
-        while (HasCollisions(i)) {
-
-          if (_mapPlanets[i].isFriendly) {
-            _mapPlanets[i].transform.position = new Vector3(Random.Range(-8f, -6f), Random.Range(-4f, 4f), -0.1f);
-          } else if (_mapPlanets[i].isEnemy) {
-            _mapPlanets[i].transform.position = new Vector3(Random.Range(6f, 8f), Random.Range(-4f, 4f), -0.1f);
-          } else if (_mapPlanets[i].isNeutral) {
-            _mapPlanets[i].transform.position = new Vector3(Random.Range(-8f, 8f), Random.Range(-4f, 4f), -0.1f);
-          } else {
-          }
-        }
-        _mapPlanets[i].gameObject.SetActive(true);
-      }
-    }
-    
-
-    private bool CheckOverlap(Vector2 position, float radius)
+    private bool HasCollisions(int planetIndex)
     {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(position, radius + 1f, layerMask);
-        return colliders.Length > 0;
+        for (int i = 0; i < planetIndex; i++)
+        {
+            if (Vector3.Distance(_mapPlanets[planetIndex].transform.position, _mapPlanets[i].transform.position) < _distanceBetweenPlanets)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public void PlanetCollision()
+    {
+        for (int i = 0; i < _mapPlanets.Count; i++)
+        {
+            while (HasCollisions(i))
+            {
+
+                if (_mapPlanets[i].isFriendly)
+                {
+                    _mapPlanets[i].transform.position = new Vector3(Random.Range(-8f, -6f), Random.Range(-4f, 4f), -0.1f);
+                }
+                else if (_mapPlanets[i].isEnemy)
+                {
+                    _mapPlanets[i].transform.position = new Vector3(Random.Range(6f, 8f), Random.Range(-4f, 4f), -0.1f);
+                }
+                else if (_mapPlanets[i].isNeutral)
+                {
+                    _mapPlanets[i].transform.position = new Vector3(Random.Range(-8f, 8f), Random.Range(-4f, 4f), -0.1f);
+                }
+                else
+                {
+                }
+            }
+            _mapPlanets[i].gameObject.SetActive(true);
+        }
+    }
+
+    public void SetNumberOfFriendlyShips(int num)
+    {
+        _numberOfFriendlyPlanets = num;
+    }
+
+    public void SetNumberOfEnemyShips(int num)
+    {
+        _numberOfEnemyPlanets = num;
+    }
+
+    public void SetNumberOfNeutralShips(int num)
+    {
+        _numberOfNeutralPlanets = num;
     }
 
     private void OnDrawGizmos()

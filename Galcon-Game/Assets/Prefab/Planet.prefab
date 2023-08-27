@@ -108,15 +108,14 @@ MonoBehaviour:
   _shipPerSecond: 1
   _iniaitalShips: 1
   _maxShips: 4
-  _numberOfShips: 2
+  numberOfShips: 0
   _playerColor: {r: 0.19496846, g: 0.4672732, b: 1, a: 0.88235295}
   _enemyColor: {r: 0.8018868, g: 0.20929745, b: 0.20929745, a: 0.88235295}
   _neutralColor: {r: 0, g: 0, b: 0, a: 0}
   _updateColor: {r: 0.19496846, g: 0.4672732, b: 1, a: 0.7019608}
   _shipCounterText: {fileID: 4496170600140630852}
   _maxShipCounterText: {fileID: 870008701822910839}
-  _isSelected: 0
-  _size: 1
+  isSelected: 0
 --- !u!114 &2130193576567537355
 MonoBehaviour:
   m_ObjectHideFlags: 0

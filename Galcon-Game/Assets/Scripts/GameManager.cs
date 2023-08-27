@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager _instance;
 
+
     private bool _isPaused = false;
     private bool _screenOn = false;
     void Start()
@@ -25,6 +26,10 @@ public class GameManager : MonoBehaviour
     }
     void Update()
     {
+        if (UIManager._instance.losePanel == null)
+        {
+            return;
+        }
         if (!_screenOn)
         {
             if (Input.GetKeyDown(KeyCode.Escape))
@@ -33,6 +38,7 @@ public class GameManager : MonoBehaviour
                 PauseScreen(_isPaused);
             }
         }
+
         if (PlanetManager.Instance != null)
         {
             if (PlanetManager.Instance._friendlyPlanets.Count <= 0)
@@ -75,8 +81,8 @@ public class GameManager : MonoBehaviour
     {
         StopTime();
         _screenOn = true;
-        UIManager._instance._losePanel.SetActive(true);
-        UIManager._instance._backgroundPanel.SetActive(true);
+        UIManager._instance.losePanel.SetActive(true);
+        UIManager._instance.backgroundPanel.SetActive(true);
         DisablePlanetFunctions();
     }
 
@@ -84,16 +90,16 @@ public class GameManager : MonoBehaviour
     {
         StopTime();
         _screenOn = true;
-        UIManager._instance._winPanel.SetActive(true);
-        UIManager._instance._backgroundPanel.SetActive(true);
+        UIManager._instance.winPanel.SetActive(true);
+        UIManager._instance.backgroundPanel.SetActive(true);
         DisablePlanetFunctions();
     }
 
     private void PauseScreen(bool isPaused)
     {
         StopTime();
-        UIManager._instance._pausePanel.SetActive(isPaused);
-        UIManager._instance._backgroundPanel.SetActive(isPaused);
+        UIManager._instance.pausePanel.SetActive(isPaused);
+        UIManager._instance.backgroundPanel.SetActive(isPaused);
         DisablePlanetFunctions();
         if (!isPaused)
         {
@@ -113,6 +119,27 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
     }
     #endregion
+
+    public void SliderValueChange()
+    {
+        PlanetManager.Instance.SetNumberOfFriendlyShips((int)UIManager._instance.numOfFriendlyShipsSlider.value);
+        PlanetManager.Instance.SetNumberOfEnemyShips((int)UIManager._instance.numOfEnemyShipsSlider.value);
+        PlanetManager.Instance.SetNumberOfNeutralShips((int)UIManager._instance.numOfNeutralShipsSlider.value);
+    }
+
+    public void StartGeneratedGame()
+    {
+        SceneManager.LoadScene("Game");
+        OnSceneLoaded(SceneManager.GetSceneByName("Game"));
+    }
+
+    public void OnSceneLoaded(Scene scene)
+    {
+        if (scene.name == "Game")
+        {
+            PlanetManager.Instance.InstantiateSpecPlanets();
+        }
+    }
 
     private void DisablePlanetFunctions()
     {
