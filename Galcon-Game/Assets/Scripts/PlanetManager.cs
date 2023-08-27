@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlanetManager : MonoBehaviour
@@ -17,7 +18,7 @@ public class PlanetManager : MonoBehaviour
 
     [Header("Game Mode")]
     [SerializeField] private bool _randomeGenetate;
-    [SerializeField] private bool _specificGenerate;
+    [SerializeField] public bool _specificGenerate;
 
     [Header("Map & Settings Planets")]
     [SerializeField] private List<Planet> _mapPlanets;
@@ -28,7 +29,6 @@ public class PlanetManager : MonoBehaviour
     public List<Planet> _friendlyPlanets;
     public List<Planet> _enemyPlanets;
     public List<Planet> _neutralPlanets;
-
     [SerializeField] LayerMask layerMask;
     private static PlanetManager _instance;
     public static PlanetManager Instance { get; set; }
@@ -45,16 +45,16 @@ public class PlanetManager : MonoBehaviour
         {
             Destroy(this);
         }
-
-        //DontDestroyOnLoad(this);
-
+        UpdateNumOfShips(GameSettings._instance.NumberOfFriendlyPlanets, GameSettings._instance.NumberOfEnemyPlanets, GameSettings._instance.NumberOfNeutralPlanets);
         _mapPlanets = new List<Planet>();
 
         if (_randomeGenetate)
         {
             InstatiatePlanets();
+            PlanetCollision();
             _specificGenerate = false;
         }
+
         if (_specificGenerate)
         {
             InstantiateSpecPlanets();
@@ -62,6 +62,18 @@ public class PlanetManager : MonoBehaviour
             _randomeGenetate = false;
         }
     }
+
+    // public void StartRandomeGame()
+    // {
+    //         InstatiatePlanets();
+    //         PlanetCollision();
+    // }
+
+    // public void StartGeneratedGame()
+    // {
+    //         InstantiateSpecPlanets();
+    //         PlanetCollision();
+    // }
     void Start()
     {
         _selectedPlanets = new List<Planet>();
@@ -92,7 +104,7 @@ public class PlanetManager : MonoBehaviour
 
     void Update()
     {
-        UIManager._instance.UpdateNumOfShips(_numberOfFriendlyPlanets, _numberOfEnemyPlanets, _numberOfNeutralPlanets);
+        //UIManager._instance.UpdateNumOfShips(_numberOfFriendlyPlanets, _numberOfEnemyPlanets, _numberOfNeutralPlanets);
     }
 
     public void ClearListsFromDifrentPlanet()
@@ -217,17 +229,17 @@ public class PlanetManager : MonoBehaviour
 
         foreach (Planet planet in _mapPlanets)
         {
-            var position = new Vector3(Random.Range(-8f, 8f), Random.Range(-4f, 4f), -0.1f);
-            for (int i = 0; i < _mapPlanets.Count; i++)
-            {
-                if (Vector3.Distance(position, _mapPlanets[i].transform.position) < 1.5f)
-                {
-                    position = new Vector3(Random.Range(-8f, 8f), Random.Range(-4f, 4f), -0.1f);
-                    i = 0;
-                }
-            }
-            planet.transform.position = position;
-            planet.gameObject.SetActive(true);
+            //var position = new Vector3(Random.Range(-8f, 8f), Random.Range(-4f, 4f), -0.1f);
+            // for (int i = 0; i < _mapPlanets.Count; i++)
+            // {
+            //     if (Vector3.Distance(position, _mapPlanets[i].transform.position) < 1.5f)
+            //     {
+            //         position = new Vector3(Random.Range(-8f, 8f), Random.Range(-4f, 4f), -0.1f);
+            //         i = 0;
+            //     }
+            // }
+            // planet.transform.position = position;
+            // planet.gameObject.SetActive(true);
             planet.PlanetSize();
             planet.PlanetSetteings();
             planet.RandomizePlanet();
@@ -328,31 +340,24 @@ public class PlanetManager : MonoBehaviour
         }
     }
 
-    public void SetNumberOfFriendlyShips(int num)
+    public void UpdateNumOfShips(int numberOfFriendlyShips, int numberOfEnemyShips, int numberOfNeutralShips)
     {
-        _numberOfFriendlyPlanets = num;
+        _specificGenerate = true;
+        _numberOfFriendlyPlanets = numberOfFriendlyShips;
+        _numberOfEnemyPlanets = numberOfEnemyShips;
+        _numberOfNeutralPlanets = numberOfNeutralShips;
     }
 
-    public void SetNumberOfEnemyShips(int num)
-    {
-        _numberOfEnemyPlanets = num;
-    }
-
-    public void SetNumberOfNeutralShips(int num)
-    {
-        _numberOfNeutralPlanets = num;
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        foreach (Planet planet in _mapPlanets)
-        {
-            var size = planet.size;
-            var radius = size * 2 / (2 * Mathf.PI);
-            Gizmos.DrawWireSphere(planet.transform.position, radius);
-        }
-    }
+    // private void OnDrawGizmos()
+    // {
+    //     Gizmos.color = Color.red;
+    //     foreach (Planet planet in _mapPlanets)
+    //     {
+    //         var size = planet.size;
+    //         var radius = size * 2 / (2 * Mathf.PI);
+    //         Gizmos.DrawWireSphere(planet.transform.position, radius);
+    //     }
+    // }
 
     // public void DrawLinesToTarget(Planet targetPlanet)
     // {

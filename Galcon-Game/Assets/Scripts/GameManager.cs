@@ -122,23 +122,18 @@ public class GameManager : MonoBehaviour
 
     public void SliderValueChange()
     {
-        PlanetManager.Instance.SetNumberOfFriendlyShips((int)UIManager._instance.numOfFriendlyShipsSlider.value);
-        PlanetManager.Instance.SetNumberOfEnemyShips((int)UIManager._instance.numOfEnemyShipsSlider.value);
-        PlanetManager.Instance.SetNumberOfNeutralShips((int)UIManager._instance.numOfNeutralShipsSlider.value);
+        // PlanetManager.Instance.SetNumberOfFriendlyShips((int)UIManager._instance.numOfFriendlyShipsSlider.value);
+        // PlanetManager.Instance.SetNumberOfEnemyShips((int)UIManager._instance.numOfEnemyShipsSlider.value);
+        // PlanetManager.Instance.SetNumberOfNeutralShips((int)UIManager._instance.numOfNeutralShipsSlider.value);
+
+        GameSettings._instance.NumberOfFriendlyPlanets = (int)UIManager._instance.numOfFriendlyShipsSlider.value;
+        GameSettings._instance.NumberOfEnemyPlanets = (int)UIManager._instance.numOfEnemyShipsSlider.value;
+        GameSettings._instance.NumberOfNeutralPlanets = (int)UIManager._instance.numOfNeutralShipsSlider.value;
     }
 
     public void StartGeneratedGame()
     {
         SceneManager.LoadScene("Game");
-        OnSceneLoaded(SceneManager.GetSceneByName("Game"));
-    }
-
-    public void OnSceneLoaded(Scene scene)
-    {
-        if (scene.name == "Game")
-        {
-            PlanetManager.Instance.InstantiateSpecPlanets();
-        }
     }
 
     private void DisablePlanetFunctions()
