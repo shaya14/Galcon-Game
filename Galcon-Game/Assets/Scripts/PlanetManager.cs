@@ -13,6 +13,7 @@ public class PlanetManager : MonoBehaviour
     [SerializeField] private int _numberOfEnemyPlanets;
     [SerializeField] private int _numberOfFriendlyPlanets;
     [SerializeField] private int _numberOfNeutralPlanets;
+    [SerializeField] private float _distanceBetweenPlanets = 2f;
 
     [Header("Game Mode")]
     [SerializeField] private bool _randomeGenetate;
@@ -54,9 +55,7 @@ public class PlanetManager : MonoBehaviour
         }
         if (_specificGenerate)
         {
-            //InstatiateSpecificPlanets();
             InstantiateSpecPlanets();
-            //PlanetCollisionWithCollider();
             PlanetCollision();
             _randomeGenetate = false;
         }
@@ -272,29 +271,6 @@ public class PlanetManager : MonoBehaviour
         InstatiateFor(_numberOfNeutralPlanets, position, PlanetColor.Neutral);
     }
 
-    // public void InstatiateSpecificPlanets()
-    // {
-    //     for (int i = 0; i < _numberOfNeutralPlanets; i++)
-    //     {
-    //         var position = new Vector3(Random.Range(-8f, 8f), Random.Range(-4f, 4f), -0.1f);
-    //         if (!CheckOverlap(position, 1.5f))
-    //         {
-    //             position = new Vector3(Random.Range(-8f, 8f), Random.Range(-4f, 4f), -0.1f);
-    //         }
-    //         else
-    //         {
-    //             i--;
-    //         }
-    //         var planet = Instantiate<Planet>(_mapPlanet, position, Quaternion.identity);
-    //         var size = Random.Range(0.6f, 1.5f);
-    //         planet.SetSettings(PlanetColor.Neutral, size);
-    //         planet.UpdateMaxNumOfShipsText();
-    //         //PlanetCollision(position);
-    //         planet.gameObject.SetActive(false);
-    //         _mapPlanets.Add(planet);
-    //     }
-    // }
-
     public void PlanetCollisionWithCollider()
     {
         foreach (Planet planet in _mapPlanets)
@@ -376,7 +352,7 @@ public class PlanetManager : MonoBehaviour
     // HasCollisions(2)  will check (0,2) and (1,2), ...
     private bool HasCollisions(int planetIndex) {
       for (int i = 0; i < planetIndex; i++) {
-        if (Vector3.Distance(_mapPlanets[planetIndex].transform.position, _mapPlanets[i].transform.position) < 1) {
+        if (Vector3.Distance(_mapPlanets[planetIndex].transform.position, _mapPlanets[i].transform.position) < _distanceBetweenPlanets) {
           return true;
         }
       }
@@ -401,90 +377,6 @@ public class PlanetManager : MonoBehaviour
       }
     }
     
-    // public void PlanetCollision()
-    // {
-    //     foreach (Planet planet in _mapPlanets)
-    //     {
-    //         for (int i = 0; i < _mapPlanets.Count; i++)
-    //         {
-    //             if (planet.isFriendly)
-    //             {
-    //                 var position = new Vector3(Random.Range(-8f, -6f), Random.Range(-4f, 4f), -0.1f);
-    //                 if (Vector3.Distance(position, _mapPlanets[i].transform.position) < 1f)
-    //                 {
-    //                     position = new Vector3(Random.Range(-8f, -6f), Random.Range(-4f, 4f), -0.1f);
-    //                     i = -1;
-    //                 }
-    //                 planet.transform.position = position;
-    //                 planet.gameObject.SetActive(true);
-    //             }
-
-    //             if (planet.isEnemy)
-    //             {
-    //                 var position = new Vector3(Random.Range(6f, 8f), Random.Range(-4f, 4f), -0.1f);
-
-    //                 if (Vector3.Distance(position, _mapPlanets[i].transform.position) < 1f)
-    //                 {
-    //                     position = new Vector3(Random.Range(6f, 8f), Random.Range(-4f, 4f), -0.1f);
-    //                     i = -1;
-    //                 }
-    //                 planet.transform.position = position;
-    //                 planet.gameObject.SetActive(true);
-    //             }
-
-    //             if (planet.isNeutral)
-    //             {
-    //                 var position = new Vector3(Random.Range(-8f, 8f), Random.Range(-4f, 4f), -0.1f);
-
-    //                 if (Vector3.Distance(position, _mapPlanets[i].transform.position) < 1f)
-    //                 {
-    //                     position = new Vector3(Random.Range(-8f, 8f), Random.Range(-4f, 4f), -0.1f);
-    //                     i = -1;
-    //                 }
-    //                 planet.transform.position = position;
-    //                 planet.gameObject.SetActive(true);
-    //             }
-    //         }
-    //     }
-    // }
-
-    // public void PlanetCollision(Vector3 position)
-    // {
-    //     foreach (Planet planet in _mapPlanets)
-    //     {
-    //         for (int i = 0; i < _mapPlanets.Count; i++)
-    //         {
-    //             if (Vector3.Distance(position, _mapPlanets[i].transform.position) < 1f)
-    //             {
-    //                 if (planet.isFriendly)
-    //                 {
-    //                     position = new Vector3(Random.Range(-8f, -6f), Random.Range(-4f, 4f), -0.1f);
-    //                     planet.transform.position = position;
-    //                     planet.gameObject.SetActive(true);
-    //                 }
-
-    //                 if (planet.isEnemy)
-    //                 {
-    //                     position = new Vector3(Random.Range(6f, 8f), Random.Range(-4f, 4f), -0.1f);
-    //                     planet.transform.position = position;
-    //                     planet.gameObject.SetActive(true);
-    //                 }
-
-    //                 if (planet.isNeutral)
-    //                 {
-    //                     position = new Vector3(Random.Range(-8f, 8f), Random.Range(-4f, 4f), -0.1f);
-    //                     planet.transform.position = position;
-    //                     planet.gameObject.SetActive(true);
-    //                 }
-    //             }
-    //             else
-    //             {
-    //                 planet.transform.position = position;
-    //                 planet.gameObject.SetActive(true);
-    //             }
-    //         }
-    //     }
-    // }
 
     private bool CheckOverlap(Vector2 position, float radius)
     {
