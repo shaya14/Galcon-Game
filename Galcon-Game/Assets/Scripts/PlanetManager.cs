@@ -227,7 +227,6 @@ public class PlanetManager : MonoBehaviour
             planet.UpdateMaxNumOfShipsText();
             planet.UpdateNumOfShipsText();
             planet.UpdateDefineState();
-            //Debug.Log("Planet " + planet.name + " created " + planet._size);
         }
     }
 
@@ -271,75 +270,6 @@ public class PlanetManager : MonoBehaviour
         InstatiateFor(_numberOfNeutralPlanets, position, PlanetColor.Neutral);
     }
 
-    public void PlanetCollisionWithCollider()
-    {
-        foreach (Planet planet in _mapPlanets)
-        {
-            for (int i = 0; i < _mapPlanets.Count; i++)
-            {
-                if (planet.isFriendly)
-                {
-                    var position = new Vector3(Random.Range(-8f, -6f), Random.Range(-4f, 4f), -0.1f);
-                    var size = 1.5f;
-                    var radius = size * 2 / (2 * Mathf.PI);
-                    if (!CheckOverlap(position, radius))
-                    {
-                        planet.transform.position = position;
-                        planet.gameObject.SetActive(true);
-                    }
-                    else
-                    {
-                        i--;
-                    }
-                }
-                else
-                {
-                    continue;
-                }
-
-                if (planet.isEnemy)
-                {
-                    var position = new Vector3(Random.Range(6f, 8f), Random.Range(-4f, 4f), -0.1f);
-                    var size = 1.5f;
-                    var radius = size * 2 / (2 * Mathf.PI);
-                    if (!CheckOverlap(position, radius))
-                    {
-                        planet.transform.position = position;
-                        planet.gameObject.SetActive(true);
-                    }
-                    else
-                    {
-                        i--;
-                    }
-                }
-                else
-                {
-                    continue;
-                }
-
-                if (planet.isNeutral)
-                {
-                    var position = new Vector3(Random.Range(-8f, 8f), Random.Range(-4f, 4f), -0.1f);
-                    var size = 1.5f;
-                    var radius = size * 2 / (2 * Mathf.PI);
-                    if (!CheckOverlap(position, radius))
-                    {
-                        planet.transform.position = position;
-                        planet.gameObject.SetActive(true);
-                    }
-                    else
-                    {
-                        i--;
-                    }
-                }
-                else
-                {
-                    continue;
-                }
-            }
-        }
-    }
-
     // CR: note also, that 'distance < 1' is not the correct check (because 'distance' is the distance between the CENTERS of the planets).
     //     larger planets need to be further away from each other, so you probably need to add 'localScale' or 'size' or similar to your check
 
@@ -350,6 +280,7 @@ public class PlanetManager : MonoBehaviour
     // Checks collisions between _mapPlanets[planetIndex], and all the planets _mapPlanets[0,...,planetIndex-1].
     // So, HasCollisions(0) will not check anything, HasCollisions(1) will check for collisions between 0 and 1.
     // HasCollisions(2)  will check (0,2) and (1,2), ...
+    
     private bool HasCollisions(int planetIndex) {
       for (int i = 0; i < planetIndex; i++) {
         if (Vector3.Distance(_mapPlanets[planetIndex].transform.position, _mapPlanets[i].transform.position) < _distanceBetweenPlanets) {
