@@ -1999,7 +1999,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!120 &994589461
 LineRenderer:
   serializedVersion: 2
@@ -2116,6 +2116,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc4aa6b0b04206545a3e165fcd330345, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _isBoxSelected: 0
 --- !u!4 &994589463
 Transform:
   m_ObjectHideFlags: 0

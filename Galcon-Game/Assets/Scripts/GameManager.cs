@@ -7,8 +7,6 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager _instance;
-
-
     private bool _isPaused = false;
     private bool _screenOn = false;
     void Start()
