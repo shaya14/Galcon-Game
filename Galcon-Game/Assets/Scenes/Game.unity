@@ -3784,11 +3784,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2943105046724601796, guid: c21138694c486b24b836bbaf0ba3d90a, type: 3}
       propertyPath: _custonMap
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2943105046724601796, guid: c21138694c486b24b836bbaf0ba3d90a, type: 3}
       propertyPath: _randomMap
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2943105046724601796, guid: c21138694c486b24b836bbaf0ba3d90a, type: 3}
       propertyPath: _randomeGenetate
@@ -3800,11 +3800,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2943105046724601796, guid: c21138694c486b24b836bbaf0ba3d90a, type: 3}
       propertyPath: _numberOfEnemyPlanets
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2943105046724601796, guid: c21138694c486b24b836bbaf0ba3d90a, type: 3}
       propertyPath: _numberOfRandomPlanets
-      value: 15
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2943105046724601796, guid: c21138694c486b24b836bbaf0ba3d90a, type: 3}
       propertyPath: _distanceBetweenPlanets
@@ -3812,11 +3812,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2943105046724601796, guid: c21138694c486b24b836bbaf0ba3d90a, type: 3}
       propertyPath: _numberOfNeutralPlanets
-      value: 12
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 2943105046724601796, guid: c21138694c486b24b836bbaf0ba3d90a, type: 3}
       propertyPath: _numberOfFriendlyPlanets
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3709673227769287757, guid: c21138694c486b24b836bbaf0ba3d90a, type: 3}
       propertyPath: m_RootOrder

@@ -11,7 +11,6 @@ public class EnemyAI : MonoBehaviour
     private float _attackRate = 5f;
     private float _timer;
     public bool _hasTargets = true;
-
     private Planet _thisPlanet;
 
     void Start()
@@ -104,7 +103,9 @@ public class EnemyAI : MonoBehaviour
         {
             Ship ship = Instantiate<Ship>(_attackingShip, this.transform.position, Quaternion.identity);
             ship.ShipColor("red");
-            //_target.GetComponent<CircleCollider2D>().isTrigger = true;
+            PlanetManager.Instance.NewList(PlanetManager.Instance._enemyAttackingShipsForce);
+            PlanetManager.Instance._enemyAttackingShipsForce.Add(ship);
+            _target.GetComponent<CircleCollider2D>().isTrigger = true;
             ship._targetPlanet = _target;
         }
     }

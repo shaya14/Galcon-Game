@@ -33,7 +33,20 @@ public class PlanetManager : MonoBehaviour
     private static PlanetManager _instance;
     public static PlanetManager Instance { get; set; }
 
-    //public List<Ship> _attackingShipsList;
+    public List<Ship> _friendlyAttackingShipsForce;
+    public List<Ship> _enemyAttackingShipsForce;
+
+    public void NewList(List<Ship> list)
+    {
+        list = new List<Ship>();
+    }
+    public void DeleteList(List<Ship> list)
+    {
+        foreach (Ship ship in list)
+        {
+            Destroy(ship.gameObject);
+        }
+    }
 
     void Awake()
     {
@@ -81,7 +94,6 @@ public class PlanetManager : MonoBehaviour
         _enemiesToSelect = new List<Planet>();
         _friendlyPlanets = new List<Planet>();
         _enemyPlanets = new List<Planet>();
-        //_attackingShipsList = new List<Ship>();
 
         var planets = FindObjectsOfType<Planet>();
         foreach (Planet planet in planets)
@@ -141,7 +153,7 @@ public class PlanetManager : MonoBehaviour
             for (int i = 0; i < planet.numberOfShips; i++)
             {
                 Ship ship = Instantiate<Ship>(_attackingShips, planet.transform.position, Quaternion.identity);
-                //_attackingShipsList.Add(ship);
+                _friendlyAttackingShipsForce.Add(ship);
                 ship.ShipColor("blue");
             }
         }

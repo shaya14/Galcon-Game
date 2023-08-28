@@ -24,7 +24,6 @@ public class Planet : MonoBehaviour
    [SerializeField] private Color _playerColor;
    [SerializeField] private Color _enemyColor;
    [SerializeField] private Color _neutralColor;
-   [HideInInspector] public Color _updateColor;
 
    [Header("UI Elements")]
    [SerializeField] private TextMeshPro _shipCounterText;
@@ -219,15 +218,15 @@ public class Planet : MonoBehaviour
       if (numberOfShips == 0)
       {
          numberOfShips = 1;
-         planetColor = ship._shipColor;
+         planetColor = ship.shipColor;
          PlanetManager.Instance.UpdateLists(ship._targetPlanet);
-         if (planetColor != ship._shipColor)
+         if (planetColor != ship.shipColor)
          {
             numberOfShips--;
          }
          return;
       }
-      if (planetColor == ship._shipColor)
+      if (planetColor == ship.shipColor)
       {
          numberOfShips++;
       }

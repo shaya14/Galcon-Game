@@ -27,8 +27,8 @@ public class Ship : MonoBehaviour
     //     private PlanetColor _shipColor;
     //     public PlanetColor shipColor => _shipColor;
 
-    public PlanetColor _shipColor;
-    public bool _imEnemyShip; // CR: unused, delete
+    private PlanetColor _shipColor;
+    public PlanetColor shipColor => _shipColor;
 
     [SerializeField] private Color _playerColor;
     [SerializeField] private Color _enemyColor;
@@ -63,14 +63,28 @@ public class Ship : MonoBehaviour
     {
         if (collision.gameObject.GetInstanceID() == _targetPlanet.gameObject.GetInstanceID())
         {
-            // PlanetManager.Instance._attackingShipsList.Remove(this);
+            if (this.shipColor == PlanetColor.Friendly)
+            {
+                PlanetManager.Instance._friendlyAttackingShipsForce.Remove(this);
+                if (PlanetManager.Instance._friendlyAttackingShipsForce.Count <= 0)
+                {
+                    _targetPlanet.GetComponent<CircleCollider2D>().isTrigger = false;
+                    PlanetManager.Instance.DeleteList(PlanetManager.Instance._friendlyAttackingShipsForce);
+                }
+            }
+            else if (this.shipColor == PlanetColor.Enemy)
+            {
+                PlanetManager.Instance._enemyAttackingShipsForce.Remove(this);
+                if (PlanetManager.Instance._enemyAttackingShipsForce.Count <= 0)
+                {
+                    _targetPlanet.GetComponent<CircleCollider2D>().isTrigger = false;
+                    PlanetManager.Instance.DeleteList(PlanetManager.Instance._enemyAttackingShipsForce);
+                }
+            }
 
-            // if(PlanetManager.Instance._attackingShipsList.Count <= 0)
-            // {
-            //     _targetPlanet.GetComponent<CircleCollider2D>().isTrigger = false;
-            // }
+
             _targetPlanet.Hit(this);
-            
+
             if (_targetPlanet.planetColor != _shipColor)
             {
                 ParticleSystem blast = Instantiate(_BlastParticlePrefab, transform.position, Quaternion.identity);
