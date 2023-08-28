@@ -11,8 +11,7 @@ Material:
   m_Shader: {fileID: 4800000, guid: 68e6db2ebdc24f95958faec2be5558d6, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords:
-  - GLOW_ON
+  m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -167,11 +166,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
-  m_Name: kenvector_future_thin SDF
+  m_Name: kenvector_NOFX
   m_EditorClassIdentifier: 
-  hashCode: 675759958
+  hashCode: 1638250105
   material: {fileID: -3820883190095739030}
-  materialHashCode: -1605956682
+  materialHashCode: 10177593
   m_Version: 1.1.0
   m_SourceFontFileGUID: bbcd9674058cd5948b5860ff9b5bf755
   m_SourceFontFile_EditorRef: {fileID: 12800000, guid: bbcd9674058cd5948b5860ff9b5bf755, type: 3}
