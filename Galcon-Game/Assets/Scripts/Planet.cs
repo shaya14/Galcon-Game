@@ -105,6 +105,7 @@ public class Planet : MonoBehaviour
       }
    }
 
+   #region Update Texts
    public void UpdateNumOfShipsText()
    {
       _shipCounterText.text = numberOfShips.ToString();
@@ -114,14 +115,8 @@ public class Planet : MonoBehaviour
    {
       _maxShipCounterText.text = _maxShips.ToString();
    }
-
-   public float PlanetSize()
-   {
-      _size = Random.Range(0.6f, 1.6f);
-      transform.localScale = new Vector3(_size, _size, _size);
-      return _size;
-   }
-
+   #endregion
+   #region Planet Settings
    public void RandomizePlanet()
    {
       int randomColor = Random.Range(0, 3);
@@ -154,6 +149,7 @@ public class Planet : MonoBehaviour
       return planetColor;
    }
 
+
    public void SetSettings(PlanetColor color, int numOfShips, int maxShips, float size)
    {
       planetColor = color;
@@ -162,14 +158,12 @@ public class Planet : MonoBehaviour
       _maxShips = maxShips;
       transform.localScale = new Vector3(size, size, size);
    }
-
    public void SetSettings(PlanetColor color, float size)
    {
       planetColor = color;
       transform.localScale = new Vector3(size, size, size);
       PlanetSetteings(size);
    }
-
    public void PlanetSetteings()
    {
       if (PlanetSize() <= 0.8f)
@@ -191,8 +185,6 @@ public class Planet : MonoBehaviour
          _iniaitalShips = Random.Range(35, numberOfShips);
       }
    }
-
-
    public void PlanetSetteings(float size)
    {
       if (size <= 0.8f)
@@ -214,10 +206,15 @@ public class Planet : MonoBehaviour
          _iniaitalShips = Random.Range(35, numberOfShips);
       }
    }
-
+   public float PlanetSize()
+   {
+      _size = Random.Range(0.6f, 1.6f);
+      transform.localScale = new Vector3(_size, _size, _size);
+      return _size;
+   }
+   #endregion
    public void Hit(Ship ship)
    {
-
       //GetComponent<CircleCollider2D>().isTrigger = true;
       if (numberOfShips == 0)
       {

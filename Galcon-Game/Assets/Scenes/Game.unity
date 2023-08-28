@@ -569,6 +569,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88a61b0d8290f3849a4f27251420e71b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _isEnable: 1
 --- !u!1 &221818625
 GameObject:
   m_ObjectHideFlags: 0
@@ -4198,11 +4199,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2943105046724601796, guid: c21138694c486b24b836bbaf0ba3d90a, type: 3}
       propertyPath: _custonMap
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2943105046724601796, guid: c21138694c486b24b836bbaf0ba3d90a, type: 3}
       propertyPath: _randomMap
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2943105046724601796, guid: c21138694c486b24b836bbaf0ba3d90a, type: 3}
       propertyPath: _randomeGenetate

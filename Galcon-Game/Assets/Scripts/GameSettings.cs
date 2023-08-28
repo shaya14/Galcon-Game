@@ -25,13 +25,15 @@ public class GameSettings : MonoBehaviour
     //public string MapMode { get; set; }
 
 
-    public static GameSettings _instance;
+    private static GameSettings _instance;
+
+    public static GameSettings Instance { get; set; }
 
     private void Awake()
     {
-        if (_instance == null)
+        if (Instance == null)
         {
-            _instance = this;
+            Instance = this;
             DontDestroyOnLoad(this);
         }
         else

@@ -13,6 +13,8 @@ public class TargetGlow : MonoBehaviour
     public bool _isSelected; // When a planet is hovered over, it will glow until the mouse exits the planet
     public bool _glowingEnabled = false;
 
+    public bool _isEnable = true;
+
     private void Awake()
     {
         _glowingEnabled = false;
@@ -20,47 +22,50 @@ public class TargetGlow : MonoBehaviour
 
     private void OnMouseEnter()
     {
-        _isSelected = !_isSelected;
-        _maxShipTextObject.SetActive(true);
-        if (GetComponent<Planet>().isFriendly)
+        if (_isEnable)
         {
-            if (!_isClicked)
+            _isSelected = !_isSelected;
+            _maxShipTextObject.SetActive(true);
+            if (GetComponent<Planet>().isFriendly)
             {
-                if (_isSelected)
+                if (!_isClicked)
                 {
-                    _selectedGlow.SetActive(true);
-                    foreach (Planet targetPlanet in PlanetManager.Instance._selectedPlanets)
+                    if (_isSelected)
                     {
-                        if (targetPlanet != this && targetPlanet.GetComponent<TargetGlow>()._isSelected)
+                        _selectedGlow.SetActive(true);
+                        foreach (Planet targetPlanet in PlanetManager.Instance._selectedPlanets)
                         {
-                            DrawLines._instance.DrawFewLines(targetPlanet.transform, this.transform);
+                            if (targetPlanet != this && targetPlanet.GetComponent<TargetGlow>()._isSelected)
+                            {
+                                DrawLines._instance.DrawFewLines(targetPlanet.transform, this.transform);
+                            }
                         }
                     }
-                }
-                else
-                {
-                    _selectedGlow.SetActive(false);
+                    else
+                    {
+                        _selectedGlow.SetActive(false);
+                    }
                 }
             }
-        }
-        else if (GetComponent<Planet>().isEnemy || GetComponent<Planet>().isNeutral)
-        {
-            if (_glowingEnabled)
+            else if (GetComponent<Planet>().isEnemy || GetComponent<Planet>().isNeutral)
             {
-                if (_isSelected)
+                if (_glowingEnabled)
                 {
-                    _selectedGlow.SetActive(true);
-                    foreach (Planet targetPlanet in PlanetManager.Instance._selectedPlanets)
+                    if (_isSelected)
                     {
-                        if (targetPlanet != this && targetPlanet.GetComponent<TargetGlow>()._isSelected)
+                        _selectedGlow.SetActive(true);
+                        foreach (Planet targetPlanet in PlanetManager.Instance._selectedPlanets)
                         {
-                            DrawLines._instance.DrawFewLines(targetPlanet.transform, this.transform);
+                            if (targetPlanet != this && targetPlanet.GetComponent<TargetGlow>()._isSelected)
+                            {
+                                DrawLines._instance.DrawFewLines(targetPlanet.transform, this.transform);
+                            }
                         }
                     }
-                }
-                else
-                {
-                    _selectedGlow.SetActive(false);
+                    else
+                    {
+                        _selectedGlow.SetActive(false);
+                    }
                 }
             }
         }

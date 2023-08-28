@@ -46,16 +46,16 @@ public class PlanetManager : MonoBehaviour
             Destroy(this);
         }
         _mapPlanets = new List<Planet>();
-        if (GameSettings._instance != null)
+        if (GameSettings.Instance != null)
         {
-            MapMode(GameSettings._instance.MapMode());
+            MapMode(GameSettings.Instance.MapMode());
         }
 
         if (_randomMap)
         {
-            if (GameSettings._instance != null)
+            if (GameSettings.Instance != null)
             {
-                UpdateNumOfRandomShips(GameSettings._instance.NumberOfRandomPlanets);
+                UpdateNumOfRandomShips(GameSettings.Instance.NumberOfRandomPlanets);
             }
 
             InstatiatePlanets();
@@ -64,9 +64,11 @@ public class PlanetManager : MonoBehaviour
 
         if (_custonMap)
         {
-            if (GameSettings._instance != null)
+            if (GameSettings.Instance != null)
             {
-                UpdateNumOfShips(GameSettings._instance.NumberOfFriendlyPlanets, GameSettings._instance.NumberOfEnemyPlanets, GameSettings._instance.NumberOfNeutralPlanets);
+                UpdateNumOfShips(GameSettings.Instance.NumberOfFriendlyPlanets, 
+                GameSettings.Instance.NumberOfEnemyPlanets, 
+                GameSettings.Instance.NumberOfNeutralPlanets);
             }
             InstantiateSpecPlanets();
             PlanetCollision();
@@ -97,61 +99,6 @@ public class PlanetManager : MonoBehaviour
                     _enemiesToSelect.Add(planet);
                     _neutralPlanets.Add(planet);
                     break;
-            }
-        }
-    }
-
-    public void ClearListsFromDifrentPlanet()
-    {
-        foreach (Planet planet in _friendlyPlanets)
-        {
-            if (planet.planetColor != PlanetColor.Friendly)
-            {
-                if (planet.planetColor == PlanetColor.Enemy)
-                {
-                    _enemyPlanets.Add(planet);
-                    _enemiesToSelect.Add(planet);
-                }
-                _friendlyPlanets.Remove(planet);
-            }
-        }
-
-        foreach (Planet planet in _enemyPlanets)
-        {
-            if (planet.planetColor != PlanetColor.Enemy)
-            {
-                if (planet.planetColor == PlanetColor.Friendly)
-                {
-                    _friendlyPlanets.Add(planet);
-                }
-                _enemyPlanets.Remove(planet);
-                _enemiesToSelect.Remove(planet);
-            }
-        }
-
-        foreach (Planet planet in _neutralPlanets)
-        {
-            if (planet.planetColor != PlanetColor.Neutral)
-            {
-                if (planet.planetColor == PlanetColor.Friendly)
-                {
-                    _friendlyPlanets.Add(planet);
-                }
-                else if (planet.planetColor == PlanetColor.Enemy)
-                {
-                    _enemyPlanets.Add(planet);
-                    _enemiesToSelect.Add(planet);
-                }
-                _neutralPlanets.Remove(planet);
-                _enemiesToSelect.Remove(planet);
-            }
-        }
-
-        foreach (Planet planet in _enemiesToSelect)
-        {
-            if (planet.planetColor != PlanetColor.Enemy && planet.planetColor != PlanetColor.Neutral)
-            {
-                _enemiesToSelect.Remove(planet);
             }
         }
     }
@@ -212,7 +159,20 @@ public class PlanetManager : MonoBehaviour
         }
     }
 
-    public void InstatiatePlanets()
+    #region Instatiate Planets
+    public void InstantiateSpecPlanets()
+    {
+        var position = new Vector3(Random.Range(6f, 8f), Random.Range(-4f, 4f), -0.1f);
+        var size = 1.5f;
+        InstatiateFor(_numberOfEnemyPlanets, position, PlanetColor.Enemy, 80, 100, size);
+
+        position = new Vector3(Random.Range(-8f, -6f), Random.Range(-4f, 4f), -0.1f);
+        InstatiateFor(_numberOfFriendlyPlanets, position, PlanetColor.Friendly, 80, 100, size);
+
+        position = new Vector3(Random.Range(-8f, 8f), Random.Range(-4f, 4f), -0.1f);
+        InstatiateFor(_numberOfNeutralPlanets, position, PlanetColor.Neutral);
+    }
+    public void InstatiatePlanets() // Random Map
     {
         for (int i = 0; i < _numberOfRandomPlanets; i++)
         {
@@ -232,7 +192,7 @@ public class PlanetManager : MonoBehaviour
         }
     }
 
-    private void InstatiateFor(float numOfPlanets, Vector3 position, PlanetColor planetColor, int numOfShips, int maxShips, float size)
+    private void InstatiateFor(float numOfPlanets, Vector3 position, PlanetColor planetColor, int numOfShips, int maxShips, float size) // Spec Map Enemy/Friendly
     {
         for (int i = 0; i < numOfPlanets; i++)
         {
@@ -245,7 +205,7 @@ public class PlanetManager : MonoBehaviour
         }
     }
 
-    private void InstatiateFor(float numOfPlanets, Vector3 position, PlanetColor planetColor)
+    private void InstatiateFor(float numOfPlanets, Vector3 position, PlanetColor planetColor) // Spec Map Neutral
     {
         for (int i = 0; i < numOfPlanets; i++)
         {
@@ -259,19 +219,9 @@ public class PlanetManager : MonoBehaviour
         }
     }
 
-    public void InstantiateSpecPlanets()
-    {
-        var position = new Vector3(Random.Range(6f, 8f), Random.Range(-4f, 4f), -0.1f);
-        var size = 1.5f;
-        InstatiateFor(_numberOfEnemyPlanets, position, PlanetColor.Enemy, 80, 100, size);
 
-        position = new Vector3(Random.Range(-8f, -6f), Random.Range(-4f, 4f), -0.1f);
-        InstatiateFor(_numberOfFriendlyPlanets, position, PlanetColor.Friendly, 80, 100, size);
-
-        position = new Vector3(Random.Range(-8f, 8f), Random.Range(-4f, 4f), -0.1f);
-        InstatiateFor(_numberOfNeutralPlanets, position, PlanetColor.Neutral);
-    }
-
+    #endregion
+    #region Planet Collision
     private bool HasCollisions(int planetIndex)
     {
         for (int i = 0; i < planetIndex; i++)
@@ -311,7 +261,8 @@ public class PlanetManager : MonoBehaviour
             _mapPlanets[i].gameObject.SetActive(true);
         }
     }
-
+    #endregion
+    #region Update Num Of Ships & Map Mode
     public void UpdateNumOfShips(int numberOfFriendlyShips, int numberOfEnemyShips, int numberOfNeutralShips)
     {
         _numberOfFriendlyPlanets = numberOfFriendlyShips;
@@ -326,11 +277,11 @@ public class PlanetManager : MonoBehaviour
 
     public bool MapMode(bool mapMode)
     {
-        if (GameSettings._instance.IsRandomMap)
+        if (GameSettings.Instance.IsRandomMap)
         {
             return _randomMap = true;
         }
-        else if (GameSettings._instance.IsCustomMap)
+        else if (GameSettings.Instance.IsCustomMap)
         {
             return _custonMap = true;
         }
@@ -339,4 +290,5 @@ public class PlanetManager : MonoBehaviour
             return false;
         }
     }
+    #endregion
 }

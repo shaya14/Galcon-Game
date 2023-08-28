@@ -6,11 +6,34 @@ using UnityEngine;
 
 public class MouseInputs : MonoBehaviour
 {
+    public bool _isEnable = true;
+    private static MouseInputs _instance;
+    public static MouseInputs Instance { get; set; }
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
+
+    }
     void Update()
     {
+        if (!_isEnable)
+        {
+            return;
+        }
         //DrawLines._instance.ClearLines();
         RaycastHit2D rayHit = Physics2D.GetRayIntersection(Camera.main.ScreenPointToRay(Input.mousePosition));
-
+        if(rayHit.collider == null)
+        {
+            return;
+        }
         if (Input.GetMouseButtonDown(0))
         {
             var planet = rayHit.collider.GetComponent<Planet>();
@@ -49,6 +72,7 @@ public class MouseInputs : MonoBehaviour
             {
                 return;
             }
+
             if (planet.isFriendly)
             {
                 PlanetManager.Instance._attackingShips.GetComponent<Ship>()._targetPlanet = planet;

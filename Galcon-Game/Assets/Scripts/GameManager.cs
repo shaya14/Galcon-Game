@@ -55,20 +55,31 @@ public class GameManager : MonoBehaviour
     public void PlayRandomGame()
     {
         SceneManager.LoadScene("Game");
-        GameSettings._instance.IsRandomMap = true;
-        GameSettings._instance.NumberOfRandomPlanets = Random.Range(12, 15);
+        GameSettings.Instance.IsRandomMap = true;
+        GameSettings.Instance.NumberOfRandomPlanets = Random.Range(12, 15);
     }
 
     public void StartGeneratedGame()
     {
         SceneManager.LoadScene("Game");
-        GameSettings._instance.IsCustomMap = true;
+        GameSettings.Instance.IsCustomMap = true;
     }
 
     public void GenerateButton()
     {
-        UIManager._instance.mainMenuPanel.SetActive(false);
-        UIManager._instance.gameModePanel.SetActive(true);
+        //UIManager._instance.mainMenuPanel.SetActive(false);
+        //UIManager._instance.gameModePanel.SetActive(true);
+        UIManager._instance.mainMenuPanel.GetComponent<RectTransform>().anchoredPosition = new Vector2(700, 0);
+        UIManager._instance.gameModePanel.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
+
+    }
+    public void BackButton()
+    {
+        //UIManager._instance.mainMenuPanel.SetActive(true);
+        //UIManager._instance.gameModePanel.SetActive(false);
+        UIManager._instance.mainMenuPanel.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
+        UIManager._instance.gameModePanel.GetComponent<RectTransform>().anchoredPosition = new Vector2(700, 0);
+
     }
     public void ResumeButton()
     {
@@ -118,6 +129,7 @@ public class GameManager : MonoBehaviour
         if (!isPaused)
         {
             StartTime();
+            EnablePlanetFunctions();
         }
     }
     #endregion
@@ -136,47 +148,50 @@ public class GameManager : MonoBehaviour
 
     public void SliderValueChange()
     {
-        GameSettings._instance.NumberOfFriendlyPlanets = (int)UIManager._instance.numOfFriendlyShipsSlider.value;
-        GameSettings._instance.NumberOfEnemyPlanets = (int)UIManager._instance.numOfEnemyShipsSlider.value;
-        GameSettings._instance.NumberOfNeutralPlanets = (int)UIManager._instance.numOfNeutralShipsSlider.value;
+        GameSettings.Instance.NumberOfFriendlyPlanets = (int)UIManager._instance.numOfFriendlyShipsSlider.value;
+        GameSettings.Instance.NumberOfEnemyPlanets = (int)UIManager._instance.numOfEnemyShipsSlider.value;
+        GameSettings.Instance.NumberOfNeutralPlanets = (int)UIManager._instance.numOfNeutralShipsSlider.value;
     }
 
 
+    #region Disable/Enable Planet Functions
 
     private void DisablePlanetFunctions()
     {
+        MouseInputs.Instance._isEnable = false;
         foreach (Planet planet in PlanetManager.Instance._enemyPlanets)
         {
-            planet.GetComponent<TargetGlow>().enabled = false;
+            planet.GetComponent<TargetGlow>()._isEnable = false;
         }
 
         foreach (Planet planet in PlanetManager.Instance._friendlyPlanets)
         {
-            planet.GetComponent<TargetGlow>().enabled = false;
+            planet.GetComponent<TargetGlow>()._isEnable = false;
         }
 
         foreach (Planet planet in PlanetManager.Instance._neutralPlanets)
         {
-            planet.GetComponent<TargetGlow>().enabled = false;
+            planet.GetComponent<TargetGlow>()._isEnable = false;
         }
     }
 
     private void EnablePlanetFunctions()
     {
+        MouseInputs.Instance._isEnable = true;
         foreach (Planet planet in PlanetManager.Instance._enemyPlanets)
         {
-            planet.GetComponent<TargetGlow>().enabled = true;
+            planet.GetComponent<TargetGlow>()._isEnable = true;
         }
 
         foreach (Planet planet in PlanetManager.Instance._friendlyPlanets)
         {
-            planet.GetComponent<TargetGlow>().enabled = true;
+            planet.GetComponent<TargetGlow>()._isEnable = true;
         }
 
         foreach (Planet planet in PlanetManager.Instance._neutralPlanets)
         {
-            planet.GetComponent<TargetGlow>().enabled = true;
+            planet.GetComponent<TargetGlow>()._isEnable = true;
         }
     }
-
+    #endregion
 }
