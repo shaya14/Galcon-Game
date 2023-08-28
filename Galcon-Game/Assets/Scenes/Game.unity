@@ -1649,6 +1649,7 @@ MonoBehaviour:
   pausePanel: {fileID: 676552203}
   backgroundPanel: {fileID: 1217467813}
   mainMenuPanel: {fileID: 0}
+  gameModePanel: {fileID: 0}
   numOfFriendlyShipsSlider: {fileID: 0}
   numOfEnemyShipsSlider: {fileID: 0}
   numOfNeutralShipsSlider: {fileID: 0}
@@ -4197,7 +4198,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2943105046724601796, guid: c21138694c486b24b836bbaf0ba3d90a, type: 3}
       propertyPath: _custonMap
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2943105046724601796, guid: c21138694c486b24b836bbaf0ba3d90a, type: 3}
       propertyPath: _randomMap

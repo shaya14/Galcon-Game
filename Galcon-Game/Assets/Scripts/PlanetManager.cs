@@ -46,22 +46,28 @@ public class PlanetManager : MonoBehaviour
             Destroy(this);
         }
         _mapPlanets = new List<Planet>();
-        MapMode(GameSettings._instance.MapMode());
+        if (GameSettings._instance != null)
+        {
+            MapMode(GameSettings._instance.MapMode());
+        }
 
         if (_randomMap)
         {
-            if (GameSettings._instance == null)
-                return;
-            UpdateNumOfRandomShips(GameSettings._instance.NumberOfRandomPlanets);
+            if (GameSettings._instance != null)
+            {
+                UpdateNumOfRandomShips(GameSettings._instance.NumberOfRandomPlanets);
+            }
+
             InstatiatePlanets();
             PlanetCollision();
         }
 
         if (_custonMap)
         {
-            if (GameSettings._instance == null)
-                return;
-            UpdateNumOfShips(GameSettings._instance.NumberOfFriendlyPlanets, GameSettings._instance.NumberOfEnemyPlanets, GameSettings._instance.NumberOfNeutralPlanets);
+            if (GameSettings._instance != null)
+            {
+                UpdateNumOfShips(GameSettings._instance.NumberOfFriendlyPlanets, GameSettings._instance.NumberOfEnemyPlanets, GameSettings._instance.NumberOfNeutralPlanets);
+            }
             InstantiateSpecPlanets();
             PlanetCollision();
         }
@@ -219,9 +225,7 @@ public class PlanetManager : MonoBehaviour
         {
             var position = new Vector3(Random.Range(-8f, 8f), Random.Range(-4f, 4f), -0.1f);
             planet.transform.position = position;
-            planet.PlanetSize();
-            planet.PlanetSetteings();
-            planet.RandomizePlanet();
+            planet.SetSettings(planet.RandomizePlanetColor(), Random.Range(0.6f, 1.5f));
             planet.UpdateMaxNumOfShipsText();
             planet.UpdateNumOfShipsText();
             planet.UpdateDefineState();
@@ -267,17 +271,6 @@ public class PlanetManager : MonoBehaviour
         position = new Vector3(Random.Range(-8f, 8f), Random.Range(-4f, 4f), -0.1f);
         InstatiateFor(_numberOfNeutralPlanets, position, PlanetColor.Neutral);
     }
-
-    // CR: note also, that 'distance < 1' is not the correct check (because 'distance' is the distance between the CENTERS of the planets).
-    //     larger planets need to be further away from each other, so you probably need to add 'localScale' or 'size' or similar to your check
-
-    // CR: Your bug is that when choosing a position for a planet, you are changing the position randomly for every planet you 
-    //     chcking against! So, position = new Vector3(Random...) should be outside of the 'for (int i = 0;, i < _mapPlanets.Count; ...)'.
-    //     See my implementation attached:
-
-    // Checks collisions between _mapPlanets[planetIndex], and all the planets _mapPlanets[0,...,planetIndex-1].
-    // So, HasCollisions(0) will not check anything, HasCollisions(1) will check for collisions between 0 and 1.
-    // HasCollisions(2)  will check (0,2) and (1,2), ...
 
     private bool HasCollisions(int planetIndex)
     {
@@ -346,32 +339,4 @@ public class PlanetManager : MonoBehaviour
             return false;
         }
     }
-
-    // private void OnDrawGizmos()
-    // {
-    //     Gizmos.color = Color.red;
-    //     foreach (Planet planet in _mapPlanets)
-    //     {
-    //         var size = planet.size;
-    //         var radius = size * 2 / (2 * Mathf.PI);
-    //         Gizmos.DrawWireSphere(planet.transform.position, radius);
-    //     }
-    // }
-
-    // public void DrawLinesToTarget(Planet targetPlanet)
-    // {
-    //     foreach (GameObject planet in _selectedPlanets)
-    //     {
-    //             planet.GetComponent<Planet>().DrawLineToTarget(targetPlanet);
-
-    //     }
-    // }
-
-    // public void LineRendererOff()
-    // {
-    //     foreach (GameObject planet in _selectedPlanets)
-    //     {
-    //         planet.GetComponent<Planet>().LineRendererOff(planet.GetComponent<Planet>());
-    //     }
-    // }
 }

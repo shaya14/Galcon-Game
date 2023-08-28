@@ -16,9 +16,9 @@ public class Planet : MonoBehaviour
    public PlanetColor planetColor;
 
    [SerializeField] private float _shipPerSecond;
-   [SerializeField] private int _iniaitalShips; 
+   [SerializeField] private int _iniaitalShips;
    [SerializeField] public int _maxShips;
-   [HideInInspector] public int numberOfShips; 
+   [HideInInspector] public int numberOfShips;
 
    [Header("Player Colors")]
    [SerializeField] private Color _playerColor;
@@ -139,6 +139,21 @@ public class Planet : MonoBehaviour
       }
    }
 
+   public PlanetColor RandomizePlanetColor()
+   {
+      int randomColor = Random.Range(0, 3);
+      switch (randomColor)
+      {
+         case 0:
+            return planetColor = PlanetColor.Friendly;
+         case 1:
+            return planetColor = PlanetColor.Enemy;
+         case 2:
+            return planetColor = PlanetColor.Neutral;
+      }
+      return planetColor;
+   }
+
    public void SetSettings(PlanetColor color, int numOfShips, int maxShips, float size)
    {
       planetColor = color;
@@ -186,7 +201,7 @@ public class Planet : MonoBehaviour
          _maxShips = Random.Range(12, 25);
          _iniaitalShips = Random.Range(2, numberOfShips);
       }
-      else if (size > 0.8f && PlanetSize() <= 1.2f)
+      else if (size > 0.8f && size <= 1.2f)
       {
          numberOfShips = Random.Range(25, 35);
          _maxShips = Random.Range(37, 60);
@@ -224,31 +239,4 @@ public class Planet : MonoBehaviour
          numberOfShips--;
       }
    }
-
-   // private void OnMouseExit()
-   // {
-   //    PlanetManager.Instance.LineRendererOff();
-   // }
-
-   // private void OnMouseEnter()
-   // {
-   //    if (PlanetManager.Instance._selectedPlanets.Count > 0)
-   //    {
-   //       DrawLineToTarget(this);
-   //    }
-   // }
-
-   // public void DrawLineToTarget(Planet target)
-   // {
-   //    _lineRenderer.enabled = true;
-   //    _lineRenderer.SetPosition(0, this.transform.position);
-   //    _lineRenderer.SetPosition(1, target.transform.position);
-   // }
-
-   // public void LineRendererOff(Planet target)
-   // {
-   //    _lineRenderer.enabled = false;
-   //    _lineRenderer.SetPosition(0, Vector3.zero);
-   //    _lineRenderer.SetPosition(1, Vector3.zero);
-   // }
 }
