@@ -29,7 +29,6 @@ public class PlanetManager : MonoBehaviour
     public List<Planet> _friendlyPlanets;
     public List<Planet> _enemyPlanets;
     public List<Planet> _neutralPlanets;
-    [SerializeField] LayerMask layerMask;
     private static PlanetManager _instance;
     public static PlanetManager Instance { get; set; }
 
