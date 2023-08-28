@@ -11,6 +11,7 @@ public class UIManager : MonoBehaviour
     public GameObject pausePanel;
     public GameObject backgroundPanel;
     public GameObject mainMenuPanel;
+    public GameObject gameModePanel;
     public Slider numOfFriendlyShipsSlider;
     public Slider numOfEnemyShipsSlider;
     public Slider numOfNeutralShipsSlider;

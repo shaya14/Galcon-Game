@@ -17,8 +17,8 @@ public class PlanetManager : MonoBehaviour
     [SerializeField] private float _distanceBetweenPlanets = 2f;
 
     [Header("Game Mode")]
-    [SerializeField] private bool _randomeGenetate;
-    [SerializeField] public bool _specificGenerate;
+    [SerializeField] private bool _randomMap;
+    [SerializeField] public bool _custonMap;
 
     [Header("Map & Settings Planets")]
     [SerializeField] private List<Planet> _mapPlanets;
@@ -45,35 +45,28 @@ public class PlanetManager : MonoBehaviour
         {
             Destroy(this);
         }
-        UpdateNumOfShips(GameSettings._instance.NumberOfFriendlyPlanets, GameSettings._instance.NumberOfEnemyPlanets, GameSettings._instance.NumberOfNeutralPlanets);
         _mapPlanets = new List<Planet>();
+        MapMode(GameSettings._instance.MapMode());
 
-        if (_randomeGenetate)
+        if (_randomMap)
         {
+            if (GameSettings._instance == null)
+                return;
+            UpdateNumOfRandomShips(GameSettings._instance.NumberOfRandomPlanets);
             InstatiatePlanets();
             PlanetCollision();
-            _specificGenerate = false;
         }
 
-        if (_specificGenerate)
+        if (_custonMap)
         {
+            if (GameSettings._instance == null)
+                return;
+            UpdateNumOfShips(GameSettings._instance.NumberOfFriendlyPlanets, GameSettings._instance.NumberOfEnemyPlanets, GameSettings._instance.NumberOfNeutralPlanets);
             InstantiateSpecPlanets();
             PlanetCollision();
-            _randomeGenetate = false;
         }
     }
 
-    // public void StartRandomeGame()
-    // {
-    //         InstatiatePlanets();
-    //         PlanetCollision();
-    // }
-
-    // public void StartGeneratedGame()
-    // {
-    //         InstantiateSpecPlanets();
-    //         PlanetCollision();
-    // }
     void Start()
     {
         _selectedPlanets = new List<Planet>();
@@ -100,11 +93,6 @@ public class PlanetManager : MonoBehaviour
                     break;
             }
         }
-    }
-
-    void Update()
-    {
-        //UIManager._instance.UpdateNumOfShips(_numberOfFriendlyPlanets, _numberOfEnemyPlanets, _numberOfNeutralPlanets);
     }
 
     public void ClearListsFromDifrentPlanet()
@@ -229,17 +217,8 @@ public class PlanetManager : MonoBehaviour
 
         foreach (Planet planet in _mapPlanets)
         {
-            //var position = new Vector3(Random.Range(-8f, 8f), Random.Range(-4f, 4f), -0.1f);
-            // for (int i = 0; i < _mapPlanets.Count; i++)
-            // {
-            //     if (Vector3.Distance(position, _mapPlanets[i].transform.position) < 1.5f)
-            //     {
-            //         position = new Vector3(Random.Range(-8f, 8f), Random.Range(-4f, 4f), -0.1f);
-            //         i = 0;
-            //     }
-            // }
-            // planet.transform.position = position;
-            // planet.gameObject.SetActive(true);
+            var position = new Vector3(Random.Range(-8f, 8f), Random.Range(-4f, 4f), -0.1f);
+            planet.transform.position = position;
             planet.PlanetSize();
             planet.PlanetSetteings();
             planet.RandomizePlanet();
@@ -342,10 +321,30 @@ public class PlanetManager : MonoBehaviour
 
     public void UpdateNumOfShips(int numberOfFriendlyShips, int numberOfEnemyShips, int numberOfNeutralShips)
     {
-        _specificGenerate = true;
         _numberOfFriendlyPlanets = numberOfFriendlyShips;
         _numberOfEnemyPlanets = numberOfEnemyShips;
         _numberOfNeutralPlanets = numberOfNeutralShips;
+    }
+
+    public void UpdateNumOfRandomShips(int numberOfRandomShips)
+    {
+        _numberOfRandomPlanets = numberOfRandomShips;
+    }
+
+    public bool MapMode(bool mapMode)
+    {
+        if (GameSettings._instance.IsRandomMap)
+        {
+            return _randomMap = true;
+        }
+        else if (GameSettings._instance.IsCustomMap)
+        {
+            return _custonMap = true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     // private void OnDrawGizmos()

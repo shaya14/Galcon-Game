@@ -52,9 +52,23 @@ public class GameManager : MonoBehaviour
         }
     }
     #region Buttons
-    public void Play()
+    public void PlayRandomGame()
     {
         SceneManager.LoadScene("Game");
+        GameSettings._instance.IsRandomMap = true;
+        GameSettings._instance.NumberOfRandomPlanets = Random.Range(12, 15);
+    }
+
+    public void StartGeneratedGame()
+    {
+        SceneManager.LoadScene("Game");
+        GameSettings._instance.IsCustomMap = true;
+    }
+
+    public void GenerateButton()
+    {
+        UIManager._instance.mainMenuPanel.SetActive(false);
+        UIManager._instance.gameModePanel.SetActive(true);
     }
     public void ResumeButton()
     {
@@ -122,19 +136,12 @@ public class GameManager : MonoBehaviour
 
     public void SliderValueChange()
     {
-        // PlanetManager.Instance.SetNumberOfFriendlyShips((int)UIManager._instance.numOfFriendlyShipsSlider.value);
-        // PlanetManager.Instance.SetNumberOfEnemyShips((int)UIManager._instance.numOfEnemyShipsSlider.value);
-        // PlanetManager.Instance.SetNumberOfNeutralShips((int)UIManager._instance.numOfNeutralShipsSlider.value);
-
         GameSettings._instance.NumberOfFriendlyPlanets = (int)UIManager._instance.numOfFriendlyShipsSlider.value;
         GameSettings._instance.NumberOfEnemyPlanets = (int)UIManager._instance.numOfEnemyShipsSlider.value;
         GameSettings._instance.NumberOfNeutralPlanets = (int)UIManager._instance.numOfNeutralShipsSlider.value;
     }
 
-    public void StartGeneratedGame()
-    {
-        SceneManager.LoadScene("Game");
-    }
+
 
     private void DisablePlanetFunctions()
     {

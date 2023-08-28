@@ -343,7 +343,8 @@ MonoBehaviour:
   winPanel: {fileID: 0}
   pausePanel: {fileID: 0}
   backgroundPanel: {fileID: 0}
-  mainMenuPanel: {fileID: 0}
+  mainMenuPanel: {fileID: 1822792579}
+  gameModePanel: {fileID: 62080119}
   numOfFriendlyShipsSlider: {fileID: 1650776917}
   numOfEnemyShipsSlider: {fileID: 1635624950}
   numOfNeutralShipsSlider: {fileID: 1852642322}
@@ -774,7 +775,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 11400004, guid: 05a81c3d5091440058129444d28322f3, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Play
+      value: GenerateButton
       objectReference: {fileID: 0}
     - target: {fileID: 11400004, guid: 05a81c3d5091440058129444d28322f3, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -1207,7 +1208,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 11400004, guid: 05a81c3d5091440058129444d28322f3, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Play
+      value: PlayRandomGame
       objectReference: {fileID: 0}
     - target: {fileID: 11400004, guid: 05a81c3d5091440058129444d28322f3, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
