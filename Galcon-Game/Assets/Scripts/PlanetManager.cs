@@ -78,8 +78,8 @@ public class PlanetManager : MonoBehaviour
         {
             if (GameSettings.Instance != null)
             {
-                UpdateNumOfShips(GameSettings.Instance.NumberOfFriendlyPlanets, 
-                GameSettings.Instance.NumberOfEnemyPlanets, 
+                UpdateNumOfShips(GameSettings.Instance.NumberOfFriendlyPlanets,
+                GameSettings.Instance.NumberOfEnemyPlanets,
                 GameSettings.Instance.NumberOfNeutralPlanets);
             }
             InstantiateSpecPlanets();

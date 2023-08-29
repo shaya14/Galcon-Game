@@ -64,6 +64,7 @@ public class Ship : MonoBehaviour
 
 
             _targetPlanet.Hit(this);
+            SoundFx.Instance.PlaySound(SoundFx.Instance._hitSound, 0.1f , Random.Range(0.95f, 1.05f));
 
             if (_targetPlanet.planetColor != _shipColor)
             {

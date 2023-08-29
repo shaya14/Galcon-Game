@@ -55,12 +55,17 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("Game");
         GameSettings.Instance.IsRandomMap = true;
         GameSettings.Instance.NumberOfRandomPlanets = Random.Range(12, 15);
+        //SoundFx.Instance.PlaySound(SoundFx.Instance._clickSound, .3f);
+        SoundFx.Instance.PlaySound(SoundFx.Instance._clickSound, .3f);
+        SoundFx.Instance.PlaySound(SoundFx.Instance._gameStartSound, .3f);
     }
 
     public void StartGeneratedGame()
     {
         SceneManager.LoadScene("Game");
         GameSettings.Instance.IsCustomMap = true;
+        SoundFx.Instance.PlaySound(SoundFx.Instance._clickSound, .3f);
+        SoundFx.Instance.PlaySound(SoundFx.Instance._gameStartSound, .3f);
     }
 
     public void GenerateButton()
@@ -69,7 +74,7 @@ public class GameManager : MonoBehaviour
         //UIManager._instance.gameModePanel.SetActive(true);
         UIManager._instance.mainMenuPanel.GetComponent<RectTransform>().anchoredPosition = new Vector2(700, 0);
         UIManager._instance.gameModePanel.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
-
+        SoundFx.Instance.PlaySound(SoundFx.Instance._clickSound, .3f);  
     }
     public void BackButton()
     {
@@ -77,13 +82,14 @@ public class GameManager : MonoBehaviour
         //UIManager._instance.gameModePanel.SetActive(false);
         UIManager._instance.mainMenuPanel.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
         UIManager._instance.gameModePanel.GetComponent<RectTransform>().anchoredPosition = new Vector2(700, 0);
-
+        SoundFx.Instance.PlaySound(SoundFx.Instance._clickSound, .3f);
     }
     public void ResumeButton()
     {
         _isPaused = !_isPaused;
         PauseScreen(_isPaused);
         EnablePlanetFunctions();
+        SoundFx.Instance.PlaySound(SoundFx.Instance._clickSound, .3f);          
     }
 
     public void RestartButton()
@@ -92,11 +98,13 @@ public class GameManager : MonoBehaviour
         _screenOn = false;
         SceneManager.LoadScene("Game");
         EnablePlanetFunctions();
+        SoundFx.Instance.PlaySound(SoundFx.Instance._clickSound, .3f);
     }
 
     public void ExitButton()
     {
         SceneManager.LoadScene("MainMenu");
+        SoundFx.Instance.PlaySound(SoundFx.Instance._clickSound, .3f);
     }
     #endregion
     #region Screens

@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 
 public class MouseInputs : MonoBehaviour
 {
@@ -30,7 +30,8 @@ public class MouseInputs : MonoBehaviour
         }
         //DrawLines._instance.ClearLines();
         RaycastHit2D rayHit = Physics2D.GetRayIntersection(Camera.main.ScreenPointToRay(Input.mousePosition));
-        if(rayHit.collider == null)
+
+        if (rayHit.collider == null)
         {
             return;
         }
@@ -81,6 +82,7 @@ public class MouseInputs : MonoBehaviour
                 PlanetManager.Instance.SpawnShips();
                 DrawLines._instance.ClearLines();
                 PlanetManager.Instance._selectedPlanets.Clear();
+                SoundFx.Instance.PlaySound(SoundFx.Instance._attackSound, 0.3f);
             }
             else if (planet.isEnemy || planet.isNeutral)
             {
@@ -90,6 +92,7 @@ public class MouseInputs : MonoBehaviour
                 PlanetManager.Instance.SpawnShips();
                 DrawLines._instance.ClearLines();
                 PlanetManager.Instance._selectedPlanets.Clear();
+                SoundFx.Instance.PlaySound(SoundFx.Instance._attackSound, 0.3f);
             }
         }
     }
