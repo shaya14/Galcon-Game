@@ -1526,7 +1526,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &676552204
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3795,6 +3795,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioSource
       objectReference: {fileID: 0}
+    - target: {fileID: 2207794226908749189, guid: 171e7f2c027835a4ab4a7fd6fa37544d, type: 3}
+      propertyPath: _clickSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 70e02441ad3cd8f488092b6a4933e446, type: 3}
+    - target: {fileID: 2207794226908749189, guid: 171e7f2c027835a4ab4a7fd6fa37544d, type: 3}
+      propertyPath: _selectSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 99348d26b121bdf40bca2ff30b000207, type: 3}
     - target: {fileID: 6190914024589867191, guid: 171e7f2c027835a4ab4a7fd6fa37544d, type: 3}
       propertyPath: m_RootOrder
       value: 11

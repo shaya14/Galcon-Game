@@ -29,7 +29,6 @@ public class MouseInputs : MonoBehaviour
             return;
         }
         RaycastHit2D rayHit = Physics2D.GetRayIntersection(Camera.main.ScreenPointToRay(Input.mousePosition));
-
         if (rayHit.collider == null)
         {
             return;
