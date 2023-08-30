@@ -227,6 +227,7 @@ public class Planet : MonoBehaviour
          numberOfShips = 1;
          planetColor = ship.shipColor;
          PlanetManager.Instance.UpdateLists(ship._targetPlanet);
+         SoundFx.Instance.PlaySound(SoundFx.Instance._conquerSound, 1f);
          if (planetColor != ship.shipColor)
          {
             numberOfShips--;

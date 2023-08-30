@@ -91,6 +91,7 @@ public class GameManager : MonoBehaviour
         PauseScreen(_isPaused);
         EnablePlanetFunctions();
         SoundFx.Instance.PlaySound(SoundFx.Instance._clickSound, .3f);
+        SoundFx.Instance.PlaySound(SoundFx.Instance._gameResumeSound, .3f);
     }
 
     public void RestartButton()
@@ -100,6 +101,7 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("Game");
         EnablePlanetFunctions();
         SoundFx.Instance.PlaySound(SoundFx.Instance._clickSound, .3f);
+        SoundFx.Instance.PlaySound(SoundFx.Instance._gameRestartSound, .3f);
     }
 
     public void ExitButton()

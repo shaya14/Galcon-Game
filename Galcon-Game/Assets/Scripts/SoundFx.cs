@@ -12,10 +12,7 @@ public class SoundFx : MonoBehaviour
     public AudioClip _attackSound;
     public AudioClip _hitSound;
     public AudioClip _conquerSound;
-    public AudioClip _defendSound;
-    public AudioClip _spawnSound;
     public AudioClip _winSound;
-    public AudioClip _loseSound;
     public AudioClip _gameOverSound;
     public AudioClip _gameStartSound;
     public AudioClip _gameRestartSound;
