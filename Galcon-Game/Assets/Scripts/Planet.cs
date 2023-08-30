@@ -10,6 +10,8 @@ public enum PlanetColor
    Neutral
 }
 
+// CR: like we talked about in class, you can remove the 'maximum' feature.
+
 public class Planet : MonoBehaviour
 {
    [Header("Planet Settings")]
