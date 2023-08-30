@@ -101,7 +101,6 @@ public class PlanetManager : MonoBehaviour
 
         foreach (Planet planet in _selectedPlanets)
         {
-            planet.isSelected = false;
             planet.GetComponent<TargetGlow>().SetGlowOff();
         }
         _selectedPlanets.Clear();

@@ -30,7 +30,6 @@ public class Planet : MonoBehaviour
    [SerializeField] private TextMeshPro _maxShipCounterText;
    public GameObject _friendlyTargetArrows;
    public GameObject _enemyTargetArrows;
-   public bool isSelected;
    private SpriteRenderer _spriteRenderer;
    private LineRenderer _lineRenderer;
    private float _timer;
@@ -55,7 +54,6 @@ public class Planet : MonoBehaviour
    }
    private void Start()
    {
-      isSelected = false;
       numberOfShips = _iniaitalShips;
       _shipPerSecond /= _size; // CR: bigger planet => less ships per second? (size *= 2 => shipPerSecond /= 2)
       UpdateNumOfShipsText();
@@ -250,4 +248,17 @@ public class Planet : MonoBehaviour
          GetComponent<CircleCollider2D>().isTrigger = false;
       }
    }
+
+  public bool isSelected {
+  get {
+    foreach (Planet planet in PlanetManager.Instance._selectedPlanets) {
+      // if (this == planet) { // 
+      if (this.gameObject.GetInstanceID() == planet.gameObject.GetInstanceID()) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+  }
 }
