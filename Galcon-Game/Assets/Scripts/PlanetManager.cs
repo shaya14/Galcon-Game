@@ -7,7 +7,7 @@ public class PlanetManager : MonoBehaviour
 {
     [Header("Map Prefabs")]
     [SerializeField] private Planet _mapPlanet;
-    public Ship _attackingShips;
+    public Ship _attackingShipPrefab;
 
     [Header("Map Settings")]
     [SerializeField] private int _numberOfRandomPlanets;
@@ -141,7 +141,7 @@ public class PlanetManager : MonoBehaviour
         }
     }
 
-    public void SpawnShips()
+    public void SpawnShips(Planet target)
     {
         foreach (Planet planet in _selectedPlanets)
         {
@@ -149,7 +149,11 @@ public class PlanetManager : MonoBehaviour
             planet.UpdateNumOfShipsText();
             for (int i = 0; i < planet.numberOfShips; i++)
             {
-                Ship ship = Instantiate<Ship>(_attackingShips, planet.transform.position, Quaternion.identity);
+                //Ship ship = Instantiate<Ship>(_attackingShips, planet.transform.position, Quaternion.identity);
+                Ship ship = ObjectPool.Instance.GetShipFromPool();
+                ship.transform.position = planet.transform.position;
+                ship.gameObject.SetActive(true);
+                ship._targetPlanet = target;
                 ship.ShipColor("blue");
                 _numOfShipsGenerated++;
             }

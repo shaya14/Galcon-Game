@@ -101,7 +101,10 @@ public class EnemyAI : MonoBehaviour
         _thisPlanet.UpdateNumOfShipsText();
         for (int i = 0; i < _thisPlanet.numberOfShips; i++)
         {
-            Ship ship = Instantiate<Ship>(_attackingShip, this.transform.position, Quaternion.identity);
+            //Ship ship = Instantiate<Ship>(_attackingShip, this.transform.position, Quaternion.identity);
+            Ship ship = ObjectPool.Instance.GetShipFromPool();
+            ship.gameObject.SetActive(true);
+            ship.transform.position = this.transform.position;
             ship.ShipColor("red");
             _target.GetComponent<CircleCollider2D>().isTrigger = true;
             _target._enemyTargetArrows.SetActive(true);

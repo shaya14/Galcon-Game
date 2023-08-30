@@ -51,7 +51,9 @@ public class Ship : MonoBehaviour
                 ParticleSystem blast = Instantiate(_BlastParticlePrefab, transform.position, Quaternion.identity);
                 Destroy(blast.gameObject, 1f);
             }
-            Destroy(gameObject);
+            //Destroy(gameObject);
+
+            ObjectPool.Instance.ReturnShipToPool(this);
         }
     }
 }
