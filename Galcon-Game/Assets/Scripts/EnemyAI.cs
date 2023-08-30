@@ -30,7 +30,7 @@ public class EnemyAI : MonoBehaviour
             TimeToNextAttack();
         }
 
-        if (PlanetManager.Instance._friendlyPlanets.Count <= 0 && PlanetManager.Instance._neutralPlanets.Count <= 0)
+        if (PlanetManager.Instance.friendlyPlanets.Count <= 0 && PlanetManager.Instance.neutralPlanets.Count <= 0)
         {
             _hasTargets = false;
         }
@@ -56,29 +56,29 @@ public class EnemyAI : MonoBehaviour
         switch (randomChoose)
         {
             case 0:
-                if (PlanetManager.Instance._friendlyPlanets.Count <= 0)
+                if (PlanetManager.Instance.friendlyPlanets.Count <= 0)
                 {
                     return ChooseTarget();
                 }
-                friendlyTarget = PlanetManager.Instance._friendlyPlanets[Random.Range(0, PlanetManager.Instance._friendlyPlanets.Count)];
+                friendlyTarget = PlanetManager.Instance.friendlyPlanets[Random.Range(0, PlanetManager.Instance.friendlyPlanets.Count)];
                 target = friendlyTarget;
                 break;
             case 1:
-                if (PlanetManager.Instance._neutralPlanets.Count <= 0)
+                if (PlanetManager.Instance.neutralPlanets.Count <= 0)
                 {
                     return ChooseTarget();
                 }
-                neutralTarget = PlanetManager.Instance._neutralPlanets[Random.Range(0, PlanetManager.Instance._neutralPlanets.Count)];
+                neutralTarget = PlanetManager.Instance.neutralPlanets[Random.Range(0, PlanetManager.Instance.neutralPlanets.Count)];
                 target = neutralTarget;
                 break;
         }
 
-        if (PlanetManager.Instance._friendlyPlanets.Count <= 0)
+        if (PlanetManager.Instance.friendlyPlanets.Count <= 0)
         {
             friendlyTarget = neutralTarget;
             target = friendlyTarget;
         }
-        else if (PlanetManager.Instance._neutralPlanets.Count <= 0)
+        else if (PlanetManager.Instance.neutralPlanets.Count <= 0)
         {
             neutralTarget = friendlyTarget;
             target = neutralTarget;

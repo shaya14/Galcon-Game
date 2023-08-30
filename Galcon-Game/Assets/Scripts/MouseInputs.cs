@@ -42,7 +42,7 @@ public class MouseInputs : MonoBehaviour
                 planet.GetComponent<TargetGlow>()._isClicked = true;
                 PlanetManager.Instance._selectedPlanets.Add(planet);
                 DrawLines._instance.ClearLines();
-                foreach (Planet enemy in PlanetManager.Instance._enemiesToSelect)
+                foreach (Planet enemy in PlanetManager.Instance.neutralAndEnemyPlanets)
                 {
                     enemy.GetComponent<TargetGlow>()._glowingEnabled = true;
                 }
@@ -54,7 +54,7 @@ public class MouseInputs : MonoBehaviour
                     selectedPlanet.isSelected = false;
                     selectedPlanet.GetComponent<TargetGlow>().SetGlowOff();
                     selectedPlanet._isAdded = false;
-                    foreach (Planet enemy in PlanetManager.Instance._enemiesToSelect)
+                    foreach (Planet enemy in PlanetManager.Instance.neutralAndEnemyPlanets)
                     {
                         enemy.GetComponent<TargetGlow>()._glowingEnabled = false;
                     }

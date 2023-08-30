@@ -40,11 +40,11 @@ public class GameManager : MonoBehaviour
 
         if (PlanetManager.Instance != null)
         {
-            if (PlanetManager.Instance._friendlyPlanets.Count <= 0)
+            if (PlanetManager.Instance.friendlyPlanets.Count <= 0)
             {
                 LoseScreen();
             }
-            else if (PlanetManager.Instance._enemyPlanets.Count <= 0)
+            else if (PlanetManager.Instance.enemyPlanets.Count <= 0)
             {
                 WinScreen();
             }
@@ -182,17 +182,17 @@ public class GameManager : MonoBehaviour
     private void DisablePlanetFunctions()
     {
         MouseInputs.Instance._isEnable = false;
-        foreach (Planet planet in PlanetManager.Instance._enemyPlanets)
+        foreach (Planet planet in PlanetManager.Instance.enemyPlanets)
         {
             planet.GetComponent<TargetGlow>()._isEnable = false;
         }
 
-        foreach (Planet planet in PlanetManager.Instance._friendlyPlanets)
+        foreach (Planet planet in PlanetManager.Instance.friendlyPlanets)
         {
             planet.GetComponent<TargetGlow>()._isEnable = false;
         }
 
-        foreach (Planet planet in PlanetManager.Instance._neutralPlanets)
+        foreach (Planet planet in PlanetManager.Instance.neutralPlanets)
         {
             planet.GetComponent<TargetGlow>()._isEnable = false;
         }
@@ -201,17 +201,17 @@ public class GameManager : MonoBehaviour
     private void EnablePlanetFunctions()
     {
         MouseInputs.Instance._isEnable = true;
-        foreach (Planet planet in PlanetManager.Instance._enemyPlanets)
+        foreach (Planet planet in PlanetManager.Instance.enemyPlanets)
         {
             planet.GetComponent<TargetGlow>()._isEnable = true;
         }
 
-        foreach (Planet planet in PlanetManager.Instance._friendlyPlanets)
+        foreach (Planet planet in PlanetManager.Instance.friendlyPlanets)
         {
             planet.GetComponent<TargetGlow>()._isEnable = true;
         }
 
-        foreach (Planet planet in PlanetManager.Instance._neutralPlanets)
+        foreach (Planet planet in PlanetManager.Instance.neutralPlanets)
         {
             planet.GetComponent<TargetGlow>()._isEnable = true;
         }

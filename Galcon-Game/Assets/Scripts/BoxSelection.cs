@@ -84,7 +84,7 @@ public class BoxSelection : MonoBehaviour
                     newlySelectedPlanets.Add(planet);
                 }
 
-                foreach (Planet enemy in PlanetManager.Instance._enemiesToSelect)
+                foreach (Planet enemy in PlanetManager.Instance.neutralAndEnemyPlanets)
                 {
                     enemy.GetComponent<TargetGlow>()._glowingEnabled = true;
                 }
