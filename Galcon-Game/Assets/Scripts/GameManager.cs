@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -74,7 +75,7 @@ public class GameManager : MonoBehaviour
         //UIManager._instance.gameModePanel.SetActive(true);
         UIManager._instance.mainMenuPanel.GetComponent<RectTransform>().anchoredPosition = new Vector2(700, 0);
         UIManager._instance.gameModePanel.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
-        SoundFx.Instance.PlaySound(SoundFx.Instance._clickSound, .3f);  
+        SoundFx.Instance.PlaySound(SoundFx.Instance._clickSound, .3f);
     }
     public void BackButton()
     {
@@ -89,7 +90,7 @@ public class GameManager : MonoBehaviour
         _isPaused = !_isPaused;
         PauseScreen(_isPaused);
         EnablePlanetFunctions();
-        SoundFx.Instance.PlaySound(SoundFx.Instance._clickSound, .3f);          
+        SoundFx.Instance.PlaySound(SoundFx.Instance._clickSound, .3f);
     }
 
     public void RestartButton()
@@ -157,6 +158,20 @@ public class GameManager : MonoBehaviour
         GameSettings.Instance.NumberOfFriendlyPlanets = (int)UIManager._instance.numOfFriendlyShipsSlider.value;
         GameSettings.Instance.NumberOfEnemyPlanets = (int)UIManager._instance.numOfEnemyShipsSlider.value;
         GameSettings.Instance.NumberOfNeutralPlanets = (int)UIManager._instance.numOfNeutralShipsSlider.value;
+        PlaySoundEachOneSlide(UIManager._instance.numOfFriendlyShipsSlider);
+        PlaySoundEachOneSlide(UIManager._instance.numOfEnemyShipsSlider);
+        PlaySoundEachOneSlide(UIManager._instance.numOfNeutralShipsSlider);
+    }
+
+    private void PlaySoundEachOneSlide(Slider slider)
+    {
+        for (int i = 0; i < slider.maxValue; i++)
+        {
+            if (Mathf.Approximately(slider.value, i))
+            {
+                SoundFx.Instance.PlaySound(SoundFx.Instance._selectSound, .3f);
+            }
+        }
     }
 
 
