@@ -10,7 +10,6 @@ public class MouseInputs : MonoBehaviour
     private static MouseInputs _instance;
     public static MouseInputs Instance { get; set; }
 
-    private int sumShips;
     private void Awake()
     {
         if (Instance == null)
@@ -51,7 +50,6 @@ public class MouseInputs : MonoBehaviour
             }
             else if (rayHit.collider.gameObject.tag == "Background")
             {
-                sumShips = 0;
                 foreach (Planet selectedPlanet in PlanetManager.Instance._selectedPlanets)
                 {
                     selectedPlanet.isSelected = false;
