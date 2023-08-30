@@ -43,28 +43,8 @@ public class Ship : MonoBehaviour
     {
         if (collision.gameObject.GetInstanceID() == _targetPlanet.gameObject.GetInstanceID())
         {
-            if (this.shipColor == PlanetColor.Friendly)
-            {
-                PlanetManager.Instance._friendlyAttackingShipsForce.Remove(this);
-                if (PlanetManager.Instance._friendlyAttackingShipsForce.Count <= 0)
-                {
-                    _targetPlanet.GetComponent<CircleCollider2D>().isTrigger = false;
-                    PlanetManager.Instance.DeleteList(PlanetManager.Instance._friendlyAttackingShipsForce);
-                }
-            }
-            else if (this.shipColor == PlanetColor.Enemy)
-            {
-                PlanetManager.Instance._enemyAttackingShipsForce.Remove(this);
-                if (PlanetManager.Instance._enemyAttackingShipsForce.Count <= 0)
-                {
-                    _targetPlanet.GetComponent<CircleCollider2D>().isTrigger = false;
-                    PlanetManager.Instance.DeleteList(PlanetManager.Instance._enemyAttackingShipsForce);
-                }
-            }
-
-
             _targetPlanet.Hit(this);
-            SoundFx.Instance.PlaySound(SoundFx.Instance._hitSound, 0.1f , Random.Range(0.95f, 1.05f));
+            SoundFx.Instance.PlaySound(SoundFx.Instance._hitSound, 0.1f, Random.Range(0.95f, 1.05f));
 
             if (_targetPlanet.planetColor != _shipColor)
             {

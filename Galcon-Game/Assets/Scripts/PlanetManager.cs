@@ -31,9 +31,7 @@ public class PlanetManager : MonoBehaviour
     public List<Planet> _neutralPlanets;
     private static PlanetManager _instance;
     public static PlanetManager Instance { get; set; }
-
-    public List<Ship> _friendlyAttackingShipsForce;
-    public List<Ship> _enemyAttackingShipsForce;
+    public int _numOfShipsGenerated = 0;
 
     public void NewList(List<Ship> list)
     {
@@ -152,8 +150,8 @@ public class PlanetManager : MonoBehaviour
             for (int i = 0; i < planet.numberOfShips; i++)
             {
                 Ship ship = Instantiate<Ship>(_attackingShips, planet.transform.position, Quaternion.identity);
-                _friendlyAttackingShipsForce.Add(ship);
                 ship.ShipColor("blue");
+                _numOfShipsGenerated++;
             }
         }
 

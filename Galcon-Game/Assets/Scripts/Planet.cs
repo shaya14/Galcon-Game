@@ -28,15 +28,22 @@ public class Planet : MonoBehaviour
    [Header("UI Elements")]
    [SerializeField] private TextMeshPro _shipCounterText;
    [SerializeField] private TextMeshPro _maxShipCounterText;
+   public GameObject _friendlyTargetArrows;
+   public GameObject _enemyTargetArrows;
    public bool isSelected;
    private SpriteRenderer _spriteRenderer;
    private LineRenderer _lineRenderer;
    private float _timer;
    private float _size = 1;
+   public int _attackingNumber = 0;
+   public bool _isAdded = false;
 
    public bool isFriendly => planetColor == PlanetColor.Friendly;
    public bool isEnemy => planetColor == PlanetColor.Enemy;
    public bool isNeutral => planetColor == PlanetColor.Neutral;
+
+   public Color playerColor => _playerColor;
+   public Color enemyColor => _enemyColor;
    public float size => _size;
 
    void Awake()
@@ -214,7 +221,7 @@ public class Planet : MonoBehaviour
    #endregion
    public void Hit(Ship ship)
    {
-      //GetComponent<CircleCollider2D>().isTrigger = true;
+      _attackingNumber--;
       if (numberOfShips == 0)
       {
          numberOfShips = 1;
@@ -233,6 +240,14 @@ public class Planet : MonoBehaviour
       else
       {
          numberOfShips--;
+      }
+
+      if(_attackingNumber <= 0)
+      {
+         _attackingNumber = 0;
+         _friendlyTargetArrows.SetActive(false);
+         _enemyTargetArrows.SetActive(false);
+         GetComponent<CircleCollider2D>().isTrigger = false;
       }
    }
 }

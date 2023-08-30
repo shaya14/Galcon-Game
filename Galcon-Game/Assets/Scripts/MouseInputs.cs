@@ -10,6 +10,7 @@ public class MouseInputs : MonoBehaviour
     private static MouseInputs _instance;
     public static MouseInputs Instance { get; set; }
 
+    private int sumShips;
     private void Awake()
     {
         if (Instance == null)
@@ -28,7 +29,6 @@ public class MouseInputs : MonoBehaviour
         {
             return;
         }
-        //DrawLines._instance.ClearLines();
         RaycastHit2D rayHit = Physics2D.GetRayIntersection(Camera.main.ScreenPointToRay(Input.mousePosition));
 
         if (rayHit.collider == null)
@@ -44,7 +44,6 @@ public class MouseInputs : MonoBehaviour
                 planet.GetComponent<TargetGlow>()._isClicked = true;
                 PlanetManager.Instance._selectedPlanets.Add(planet);
                 DrawLines._instance.ClearLines();
-
                 foreach (Planet enemy in PlanetManager.Instance._enemiesToSelect)
                 {
                     enemy.GetComponent<TargetGlow>()._glowingEnabled = true;
@@ -52,11 +51,12 @@ public class MouseInputs : MonoBehaviour
             }
             else if (rayHit.collider.gameObject.tag == "Background")
             {
+                sumShips = 0;
                 foreach (Planet selectedPlanet in PlanetManager.Instance._selectedPlanets)
                 {
                     selectedPlanet.isSelected = false;
                     selectedPlanet.GetComponent<TargetGlow>().SetGlowOff();
-
+                    selectedPlanet._isAdded = false;
                     foreach (Planet enemy in PlanetManager.Instance._enemiesToSelect)
                     {
                         enemy.GetComponent<TargetGlow>()._glowingEnabled = false;
@@ -77,22 +77,26 @@ public class MouseInputs : MonoBehaviour
             if (planet.isFriendly)
             {
                 PlanetManager.Instance._attackingShips.GetComponent<Ship>()._targetPlanet = planet;
-                PlanetManager.Instance.NewList(PlanetManager.Instance._friendlyAttackingShipsForce);
                 planet.GetComponent<CircleCollider2D>().isTrigger = true;
+                planet._friendlyTargetArrows.SetActive(true);
                 PlanetManager.Instance.SpawnShips();
                 DrawLines._instance.ClearLines();
                 PlanetManager.Instance._selectedPlanets.Clear();
                 SoundFx.Instance.PlaySound(SoundFx.Instance._attackSound, 0.3f);
+                planet._attackingNumber += PlanetManager.Instance._numOfShipsGenerated;
+                PlanetManager.Instance._numOfShipsGenerated = 0;
             }
             else if (planet.isEnemy || planet.isNeutral)
             {
                 PlanetManager.Instance._attackingShips.GetComponent<Ship>()._targetPlanet = planet;
-                PlanetManager.Instance.NewList(PlanetManager.Instance._friendlyAttackingShipsForce);
                 planet.GetComponent<CircleCollider2D>().isTrigger = true;
+                planet._friendlyTargetArrows.SetActive(true);
                 PlanetManager.Instance.SpawnShips();
                 DrawLines._instance.ClearLines();
                 PlanetManager.Instance._selectedPlanets.Clear();
                 SoundFx.Instance.PlaySound(SoundFx.Instance._attackSound, 0.3f);
+                planet._attackingNumber += PlanetManager.Instance._numOfShipsGenerated;
+                PlanetManager.Instance._numOfShipsGenerated = 0;
             }
         }
     }
