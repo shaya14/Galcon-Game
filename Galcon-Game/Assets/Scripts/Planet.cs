@@ -15,7 +15,8 @@ public class Planet : MonoBehaviour
    [Header("Planet Settings")]
    public PlanetColor planetColor;
 
-   [SerializeField] private float _shipPerSecond;
+   [SerializeField] private float _shipCreationDelay;
+
    [SerializeField] private int _iniaitalShips;
    [SerializeField] public int _maxShips;
    [HideInInspector] public int numberOfShips;
@@ -55,7 +56,12 @@ public class Planet : MonoBehaviour
    private void Start()
    {
       numberOfShips = _iniaitalShips;
-      _shipPerSecond /= _size; // CR: bigger planet => less ships per second? (size *= 2 => shipPerSecond /= 2)
+      
+      // shipsPerSecond can also be named ShipCreationRate.
+      // If you are using _shipsPerSecond, you need to MULTIPLY it by size (because bigger planets need to create more ships)
+      // _shipsPerSecond *= size;
+      _shipCreationDelay /= _size;
+      
       UpdateNumOfShipsText();
       _lineRenderer = GetComponent<LineRenderer>();
    }
@@ -94,7 +100,11 @@ public class Planet : MonoBehaviour
 
    void UpdateShipTimer()
    {
-      if (_timer > _shipPerSecond && numberOfShips < _maxShips)
+      // If you are using shipsPerSecond, you need to compare _timer to (1.0 / shipsPerSecond)
+      // float shipDelay = 1.0 / shipsPerSecond;
+      // if (_timer > _shipDelay)
+
+      if (_timer > _shipCreationDelay && numberOfShips < _maxShips)
       {
          _timer = 0;
          if (isFriendly || isEnemy)

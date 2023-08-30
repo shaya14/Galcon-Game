@@ -107,7 +107,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   planetColor: 0
-  _shipPerSecond: 1
+  _shipCreationDelay: 1
   _iniaitalShips: 1
   _maxShips: 4
   numberOfShips: 0
@@ -118,7 +118,6 @@ MonoBehaviour:
   _maxShipCounterText: {fileID: 870008701822910839}
   _friendlyTargetArrows: {fileID: 3107110211353855523}
   _enemyTargetArrows: {fileID: 2859045486217422414}
-  isSelected: 0
   _attackingNumber: 0
   _isAdded: 0
 --- !u!114 &2130193576567537355
