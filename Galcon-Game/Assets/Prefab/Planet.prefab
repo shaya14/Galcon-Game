@@ -108,6 +108,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   planetColor: 0
   _shipCreationDelay: 1
+  _shipsPerSecond: 1
   _iniaitalShips: 1
   _maxShips: 4
   numberOfShips: 0

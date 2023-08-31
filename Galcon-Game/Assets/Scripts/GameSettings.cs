@@ -8,22 +8,14 @@ public class GameSettings : MonoBehaviour
     private static int _numberOfEnemyPlanets;
     private static int _numberOfFriendlyPlanets;
     private static int _numberOfNeutralPlanets;
-
     private static bool _isRandomMap;
     private static bool _isCustomMap;
-
-    //private static string _mapMode;
-
     public int NumberOfRandomPlanets { get; set; }
     public int NumberOfEnemyPlanets { get; set; }
     public int NumberOfFriendlyPlanets { get; set ; }
     public int NumberOfNeutralPlanets { get; set; }
-
     public bool IsRandomMap { get; set; } = false;
     public bool IsCustomMap { get; set; } = false;
-
-    //public string MapMode { get; set; }
-
 
     private static GameSettings _instance;
 

@@ -18,9 +18,10 @@ public class Planet : MonoBehaviour
    public PlanetColor planetColor;
 
    [SerializeField] private float _shipCreationDelay;
+   [SerializeField] private float _shipsPerSecond;
 
    [SerializeField] private int _iniaitalShips;
-   [SerializeField] public int _maxShips;
+   //[SerializeField] public int _maxShips;
    [HideInInspector] public int numberOfShips;
 
    [Header("Player Colors")]
@@ -47,6 +48,7 @@ public class Planet : MonoBehaviour
    public Color playerColor => _playerColor;
    public Color enemyColor => _enemyColor;
    public float size => _size;
+   public float shipPerSecond { get => _shipsPerSecond; set => _shipsPerSecond = value; }
 
    void Awake()
    {
@@ -58,12 +60,7 @@ public class Planet : MonoBehaviour
    private void Start()
    {
       numberOfShips = _iniaitalShips;
-      
-      // shipsPerSecond can also be named ShipCreationRate.
-      // If you are using _shipsPerSecond, you need to MULTIPLY it by size (because bigger planets need to create more ships)
-      // _shipsPerSecond *= size;
-      _shipCreationDelay /= _size;
-      
+      _shipsPerSecond *= size;
       UpdateNumOfShipsText();
       _lineRenderer = GetComponent<LineRenderer>();
    }
@@ -102,11 +99,8 @@ public class Planet : MonoBehaviour
 
    void UpdateShipTimer()
    {
-      // If you are using shipsPerSecond, you need to compare _timer to (1.0 / shipsPerSecond)
-      // float shipDelay = 1.0 / shipsPerSecond;
-      // if (_timer > _shipDelay)
-
-      if (_timer > _shipCreationDelay && numberOfShips < _maxShips)
+      float shipDelay = 1.0f / _shipsPerSecond;
+      if (_timer > shipDelay && numberOfShips < _maxShips)
       {
          _timer = 0;
          if (isFriendly || isEnemy)
@@ -252,7 +246,7 @@ public class Planet : MonoBehaviour
          numberOfShips--;
       }
 
-      if(_attackingNumber <= 0)
+      if (_attackingNumber <= 0)
       {
          _attackingNumber = 0;
          _friendlyTargetArrows.SetActive(false);
@@ -261,16 +255,20 @@ public class Planet : MonoBehaviour
       }
    }
 
-  public bool isSelected {
-  get {
-    foreach (Planet planet in PlanetManager.Instance._selectedPlanets) {
-      // if (this == planet) { // 
-      if (this.gameObject.GetInstanceID() == planet.gameObject.GetInstanceID()) {
-        return true;
-      }
-    }
+   public bool isSelected
+   {
+      get
+      {
+         foreach (Planet planet in PlanetManager.Instance._selectedPlanets)
+         {
+            // if (this == planet) { // 
+            if (this.gameObject.GetInstanceID() == planet.gameObject.GetInstanceID())
+            {
+               return true;
+            }
+         }
 
-    return false;
-  }
-  }
+         return false;
+      }
+   }
 }

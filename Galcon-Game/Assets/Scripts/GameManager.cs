@@ -56,7 +56,6 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("Game");
         GameSettings.Instance.IsRandomMap = true;
         GameSettings.Instance.NumberOfRandomPlanets = Random.Range(12, 15);
-        //SoundFx.Instance.PlaySound(SoundFx.Instance._clickSound, .3f);
         SoundFx.Instance.PlaySound(SoundFx.Instance._clickSound, .3f);
         SoundFx.Instance.PlaySound(SoundFx.Instance._gameStartSound, .3f);
     }

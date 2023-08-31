@@ -60,7 +60,7 @@ public class PlanetManager : MonoBehaviour
         {
             if (GameSettings.Instance != null)
             {
-                UpdateNumOfRandomShips(GameSettings.Instance.NumberOfRandomPlanets);
+                UpdateNumOfRandomPlanets(GameSettings.Instance.NumberOfRandomPlanets);
             }
 
             InstatiatePlanets();
@@ -71,7 +71,7 @@ public class PlanetManager : MonoBehaviour
         {
             if (GameSettings.Instance != null)
             {
-                UpdateNumOfShips(GameSettings.Instance.NumberOfFriendlyPlanets,
+                UpdateNumOfPlanets(GameSettings.Instance.NumberOfFriendlyPlanets,
                 GameSettings.Instance.NumberOfEnemyPlanets,
                 GameSettings.Instance.NumberOfNeutralPlanets);
             }
@@ -137,7 +137,9 @@ public class PlanetManager : MonoBehaviour
         {
             var position = new Vector3(Random.Range(-8f, 8f), Random.Range(-4f, 4f), -0.1f);
             planet.transform.position = position;
-            planet.SetSettings(planet.RandomizePlanetColor(), Random.Range(0.6f, 1.5f));
+            float size = Random.Range(0.6f, 1.5f);
+            planet.shipPerSecond *= size;
+            planet.SetSettings(planet.RandomizePlanetColor(), size);
             planet.UpdateMaxNumOfShipsText();
             planet.UpdateNumOfShipsText();
             planet.UpdateDefineState();
@@ -152,6 +154,7 @@ public class PlanetManager : MonoBehaviour
             planet.SetSettings(planetColor, numOfShips, maxShips, size);
             planet.UpdateMaxNumOfShipsText();
             planet.transform.position = position;
+            planet.shipPerSecond *= size;
             planet.gameObject.SetActive(false);
             _mapPlanets.Add(planet);
         }
@@ -166,6 +169,7 @@ public class PlanetManager : MonoBehaviour
             planet.SetSettings(planetColor, size);
             planet.UpdateMaxNumOfShipsText();
             planet.transform.position = position;
+            planet.shipPerSecond *= size;
             planet.gameObject.SetActive(false);
             _mapPlanets.Add(planet);
         }
@@ -215,16 +219,16 @@ public class PlanetManager : MonoBehaviour
     }
     #endregion
     #region Update Num Of Ships & Map Mode
-    public void UpdateNumOfShips(int numberOfFriendlyShips, int numberOfEnemyShips, int numberOfNeutralShips)
+    public void UpdateNumOfPlanets(int numberOfFriendlyShips, int numberOfEnemyShips, int numberOfNeutralShips)
     {
         _numberOfFriendlyPlanets = numberOfFriendlyShips;
         _numberOfEnemyPlanets = numberOfEnemyShips;
         _numberOfNeutralPlanets = numberOfNeutralShips;
     }
 
-    public void UpdateNumOfRandomShips(int numberOfRandomShips)
+    public void UpdateNumOfRandomPlanets(int numberOfRandomPlanets)
     {
-        _numberOfRandomPlanets = numberOfRandomShips;
+        _numberOfRandomPlanets = numberOfRandomPlanets;
     }
 
     public bool MapMode(bool mapMode)
@@ -244,71 +248,90 @@ public class PlanetManager : MonoBehaviour
     }
     #endregion
 
-    public List<Planet> GetFriendlyPlanets() {
-       var planets = new List<Planet>();
+    /// <summary>
+    /// Thats The Same is the public List<Planet> friendlyPlanets
+    /// </summary>
+    // public List<Planet> GetFriendlyPlanets() {
+    //    var planets = new List<Planet>();
 
-        foreach (Planet planet in _mapPlanets) {
-          if (planet.isFriendly) {
-            planets.Add(planet);
-          }
-        }
+    //     foreach (Planet planet in _mapPlanets) {
+    //       if (planet.isFriendly) {
+    //         planets.Add(planet);
+    //       }
+    //     }
 
-        return planets;
-    }
+    //     return planets;
+    // } 
 
-    public List<Planet> friendlyPlanets {
-      get {
-        var planets = new List<Planet>();
+    public List<Planet> friendlyPlanets
+    {
+        get
+        {
+            var planets = new List<Planet>();
 
-        foreach (Planet planet in _mapPlanets) {
-          if (planet.isFriendly) {
-            planets.Add(planet);
-          }
-        }
-
-        return planets;  
-      }
-    }
-
-    public List<Planet> enemyPlanets {
-      get {
-        var planets = new List<Planet>();
-
-        foreach (Planet planet in _mapPlanets) {
-          if (planet.isEnemy) {
-            planets.Add(planet);
-          }
-        }
-
-        return planets;  
-      }
-    }
-
-    public List<Planet> neutralPlanets {
-      get {
-        var planets = new List<Planet>();
-
-        foreach (Planet planet in _mapPlanets) {
-          if (planet.isNeutral) {
-            planets.Add(planet);
-          }
-        }
-
-        return planets;  
-      }
-    }
-
-    public List<Planet> neutralAndEnemyPlanets {
-        get {
-          var planets = new List<Planet>();
-
-          foreach (Planet planet in _mapPlanets) {
-            if (planet.isNeutral || planet.isEnemy) {
-              planets.Add(planet);
+            foreach (Planet planet in _mapPlanets)
+            {
+                if (planet.isFriendly)
+                {
+                    planets.Add(planet);
+                }
             }
-          }
 
-          return planets;
-      }
+            return planets;
+        }
+    }
+
+    public List<Planet> enemyPlanets
+    {
+        get
+        {
+            var planets = new List<Planet>();
+
+            foreach (Planet planet in _mapPlanets)
+            {
+                if (planet.isEnemy)
+                {
+                    planets.Add(planet);
+                }
+            }
+
+            return planets;
+        }
+    }
+
+    public List<Planet> neutralPlanets
+    {
+        get
+        {
+            var planets = new List<Planet>();
+
+            foreach (Planet planet in _mapPlanets)
+            {
+                if (planet.isNeutral)
+                {
+                    planets.Add(planet);
+                }
+            }
+
+            return planets;
+        }
+    }
+
+    public List<Planet> neutralAndEnemyPlanets
+    {
+        get
+        {
+            var planets = new List<Planet>();
+
+            foreach (Planet planet in _mapPlanets)
+            {
+                if (planet.isNeutral || planet.isEnemy)
+                {
+                    planets.Add(planet);
+                }
+            }
+
+            return planets;
+        }
     }
 }
