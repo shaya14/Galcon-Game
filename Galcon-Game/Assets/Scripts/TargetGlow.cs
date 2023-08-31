@@ -11,7 +11,7 @@ public class TargetGlow : MonoBehaviour
     [SerializeField] GameObject _maxShipTextObject;
     public bool _isClicked; // When a planet is clicked, it will glow until it is clicked again or another planet is clicked
     // CR: rename to "_isHovered"? // or 'isHoveredOrSelected'
-    public bool _isSelected; // When a planet is hovered over, it will glow until the mouse exits the planet
+    public bool _isHoveredOrSelected; // When a planet is hovered over, it will glow until the mouse exits the planet
     public bool _glowingEnabled = false;
 
     public bool _isEnable = true;
@@ -25,18 +25,18 @@ public class TargetGlow : MonoBehaviour
     {
         if (_isEnable)
         {
-            _isSelected = !_isSelected;
+            _isHoveredOrSelected = !_isHoveredOrSelected;
             _maxShipTextObject.SetActive(true);
             if (GetComponent<Planet>().isFriendly)
             {
                 if (!_isClicked)
                 {
-                    if (_isSelected)
+                    if (_isHoveredOrSelected)
                     {
                         _selectedGlow.SetActive(true);
                         foreach (Planet targetPlanet in PlanetManager.Instance._selectedPlanets)
                         {
-                            if (targetPlanet != this && targetPlanet.GetComponent<TargetGlow>()._isSelected)
+                            if (targetPlanet != this && targetPlanet.GetComponent<TargetGlow>()._isHoveredOrSelected)
                             {
                                 DrawLines._instance.DrawFewLines(targetPlanet.transform, this.transform);
                             }
@@ -52,12 +52,12 @@ public class TargetGlow : MonoBehaviour
             {
                 if (_glowingEnabled)
                 {
-                    if (_isSelected)
+                    if (_isHoveredOrSelected)
                     {
                         _selectedGlow.SetActive(true);
                         foreach (Planet targetPlanet in PlanetManager.Instance._selectedPlanets)
                         {
-                            if (targetPlanet != this && targetPlanet.GetComponent<TargetGlow>()._isSelected)
+                            if (targetPlanet != this && targetPlanet.GetComponent<TargetGlow>()._isHoveredOrSelected)
                             {
                                 DrawLines._instance.DrawFewLines(targetPlanet.transform, this.transform);
                             }
@@ -77,7 +77,7 @@ public class TargetGlow : MonoBehaviour
         _maxShipTextObject.SetActive(false);
         if (!_isClicked)
         {
-            _isSelected = false;
+            _isHoveredOrSelected = false;
             _selectedGlow.SetActive(false);
             DrawLines._instance.ClearLines();
         }
@@ -87,13 +87,13 @@ public class TargetGlow : MonoBehaviour
     {
         _selectedGlow.SetActive(false);
         _isClicked = false;
-        _isSelected = false;
+        _isHoveredOrSelected = false;
     }
 
     public void SetGlowOn()
     {
         _selectedGlow.SetActive(true);
         _isClicked = true;
-        _isSelected = true;
+        _isHoveredOrSelected = true;
     }
 }

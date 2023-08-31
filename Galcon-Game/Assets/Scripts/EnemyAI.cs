@@ -13,12 +13,13 @@ public class EnemyAI : MonoBehaviour
     public bool _hasTargets = true;
     private Planet _thisPlanet;
 
-    private float _attackingMinimum;
+    public float _attackingMinimum;
 
     void Start()
     {
         _thisPlanet = GetComponent<Planet>();
-        _attackingMinimum *= _thisPlanet.numberOfShips * 2;
+        _attackingMinimum = _thisPlanet.numberOfShips * 2;
+        AttackMinimumNumberBySize(_attackingMinimum);
     }
 
     void Update()
@@ -119,6 +120,26 @@ public class EnemyAI : MonoBehaviour
             if (_hasTargets)
                 Attack();
             _timer = 0;
+        }
+    }
+
+    public void AttackMinimumNumberBySize(float num)
+    {
+        if (num <= 8)
+        {
+            _attackingMinimum *= 6;
+        }   
+        else if (num > 8 && num <= 12)
+        {
+            _attackingMinimum *= 4;
+        }
+        else if(num > 12 && num <= 16)
+        {
+            _attackingMinimum *= 3;
+        }
+        else if (num > 16 && num <=25)
+        {
+            _attackingMinimum *= 2;
         }
     }
 }

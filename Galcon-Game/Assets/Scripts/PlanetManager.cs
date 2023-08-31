@@ -28,18 +28,6 @@ public class PlanetManager : MonoBehaviour
     public static PlanetManager Instance { get; set; }
     public int _numOfShipsGenerated = 0;
 
-    public void NewList(List<Ship> list)
-    {
-        list = new List<Ship>();
-    }
-    public void DeleteList(List<Ship> list)
-    {
-        foreach (Ship ship in list)
-        {
-            Destroy(ship.gameObject);
-        }
-    }
-
     void Awake()
     {
         if (Instance == null)
