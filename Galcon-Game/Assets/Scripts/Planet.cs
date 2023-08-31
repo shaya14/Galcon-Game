@@ -10,8 +10,6 @@ public enum PlanetColor
    Neutral
 }
 
-// CR: like we talked about in class, you can remove the 'maximum' feature.
-
 public class Planet : MonoBehaviour
 {
    [Header("Planet Settings")]
@@ -21,7 +19,6 @@ public class Planet : MonoBehaviour
    [SerializeField] private float _shipsPerSecond;
 
    [SerializeField] private int _iniaitalShips;
-   //[SerializeField] public int _maxShips;
    [HideInInspector] public int numberOfShips;
 
    [Header("Player Colors")]
