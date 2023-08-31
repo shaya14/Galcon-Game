@@ -13,9 +13,12 @@ public class EnemyAI : MonoBehaviour
     public bool _hasTargets = true;
     private Planet _thisPlanet;
 
+    private float _attackingMinimum;
+
     void Start()
     {
         _thisPlanet = GetComponent<Planet>();
+        _attackingMinimum *= _thisPlanet.numberOfShips * 2;
     }
 
     void Update()
@@ -25,7 +28,7 @@ public class EnemyAI : MonoBehaviour
             return;
         }
 
-        if (_thisPlanet.numberOfShips >= _thisPlanet._maxShips / 2)
+        if (_thisPlanet.numberOfShips >= _attackingMinimum / 2)
         {
             TimeToNextAttack();
         }
@@ -84,13 +87,10 @@ public class EnemyAI : MonoBehaviour
             target = neutralTarget;
         }
 
-        if (target.isEnemy)
-        {
-            if (target.numberOfShips >= target._maxShips)
-            {
-                return ChooseTarget();
-            }
-        }
+        // if (target.isEnemy)
+        // {
+        //    // add code to choose another target or help the other enemy
+        // }
 
         return target;
     }

@@ -31,13 +31,13 @@ public class Planet : MonoBehaviour
 
    [Header("UI Elements")]
    [SerializeField] private TextMeshPro _shipCounterText;
-   [SerializeField] private TextMeshPro _maxShipCounterText;
+   [SerializeField] private TextMeshPro _shipPerMinuteText;
    public GameObject _friendlyTargetArrows;
    public GameObject _enemyTargetArrows;
    private SpriteRenderer _spriteRenderer;
-   private LineRenderer _lineRenderer;
    private float _timer;
    private float _size = 1;
+   private float _shipPerMinute;
    public int _attackingNumber = 0;
    public bool _isAdded = false;
 
@@ -49,11 +49,12 @@ public class Planet : MonoBehaviour
    public Color enemyColor => _enemyColor;
    public float size => _size;
    public float shipPerSecond { get => _shipsPerSecond; set => _shipsPerSecond = value; }
+   public float shipPerMinute { get => _shipPerMinute; set => _shipPerMinute = value; }
 
    void Awake()
    {
       _shipCounterText.text = numberOfShips.ToString();
-      _maxShipCounterText.text = _maxShips.ToString();
+      _shipPerMinuteText.text = shipPerMinute.ToString();
       _neutralColor = GetComponent<SpriteRenderer>().color;
       _spriteRenderer = GetComponent<SpriteRenderer>();
    }
@@ -62,7 +63,6 @@ public class Planet : MonoBehaviour
       numberOfShips = _iniaitalShips;
       _shipsPerSecond *= size;
       UpdateNumOfShipsText();
-      _lineRenderer = GetComponent<LineRenderer>();
    }
 
    private void Update()
@@ -70,12 +70,6 @@ public class Planet : MonoBehaviour
       UpdateShipTimer();
       UpdateDefineState();
       UpdateNumOfShipsText();
-
-
-      if (numberOfShips >= _maxShips)
-      {
-         numberOfShips = _maxShips;
-      }
    }
 
    public void UpdateDefineState()
@@ -100,7 +94,7 @@ public class Planet : MonoBehaviour
    void UpdateShipTimer()
    {
       float shipDelay = 1.0f / _shipsPerSecond;
-      if (_timer > shipDelay && numberOfShips < _maxShips)
+      if (_timer > shipDelay)
       {
          _timer = 0;
          if (isFriendly || isEnemy)
@@ -123,7 +117,7 @@ public class Planet : MonoBehaviour
 
    public void UpdateMaxNumOfShipsText()
    {
-      _maxShipCounterText.text = _maxShips.ToString();
+      _shipPerMinuteText.text = shipPerMinute.ToString();
    }
    #endregion
    #region Planet Settings
@@ -160,12 +154,11 @@ public class Planet : MonoBehaviour
    }
 
 
-   public void SetSettings(PlanetColor color, int numOfShips, int maxShips, float size)
+   public void SetSettings(PlanetColor color, int numOfShips, float size)
    {
       planetColor = color;
       _iniaitalShips = numOfShips;
       numberOfShips = _iniaitalShips;
-      _maxShips = maxShips;
       transform.localScale = new Vector3(size, size, size);
    }
    public void SetSettings(PlanetColor color, float size)
@@ -179,19 +172,16 @@ public class Planet : MonoBehaviour
       if (PlanetSize() <= 0.8f)
       {
          numberOfShips = Random.Range(8, 10);
-         _maxShips = Random.Range(12, 25);
          _iniaitalShips = Random.Range(2, numberOfShips);
       }
       else if (PlanetSize() > 0.8f && PlanetSize() <= 1.2f)
       {
          numberOfShips = Random.Range(25, 35);
-         _maxShips = Random.Range(37, 60);
          _iniaitalShips = Random.Range(10, numberOfShips);
       }
       else if (PlanetSize() > 1.2f)
       {
          numberOfShips = Random.Range(37, 50);
-         _maxShips = Random.Range(60, 100);
          _iniaitalShips = Random.Range(35, numberOfShips);
       }
    }
@@ -200,19 +190,16 @@ public class Planet : MonoBehaviour
       if (size <= 0.8f)
       {
          numberOfShips = Random.Range(8, 10);
-         _maxShips = Random.Range(12, 25);
          _iniaitalShips = Random.Range(2, numberOfShips);
       }
       else if (size > 0.8f && size <= 1.2f)
       {
          numberOfShips = Random.Range(25, 35);
-         _maxShips = Random.Range(37, 60);
          _iniaitalShips = Random.Range(10, numberOfShips);
       }
       else if (size > 1.2f)
       {
          numberOfShips = Random.Range(37, 50);
-         _maxShips = Random.Range(60, 100);
          _iniaitalShips = Random.Range(35, numberOfShips);
       }
    }

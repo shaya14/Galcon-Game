@@ -116,10 +116,10 @@ public class PlanetManager : MonoBehaviour
     {
         var position = new Vector3(Random.Range(6f, 8f), Random.Range(-4f, 4f), -0.1f);
         var size = 1.5f;
-        InstatiateFor(_numberOfEnemyPlanets, position, PlanetColor.Enemy, 80, 100, size);
+        InstatiateFor(_numberOfEnemyPlanets, position, PlanetColor.Enemy, 80, size);
 
         position = new Vector3(Random.Range(-8f, -6f), Random.Range(-4f, 4f), -0.1f);
-        InstatiateFor(_numberOfFriendlyPlanets, position, PlanetColor.Friendly, 80, 100, size);
+        InstatiateFor(_numberOfFriendlyPlanets, position, PlanetColor.Friendly, 80, size);
 
         position = new Vector3(Random.Range(-8f, 8f), Random.Range(-4f, 4f), -0.1f);
         InstatiateFor(_numberOfNeutralPlanets, position, PlanetColor.Neutral);
@@ -139,6 +139,8 @@ public class PlanetManager : MonoBehaviour
             planet.transform.position = position;
             float size = Random.Range(0.6f, 1.5f);
             planet.shipPerSecond *= size;
+            planet.shipPerMinute = planet.shipPerSecond * 60;
+            planet.shipPerMinute = (int)planet.shipPerMinute;
             planet.SetSettings(planet.RandomizePlanetColor(), size);
             planet.UpdateMaxNumOfShipsText();
             planet.UpdateNumOfShipsText();
@@ -146,15 +148,17 @@ public class PlanetManager : MonoBehaviour
         }
     }
 
-    private void InstatiateFor(float numOfPlanets, Vector3 position, PlanetColor planetColor, int numOfShips, int maxShips, float size) // Spec Map Enemy/Friendly
+    private void InstatiateFor(float numOfPlanets, Vector3 position, PlanetColor planetColor, int numOfShips, float size) // Spec Map Enemy/Friendly
     {
         for (int i = 0; i < numOfPlanets; i++)
         {
             var planet = Instantiate<Planet>(_mapPlanet, position, Quaternion.identity);
-            planet.SetSettings(planetColor, numOfShips, maxShips, size);
-            planet.UpdateMaxNumOfShipsText();
+            planet.SetSettings(planetColor, numOfShips, size);
             planet.transform.position = position;
             planet.shipPerSecond *= size;
+            planet.shipPerMinute = planet.shipPerSecond * 60;
+            planet.shipPerMinute = (int)planet.shipPerMinute;
+            planet.UpdateMaxNumOfShipsText();
             planet.gameObject.SetActive(false);
             _mapPlanets.Add(planet);
         }
@@ -167,9 +171,11 @@ public class PlanetManager : MonoBehaviour
             var planet = Instantiate<Planet>(_mapPlanet, position, Quaternion.identity);
             var size = Random.Range(0.6f, 1.5f);
             planet.SetSettings(planetColor, size);
-            planet.UpdateMaxNumOfShipsText();
             planet.transform.position = position;
             planet.shipPerSecond *= size;
+            planet.shipPerMinute = planet.shipPerSecond * 60;
+            planet.shipPerMinute = (int)planet.shipPerMinute;
+            planet.UpdateMaxNumOfShipsText();
             planet.gameObject.SetActive(false);
             _mapPlanets.Add(planet);
         }
