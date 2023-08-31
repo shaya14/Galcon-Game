@@ -38,11 +38,10 @@ public class MouseInputs : MonoBehaviour
             var planet = rayHit.collider.GetComponent<Planet>();
             if (planet != null && planet.isFriendly && !planet.isSelected)
             {
-                planet.isSelected = true;
                 planet.GetComponent<TargetGlow>()._isClicked = true;
                 PlanetManager.Instance._selectedPlanets.Add(planet);
                 DrawLines._instance.ClearLines();
-                foreach (Planet enemy in PlanetManager.Instance._enemiesToSelect)
+                foreach (Planet enemy in PlanetManager.Instance.neutralAndEnemyPlanets)
                 {
                     enemy.GetComponent<TargetGlow>()._glowingEnabled = true;
                 }
@@ -51,10 +50,9 @@ public class MouseInputs : MonoBehaviour
             {
                 foreach (Planet selectedPlanet in PlanetManager.Instance._selectedPlanets)
                 {
-                    selectedPlanet.isSelected = false;
                     selectedPlanet.GetComponent<TargetGlow>().SetGlowOff();
                     selectedPlanet._isAdded = false;
-                    foreach (Planet enemy in PlanetManager.Instance._enemiesToSelect)
+                    foreach (Planet enemy in PlanetManager.Instance.neutralAndEnemyPlanets)
                     {
                         enemy.GetComponent<TargetGlow>()._glowingEnabled = false;
                     }

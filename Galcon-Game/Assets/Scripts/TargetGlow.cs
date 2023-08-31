@@ -10,6 +10,7 @@ public class TargetGlow : MonoBehaviour
     [SerializeField] GameObject _selectedGlow;
     [SerializeField] GameObject _maxShipTextObject;
     public bool _isClicked; // When a planet is clicked, it will glow until it is clicked again or another planet is clicked
+    // CR: rename to "_isHovered"? // or 'isHoveredOrSelected'
     public bool _isSelected; // When a planet is hovered over, it will glow until the mouse exits the planet
     public bool _glowingEnabled = false;
 
