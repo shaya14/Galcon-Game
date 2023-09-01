@@ -4,19 +4,17 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class BoxSelection : MonoBehaviour
+public class BoxSelection : Singleton<BoxSelection>
 {
     private LineRenderer _lineRenderer;
     private Vector2 _initalMousePosition, _currentMousePosition;
     private BoxCollider2D _boxCollider2D;
-    public static BoxSelection _instance;
     [SerializeField] private float _selectionTime = 0.2f;
     private float _timer = 0f;
     private List<Planet> newlySelectedPlanets = new List<Planet>(); // To store planets newly selected in this frame
 
     void Start()
     {
-        _instance = this;
         _lineRenderer = GetComponent<LineRenderer>();
         _lineRenderer.positionCount = 0;
     }

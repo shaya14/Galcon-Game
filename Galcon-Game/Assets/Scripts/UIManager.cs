@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIManager : MonoBehaviour
+public class UIManager : Singleton<UIManager>
 {
     public GameObject losePanel;
     public GameObject winPanel;
@@ -18,19 +18,6 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI numOfFriendlyShipsText;
     public TextMeshProUGUI numOfEnemyShipsText;
     public TextMeshProUGUI numOfNeutralShipsText;
-
-    public static UIManager _instance;
-    void Start()
-    {
-        if (_instance == null)
-        {
-            _instance = this;
-        }
-        else
-        {
-            Destroy(this);
-        }
-    }
 
     public void UpdateNumOfShips(int numberOfFriendlyShips , int numberOfEnemyShips , int numberOfNeutralShips)
     {

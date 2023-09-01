@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameSettings : MonoBehaviour
+public class GameSettings : Singleton<GameSettings>
 {
     private static int _numberOfRandomPlanets;
     private static int _numberOfEnemyPlanets;
@@ -12,31 +12,20 @@ public class GameSettings : MonoBehaviour
     private static bool _isCustomMap;
     public int NumberOfRandomPlanets { get; set; }
     public int NumberOfEnemyPlanets { get; set; }
-    public int NumberOfFriendlyPlanets { get; set ; }
+    public int NumberOfFriendlyPlanets { get; set; }
     public int NumberOfNeutralPlanets { get; set; }
     public bool IsRandomMap { get; set; } = false;
     public bool IsCustomMap { get; set; } = false;
 
-    private static GameSettings _instance;
-
-    public static GameSettings Instance { get; set; }
-
-    private void Awake()
+    protected override void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(this);
-        }
-        else
-        {
-            Destroy(this);
-        }
+        base.Awake();
+        DontDestroyOnLoad(this);
     }
 
     private void Update()
     {
-        UIManager._instance.UpdateNumOfShips(NumberOfFriendlyPlanets, NumberOfEnemyPlanets, NumberOfNeutralPlanets);
+        UIManager.Instance.UpdateNumOfShips(NumberOfFriendlyPlanets, NumberOfEnemyPlanets, NumberOfNeutralPlanets);
     }
 
     public bool MapMode()

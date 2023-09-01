@@ -4,24 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MouseInputs : MonoBehaviour
+public class MouseInputs : Singleton<MouseInputs>
 {
     public bool _isEnable = true;
-    private static MouseInputs _instance;
-    public static MouseInputs Instance { get; set; }
 
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(this);
-        }
-
-    }
     void Update()
     {
         if (!_isEnable)

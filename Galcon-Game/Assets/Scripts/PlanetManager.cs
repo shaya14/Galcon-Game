@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class PlanetManager : MonoBehaviour
+public class PlanetManager : Singleton<PlanetManager>
 {
     [Header("Map Prefabs")]
     [SerializeField] private Planet _mapPlanet;
@@ -25,19 +25,11 @@ public class PlanetManager : MonoBehaviour
     public List<Planet> _selectedPlanets;
 
     private static PlanetManager _instance;
-    public static PlanetManager Instance { get; set; }
     public int _numOfShipsGenerated = 0;
 
-    void Awake()
+    protected override void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(this);
-        }
+        base.Awake();
         _mapPlanets = new List<Planet>();
         if (GameSettings.Instance != null)
         {

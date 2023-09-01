@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 
-public class SoundFx : MonoBehaviour
+public class SoundFx : Singleton<SoundFx>
 {
-    public static SoundFx Instance;
+
     public AudioSource _audioSource;
     public AudioClip _clickSound;
     public AudioClip _selectSound;
@@ -22,13 +22,9 @@ public class SoundFx : MonoBehaviour
     public AudioClip _gameOverMusic;
     public AudioClip _gameMusic;
 
-    private void Awake()
+    protected override void Awake()
     {
-        Instance = this;
-        if (Instance != null)
-        {
-            Destroy(this);
-        }
+        base.Awake();
         DontDestroyOnLoad(this);
     }
 

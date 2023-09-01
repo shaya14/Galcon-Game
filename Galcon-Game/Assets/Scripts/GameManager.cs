@@ -5,27 +5,17 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class GameManager : MonoBehaviour
+public class GameManager : Singleton<GameManager>   
 {
-    public static GameManager _instance;
     private bool _isPaused = false;
     private bool _screenOn = false;
     void Start()
     {
-        if (_instance == null)
-        {
-            _instance = this;
-        }
-        else
-        {
-            Destroy(this);
-        }
-
         StartTime();
     }
     void Update()
     {
-        if (UIManager._instance.losePanel == null)
+        if (UIManager.Instance.losePanel == null)
         {
             return;
         }
@@ -72,16 +62,16 @@ public class GameManager : MonoBehaviour
     {
         //UIManager._instance.mainMenuPanel.SetActive(false);
         //UIManager._instance.gameModePanel.SetActive(true);
-        UIManager._instance.mainMenuPanel.GetComponent<RectTransform>().anchoredPosition = new Vector2(700, 0);
-        UIManager._instance.gameModePanel.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
+        UIManager.Instance.mainMenuPanel.GetComponent<RectTransform>().anchoredPosition = new Vector2(700, 0);
+        UIManager.Instance.gameModePanel.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
         SoundFx.Instance.PlaySound(SoundFx.Instance._clickSound, .3f);
     }
     public void BackButton()
     {
         //UIManager._instance.mainMenuPanel.SetActive(true);
         //UIManager._instance.gameModePanel.SetActive(false);
-        UIManager._instance.mainMenuPanel.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
-        UIManager._instance.gameModePanel.GetComponent<RectTransform>().anchoredPosition = new Vector2(700, 0);
+        UIManager.Instance.mainMenuPanel.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
+        UIManager.Instance.gameModePanel.GetComponent<RectTransform>().anchoredPosition = new Vector2(700, 0);
         SoundFx.Instance.PlaySound(SoundFx.Instance._clickSound, .3f);
     }
     public void ResumeButton()
@@ -114,8 +104,8 @@ public class GameManager : MonoBehaviour
     {
         StopTime();
         _screenOn = true;
-        UIManager._instance.losePanel.SetActive(true);
-        UIManager._instance.backgroundPanel.SetActive(true);
+        UIManager.Instance.losePanel.SetActive(true);
+        UIManager.Instance.backgroundPanel.SetActive(true);
         DisablePlanetFunctions();
     }
 
@@ -123,16 +113,16 @@ public class GameManager : MonoBehaviour
     {
         StopTime();
         _screenOn = true;
-        UIManager._instance.winPanel.SetActive(true);
-        UIManager._instance.backgroundPanel.SetActive(true);
+        UIManager.Instance.winPanel.SetActive(true);
+        UIManager.Instance.backgroundPanel.SetActive(true);
         DisablePlanetFunctions();
     }
 
     private void PauseScreen(bool isPaused)
     {
         StopTime();
-        UIManager._instance.pausePanel.SetActive(isPaused);
-        UIManager._instance.backgroundPanel.SetActive(isPaused);
+        UIManager.Instance.pausePanel.SetActive(isPaused);
+        UIManager.Instance.backgroundPanel.SetActive(isPaused);
         DisablePlanetFunctions();
         if (!isPaused)
         {
@@ -156,12 +146,12 @@ public class GameManager : MonoBehaviour
 
     public void SliderValueChange()
     {
-        GameSettings.Instance.NumberOfFriendlyPlanets = (int)UIManager._instance.numOfFriendlyShipsSlider.value;
-        GameSettings.Instance.NumberOfEnemyPlanets = (int)UIManager._instance.numOfEnemyShipsSlider.value;
-        GameSettings.Instance.NumberOfNeutralPlanets = (int)UIManager._instance.numOfNeutralShipsSlider.value;
-        PlaySoundEachOneSlide(UIManager._instance.numOfFriendlyShipsSlider);
-        PlaySoundEachOneSlide(UIManager._instance.numOfEnemyShipsSlider);
-        PlaySoundEachOneSlide(UIManager._instance.numOfNeutralShipsSlider);
+        GameSettings.Instance.NumberOfFriendlyPlanets = (int)UIManager.Instance.numOfFriendlyShipsSlider.value;
+        GameSettings.Instance.NumberOfEnemyPlanets = (int)UIManager.Instance.numOfEnemyShipsSlider.value;
+        GameSettings.Instance.NumberOfNeutralPlanets = (int)UIManager.Instance.numOfNeutralShipsSlider.value;
+        PlaySoundEachOneSlide(UIManager.Instance.numOfFriendlyShipsSlider);
+        PlaySoundEachOneSlide(UIManager.Instance.numOfEnemyShipsSlider);
+        PlaySoundEachOneSlide(UIManager.Instance.numOfNeutralShipsSlider);
     }
 
     private void PlaySoundEachOneSlide(Slider slider)
