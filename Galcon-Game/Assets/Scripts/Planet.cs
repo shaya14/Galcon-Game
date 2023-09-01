@@ -17,7 +17,6 @@ public class Planet : MonoBehaviour
 
    [SerializeField] private float _shipCreationDelay;
    [SerializeField] private float _shipsPerSecond;
-
    [SerializeField] private int _iniaitalShips;
    [HideInInspector] public int numberOfShips;
 
@@ -25,7 +24,7 @@ public class Planet : MonoBehaviour
    [SerializeField] private Color _playerColor;
    [SerializeField] private Color _enemyColor;
    [SerializeField] private Color _neutralColor;
-
+   
    [Header("UI Elements")]
    [SerializeField] private TextMeshPro _shipCounterText;
    [SerializeField] private TextMeshPro _shipPerMinuteText;
@@ -37,11 +36,9 @@ public class Planet : MonoBehaviour
    private float _shipPerMinute;
    public int _attackingNumber = 0;
    public bool _isAdded = false;
-
    public bool isFriendly => planetColor == PlanetColor.Friendly;
    public bool isEnemy => planetColor == PlanetColor.Enemy;
    public bool isNeutral => planetColor == PlanetColor.Neutral;
-
    public Color playerColor => _playerColor;
    public Color enemyColor => _enemyColor;
    public float size => _size;

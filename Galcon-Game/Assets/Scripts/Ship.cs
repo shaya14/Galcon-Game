@@ -9,7 +9,6 @@ public class Ship : MonoBehaviour
     public ParticleSystem _BlastParticlePrefab;
     private PlanetColor _shipColor;
     public PlanetColor shipColor => _shipColor;
-
     [SerializeField] private Color _playerColor;
     [SerializeField] private Color _enemyColor;
 
