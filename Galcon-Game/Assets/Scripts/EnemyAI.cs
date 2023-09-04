@@ -4,16 +4,18 @@ using UnityEngine;
 
 public class EnemyAI : MonoBehaviour
 {
-    [SerializeField] private Ship _attackingShip;
+    [SerializeField] private Ship _attackingShip; // CR: rename _shipPrefab
     [SerializeField] private Color _enemyColor;
     [SerializeField] private float _minAttackRate;
     [SerializeField] private float _maxAttackRate;
     private float _attackRate = 5f;
     private float _timer;
+
+    // CR: see below on how to remove the '_hasTargets' state.
     public bool _hasTargets = true;
     private Planet _thisPlanet;
 
-    public float _attackingMinimum;
+    public float _attackingMinimum; // CR: private
 
     void Start()
     {
@@ -34,6 +36,7 @@ public class EnemyAI : MonoBehaviour
             TimeToNextAttack();
         }
 
+        // CR: see below on how to avoid the '_hasTargets' state.
         if (PlanetManager.Instance.friendlyPlanets.Count <= 0 && PlanetManager.Instance.neutralPlanets.Count <= 0)
         {
             _hasTargets = false;
@@ -50,6 +53,7 @@ public class EnemyAI : MonoBehaviour
         SoundFx.Instance.PlaySound(SoundFx.Instance._attackSound, .3f);
     }
 
+    // CR: [discuss in class]
     private Planet ChooseTarget()
     {
         Planet friendlyTarget = null;
@@ -96,6 +100,7 @@ public class EnemyAI : MonoBehaviour
         return target;
     }
 
+    // CR: (style) function parameters should be 'localCamelCase' - so rename '_target' -> 'target'.
     private void InstatiateAttackingShips(Planet _target)
     {
         _thisPlanet.numberOfShips /= 2;
@@ -114,9 +119,24 @@ public class EnemyAI : MonoBehaviour
     private void TimeToNextAttack()
     {
         _timer += Time.deltaTime;
+        // CR: like we talked about in class: remember that the RATE has units [1/s]. While _timer is in units [s].
+        //     Either:
+        //       1. rename _attackRate to '_timeBetweenAttacks';
+        //       2. change the condition to 'if (_timer >= 1f / _attackRate)';
         if (_timer >= _attackRate)
         {
             _attackRate = Random.Range(_minAttackRate, _maxAttackRate);
+            // CR: same idea of avoiding state that needs to be updated every loop.
+            //     Add a function like this:
+            //       private bool HasTargets() {
+            //         return PlanetManager.instance.friendlyPlanets.Count > 0 || 
+            //                PlanetManager.instance.neutralPlanets.Count > 0;
+            //       }
+            //     Then, you can just do:
+            //     if (HasTargets()) {
+            //       Attack();
+            //     } 
+            // CR: Every 'if' MUST have '{}'. It's VERY important.
             if (_hasTargets)
                 Attack();
             _timer = 0;

@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlanetManager : Singleton<PlanetManager>
 {
     [Header("Map Prefabs")]
-    [SerializeField] private Planet _mapPlanet;
+    [SerializeField] private Planet _mapPlanet; // CR: rename: _planetPrefab
     public Ship _attackingShips;
 
     [Header("Map Settings")]
@@ -24,9 +24,10 @@ public class PlanetManager : Singleton<PlanetManager>
     [SerializeField] private List<Planet> _mapPlanets;
     public List<Planet> _selectedPlanets;
 
-    private static PlanetManager _instance;
+    private static PlanetManager _instance; // CR: delete since you're inheriting 'Instance'.
     public int _numOfShipsGenerated = 0;
 
+    // CR: [discuss in class] how can we simplify the 'GameSettings' related code?
     protected override void Awake()
     {
         base.Awake();
@@ -192,6 +193,10 @@ public class PlanetManager : Singleton<PlanetManager>
                 {
                     _mapPlanets[i].transform.position = new Vector3(Random.Range(6f, 8f), Random.Range(-4f, 4f), -0.1f);
                 }
+                // CR: (nit) if a planet is not friendly or enemy, it's neutral.
+                //     else {
+                //       _mapPlanets[i].transform.position = ...
+                //     }
                 else if (_mapPlanets[i].isNeutral)
                 {
                     _mapPlanets[i].transform.position = new Vector3(Random.Range(-8f, 8f), Random.Range(-4f, 4f), -0.1f);

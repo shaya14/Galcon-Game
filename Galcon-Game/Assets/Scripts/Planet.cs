@@ -15,7 +15,7 @@ public class Planet : MonoBehaviour
    [Header("Planet Settings")]
    public PlanetColor planetColor;
 
-   [SerializeField] private float _shipCreationDelay;
+   [SerializeField] private float _shipCreationDelay;  // CR: delete
    [SerializeField] private float _shipsPerSecond;
    [SerializeField] private int _iniaitalShips;
    [HideInInspector] public int numberOfShips;
@@ -35,7 +35,8 @@ public class Planet : MonoBehaviour
    private float _size = 1;
    private float _shipPerMinute;
    public int _attackingNumber = 0;
-   public bool _isAdded = false;
+   public bool _isAdded = false; // CR: delete
+
    public bool isFriendly => planetColor == PlanetColor.Friendly;
    public bool isEnemy => planetColor == PlanetColor.Enemy;
    public bool isNeutral => planetColor == PlanetColor.Neutral;
@@ -49,6 +50,10 @@ public class Planet : MonoBehaviour
    {
       _shipCounterText.text = numberOfShips.ToString();
       _shipPerMinuteText.text = shipPerMinute.ToString();
+      // CR: it should be the other way around:
+      //     GetComponent<SpriteRenderer>().color = _neutralColor;
+      //     it will feel very weird to the game designer if he changes a [SerializeField]
+      //     in the editor, but nothing happens..
       _neutralColor = GetComponent<SpriteRenderer>().color;
       _spriteRenderer = GetComponent<SpriteRenderer>();
    }
@@ -95,7 +100,8 @@ public class Planet : MonoBehaviour
          {
             numberOfShips++;
          }
-         _shipCounterText.text = numberOfShips.ToString();
+         // CR: delete this line (Update() will always call UpdateNumOfShipText anyway)
+         _shipCounterText.text = numberOfShips.ToString(); 
       }
       else
       {
@@ -115,7 +121,7 @@ public class Planet : MonoBehaviour
    }
    #endregion
    #region Planet Settings
-   public void RandomizePlanet()
+   public void RandomizePlanet() // CR: unused, delete.
    {
       int randomColor = Random.Range(0, 3);
       switch (randomColor)
@@ -212,6 +218,8 @@ public class Planet : MonoBehaviour
          numberOfShips = 1;
          planetColor = ship.shipColor;
          SoundFx.Instance.PlaySound(SoundFx.Instance._conquerSound, 1f);
+         // CR: delete this 'if': the condition will never be true
+         //     because one line before this, you set 'planetColor = ship.shipColor';
          if (planetColor != ship.shipColor)
          {
             numberOfShips--;

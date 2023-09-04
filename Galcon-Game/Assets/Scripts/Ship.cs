@@ -23,6 +23,9 @@ public class Ship : MonoBehaviour
         transform.up = _targetPlanet.transform.position - transform.position;
     }
 
+    // CR: rename 'SetShipColor'.
+    // CR: instead of getting a string that can either be 'red' or 'blue' - 
+    //     You can use your PlanetColor enum.
     public void ShipColor(string color)
     {
         switch (color)

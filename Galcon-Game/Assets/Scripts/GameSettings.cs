@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class GameSettings : Singleton<GameSettings>
 {
+    // CR: delete unsued
     private static int _numberOfRandomPlanets;
     private static int _numberOfEnemyPlanets;
     private static int _numberOfFriendlyPlanets;
     private static int _numberOfNeutralPlanets;
     private static bool _isRandomMap;
     private static bool _isCustomMap;
+    // CR: (style) lowerCaseCamel: 'numberOfRandomPlanets', etc. (See 'camera.Main');
     public int NumberOfRandomPlanets { get; set; }
     public int NumberOfEnemyPlanets { get; set; }
     public int NumberOfFriendlyPlanets { get; set; }

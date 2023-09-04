@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+// CR: same as in GameManager - split this into a 'GameUIManager' and 'MainMenuUiManager'.
 public class UIManager : Singleton<UIManager>
 {
     public GameObject losePanel;
