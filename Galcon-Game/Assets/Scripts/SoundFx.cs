@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class SoundFx : Singleton<SoundFx>
 {
-
     public AudioSource _audioSource;
     public AudioClip _clickSound;
     public AudioClip _selectSound;

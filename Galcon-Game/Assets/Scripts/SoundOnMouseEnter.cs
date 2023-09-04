@@ -7,6 +7,6 @@ public class SoundOnMouseEnter : MonoBehaviour
     void OnMouseEnter()
     {
         Debug.Log("Mouse enter");
-        SoundFx.Instance.PlaySound(SoundFx.Instance._selectSound, .3f);
+        SoundFx.instance.PlaySound(SoundFx.instance._selectSound, .3f);
     }
 }

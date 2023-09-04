@@ -23,18 +23,15 @@ public class Ship : MonoBehaviour
         transform.up = _targetPlanet.transform.position - transform.position;
     }
 
-    // CR: rename 'SetShipColor'.
-    // CR: instead of getting a string that can either be 'red' or 'blue' - 
-    //     You can use your PlanetColor enum.
-    public void ShipColor(string color)
+    public void SetShipColor(PlanetColor color)
     {
         switch (color)
         {
-            case "red":
+            case PlanetColor.Enemy:
                 _shipColor = PlanetColor.Enemy;
                 GetComponent<SpriteRenderer>().color = _enemyColor;
                 break;
-            case "blue":
+            case PlanetColor.Friendly:
                 _shipColor = PlanetColor.Friendly;
                 GetComponent<SpriteRenderer>().color = _playerColor;
                 break;
@@ -46,7 +43,7 @@ public class Ship : MonoBehaviour
         if (collision.gameObject.GetInstanceID() == _targetPlanet.gameObject.GetInstanceID())
         {
             _targetPlanet.Hit(this);
-            SoundFx.Instance.PlaySound(SoundFx.Instance._hitSound, 0.1f, Random.Range(0.95f, 1.05f));
+            SoundFx.instance.PlaySound(SoundFx.instance._hitSound, 0.1f, Random.Range(0.95f, 1.05f));
 
             if (_targetPlanet.planetColor != _shipColor)
             {

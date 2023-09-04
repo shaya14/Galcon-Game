@@ -27,7 +27,7 @@ public class GameSettings : Singleton<GameSettings>
 
     private void Update()
     {
-        UIManager.Instance.UpdateNumOfShips(NumberOfFriendlyPlanets, NumberOfEnemyPlanets, NumberOfNeutralPlanets);
+        UIManager.instance.UpdateNumOfShips(NumberOfFriendlyPlanets, NumberOfEnemyPlanets, NumberOfNeutralPlanets);
     }
 
     public bool MapMode()

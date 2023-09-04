@@ -217,7 +217,7 @@ public class Planet : MonoBehaviour
       {
          numberOfShips = 1;
          planetColor = ship.shipColor;
-         SoundFx.Instance.PlaySound(SoundFx.Instance._conquerSound, 1f);
+         SoundFx.instance.PlaySound(SoundFx.instance._conquerSound, 1f);
          // CR: delete this 'if': the condition will never be true
          //     because one line before this, you set 'planetColor = ship.shipColor';
          if (planetColor != ship.shipColor)
@@ -248,7 +248,7 @@ public class Planet : MonoBehaviour
    {
       get
       {
-         foreach (Planet planet in PlanetManager.Instance._selectedPlanets)
+         foreach (Planet planet in PlanetManager.instance._selectedPlanets)
          {
             // if (this == planet) { // 
             if (this.gameObject.GetInstanceID() == planet.gameObject.GetInstanceID())

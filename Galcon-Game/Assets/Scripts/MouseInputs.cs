@@ -25,25 +25,25 @@ public class MouseInputs : Singleton<MouseInputs>
             if (planet != null && planet.isFriendly && !planet.isSelected)
             {
                 planet.GetComponent<TargetGlow>()._isClicked = true;
-                PlanetManager.Instance._selectedPlanets.Add(planet);
+                PlanetManager.instance._selectedPlanets.Add(planet);
                 DrawLines._instance.ClearLines();
-                foreach (Planet enemy in PlanetManager.Instance.neutralAndEnemyPlanets)
+                foreach (Planet enemy in PlanetManager.instance.neutralAndEnemyPlanets)
                 {
                     enemy.GetComponent<TargetGlow>()._glowingEnabled = true;
                 }
             }
             else if (rayHit.collider.gameObject.tag == "Background")
             {
-                foreach (Planet selectedPlanet in PlanetManager.Instance._selectedPlanets)
+                foreach (Planet selectedPlanet in PlanetManager.instance._selectedPlanets)
                 {
                     selectedPlanet.GetComponent<TargetGlow>().SetGlowOff();
                     selectedPlanet._isAdded = false;
-                    foreach (Planet enemy in PlanetManager.Instance.neutralAndEnemyPlanets)
+                    foreach (Planet enemy in PlanetManager.instance.neutralAndEnemyPlanets)
                     {
                         enemy.GetComponent<TargetGlow>()._glowingEnabled = false;
                     }
                 }
-                PlanetManager.Instance._selectedPlanets.Clear();
+                PlanetManager.instance._selectedPlanets.Clear();
             }
         }
 
@@ -57,27 +57,27 @@ public class MouseInputs : Singleton<MouseInputs>
 
             if (planet.isFriendly)
             {
-                PlanetManager.Instance._attackingShips.GetComponent<Ship>()._targetPlanet = planet;
+                PlanetManager.instance._attackingShips.GetComponent<Ship>()._targetPlanet = planet;
                 planet.GetComponent<CircleCollider2D>().isTrigger = true;
                 planet._friendlyTargetArrows.SetActive(true);
-                PlanetManager.Instance.SpawnShips();
+                PlanetManager.instance.SpawnShips();
                 DrawLines._instance.ClearLines();
-                PlanetManager.Instance._selectedPlanets.Clear();
-                SoundFx.Instance.PlaySound(SoundFx.Instance._attackSound, 0.3f);
-                planet._attackingNumber += PlanetManager.Instance._numOfShipsGenerated;
-                PlanetManager.Instance._numOfShipsGenerated = 0;
+                PlanetManager.instance._selectedPlanets.Clear();
+                SoundFx.instance.PlaySound(SoundFx.instance._attackSound, 0.3f);
+                planet._attackingNumber += PlanetManager.instance._numOfShipsGenerated;
+                PlanetManager.instance._numOfShipsGenerated = 0;
             }
             else if (planet.isEnemy || planet.isNeutral)
             {
-                PlanetManager.Instance._attackingShips.GetComponent<Ship>()._targetPlanet = planet;
+                PlanetManager.instance._attackingShips.GetComponent<Ship>()._targetPlanet = planet;
                 planet.GetComponent<CircleCollider2D>().isTrigger = true;
                 planet._friendlyTargetArrows.SetActive(true);
-                PlanetManager.Instance.SpawnShips();
+                PlanetManager.instance.SpawnShips();
                 DrawLines._instance.ClearLines();
-                PlanetManager.Instance._selectedPlanets.Clear();
-                SoundFx.Instance.PlaySound(SoundFx.Instance._attackSound, 0.3f);
-                planet._attackingNumber += PlanetManager.Instance._numOfShipsGenerated;
-                PlanetManager.Instance._numOfShipsGenerated = 0;
+                PlanetManager.instance._selectedPlanets.Clear();
+                SoundFx.instance.PlaySound(SoundFx.instance._attackSound, 0.3f);
+                planet._attackingNumber += PlanetManager.instance._numOfShipsGenerated;
+                PlanetManager.instance._numOfShipsGenerated = 0;
             }
         }
     }

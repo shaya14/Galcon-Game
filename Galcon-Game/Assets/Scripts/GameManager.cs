@@ -20,7 +20,7 @@ public class GameManager : Singleton<GameManager>
     }
     void Update()
     {
-        if (UIManager.Instance.losePanel == null)
+        if (UIManager.instance.losePanel == null)
         {
             return;
         }
@@ -33,13 +33,13 @@ public class GameManager : Singleton<GameManager>
             }
         }
 
-        if (PlanetManager.Instance != null)
+        if (PlanetManager.instance != null)
         {
-            if (PlanetManager.Instance.friendlyPlanets.Count <= 0)
+            if (PlanetManager.instance.friendlyPlanets.Count <= 0)
             {
                 LoseScreen();
             }
-            else if (PlanetManager.Instance.enemyPlanets.Count <= 0)
+            else if (PlanetManager.instance.enemyPlanets.Count <= 0)
             {
                 WinScreen();
             }
@@ -49,43 +49,43 @@ public class GameManager : Singleton<GameManager>
     public void PlayRandomGame()
     {
         SceneManager.LoadScene("Game");
-        GameSettings.Instance.IsRandomMap = true;
-        GameSettings.Instance.NumberOfRandomPlanets = Random.Range(12, 15);
-        SoundFx.Instance.PlaySound(SoundFx.Instance._clickSound, .3f);
-        SoundFx.Instance.PlaySound(SoundFx.Instance._gameStartSound, .3f);
+        GameSettings.instance.IsRandomMap = true;
+        GameSettings.instance.NumberOfRandomPlanets = Random.Range(12, 15);
+        SoundFx.instance.PlaySound(SoundFx.instance._clickSound, .3f);
+        SoundFx.instance.PlaySound(SoundFx.instance._gameStartSound, .3f);
     }
 
     public void StartGeneratedGame()
     {
         SceneManager.LoadScene("Game");
-        GameSettings.Instance.IsCustomMap = true;
-        SoundFx.Instance.PlaySound(SoundFx.Instance._clickSound, .3f);
-        SoundFx.Instance.PlaySound(SoundFx.Instance._gameStartSound, .3f);
+        GameSettings.instance.IsCustomMap = true;
+        SoundFx.instance.PlaySound(SoundFx.instance._clickSound, .3f);
+        SoundFx.instance.PlaySound(SoundFx.instance._gameStartSound, .3f);
     }
 
     public void GenerateButton()
     {
         //UIManager._instance.mainMenuPanel.SetActive(false);
         //UIManager._instance.gameModePanel.SetActive(true);
-        UIManager.Instance.mainMenuPanel.GetComponent<RectTransform>().anchoredPosition = new Vector2(700, 0);
-        UIManager.Instance.gameModePanel.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
-        SoundFx.Instance.PlaySound(SoundFx.Instance._clickSound, .3f);
+        UIManager.instance.mainMenuPanel.GetComponent<RectTransform>().anchoredPosition = new Vector2(700, 0);
+        UIManager.instance.gameModePanel.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
+        SoundFx.instance.PlaySound(SoundFx.instance._clickSound, .3f);
     }
     public void BackButton()
     {
         //UIManager._instance.mainMenuPanel.SetActive(true);
         //UIManager._instance.gameModePanel.SetActive(false);
-        UIManager.Instance.mainMenuPanel.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
-        UIManager.Instance.gameModePanel.GetComponent<RectTransform>().anchoredPosition = new Vector2(700, 0);
-        SoundFx.Instance.PlaySound(SoundFx.Instance._clickSound, .3f);
+        UIManager.instance.mainMenuPanel.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
+        UIManager.instance.gameModePanel.GetComponent<RectTransform>().anchoredPosition = new Vector2(700, 0);
+        SoundFx.instance.PlaySound(SoundFx.instance._clickSound, .3f);
     }
     public void ResumeButton()
     {
         _isPaused = !_isPaused;
         PauseScreen(_isPaused);
         EnablePlanetFunctions();
-        SoundFx.Instance.PlaySound(SoundFx.Instance._clickSound, .3f);
-        SoundFx.Instance.PlaySound(SoundFx.Instance._gameResumeSound, .3f);
+        SoundFx.instance.PlaySound(SoundFx.instance._clickSound, .3f);
+        SoundFx.instance.PlaySound(SoundFx.instance._gameResumeSound, .3f);
     }
 
     public void RestartButton()
@@ -94,14 +94,14 @@ public class GameManager : Singleton<GameManager>
         _screenOn = false;
         SceneManager.LoadScene("Game");
         EnablePlanetFunctions();
-        SoundFx.Instance.PlaySound(SoundFx.Instance._clickSound, .3f);
-        SoundFx.Instance.PlaySound(SoundFx.Instance._gameRestartSound, .3f);
+        SoundFx.instance.PlaySound(SoundFx.instance._clickSound, .3f);
+        SoundFx.instance.PlaySound(SoundFx.instance._gameRestartSound, .3f);
     }
 
     public void ExitButton()
     {
         SceneManager.LoadScene("MainMenu");
-        SoundFx.Instance.PlaySound(SoundFx.Instance._clickSound, .3f);
+        SoundFx.instance.PlaySound(SoundFx.instance._clickSound, .3f);
     }
     #endregion
     #region Screens
@@ -109,8 +109,8 @@ public class GameManager : Singleton<GameManager>
     {
         StopTime();
         _screenOn = true;
-        UIManager.Instance.losePanel.SetActive(true);
-        UIManager.Instance.backgroundPanel.SetActive(true);
+        UIManager.instance.losePanel.SetActive(true);
+        UIManager.instance.backgroundPanel.SetActive(true);
         DisablePlanetFunctions();
     }
 
@@ -118,16 +118,16 @@ public class GameManager : Singleton<GameManager>
     {
         StopTime();
         _screenOn = true;
-        UIManager.Instance.winPanel.SetActive(true);
-        UIManager.Instance.backgroundPanel.SetActive(true);
+        UIManager.instance.winPanel.SetActive(true);
+        UIManager.instance.backgroundPanel.SetActive(true);
         DisablePlanetFunctions();
     }
 
     private void PauseScreen(bool isPaused)
     {
         StopTime();
-        UIManager.Instance.pausePanel.SetActive(isPaused);
-        UIManager.Instance.backgroundPanel.SetActive(isPaused);
+        UIManager.instance.pausePanel.SetActive(isPaused);
+        UIManager.instance.backgroundPanel.SetActive(isPaused);
         DisablePlanetFunctions();
         if (!isPaused)
         {
@@ -151,12 +151,12 @@ public class GameManager : Singleton<GameManager>
 
     public void SliderValueChange()
     {
-        GameSettings.Instance.NumberOfFriendlyPlanets = (int)UIManager.Instance.numOfFriendlyShipsSlider.value;
-        GameSettings.Instance.NumberOfEnemyPlanets = (int)UIManager.Instance.numOfEnemyShipsSlider.value;
-        GameSettings.Instance.NumberOfNeutralPlanets = (int)UIManager.Instance.numOfNeutralShipsSlider.value;
-        PlaySoundEachOneSlide(UIManager.Instance.numOfFriendlyShipsSlider);
-        PlaySoundEachOneSlide(UIManager.Instance.numOfEnemyShipsSlider);
-        PlaySoundEachOneSlide(UIManager.Instance.numOfNeutralShipsSlider);
+        GameSettings.instance.NumberOfFriendlyPlanets = (int)UIManager.instance.numOfFriendlyShipsSlider.value;
+        GameSettings.instance.NumberOfEnemyPlanets = (int)UIManager.instance.numOfEnemyShipsSlider.value;
+        GameSettings.instance.NumberOfNeutralPlanets = (int)UIManager.instance.numOfNeutralShipsSlider.value;
+        PlaySoundEachOneSlide(UIManager.instance.numOfFriendlyShipsSlider);
+        PlaySoundEachOneSlide(UIManager.instance.numOfEnemyShipsSlider);
+        PlaySoundEachOneSlide(UIManager.instance.numOfNeutralShipsSlider);
     }
 
     private void PlaySoundEachOneSlide(Slider slider)
@@ -165,7 +165,7 @@ public class GameManager : Singleton<GameManager>
         {
             if (Mathf.Approximately(slider.value, i))
             {
-                SoundFx.Instance.PlaySound(SoundFx.Instance._selectSound, .3f);
+                SoundFx.instance.PlaySound(SoundFx.instance._selectSound, .3f);
             }
         }
     }
@@ -175,18 +175,18 @@ public class GameManager : Singleton<GameManager>
 
     private void DisablePlanetFunctions()
     {
-        MouseInputs.Instance._isEnable = false;
-        foreach (Planet planet in PlanetManager.Instance.enemyPlanets)
+        MouseInputs.instance._isEnable = false;
+        foreach (Planet planet in PlanetManager.instance.enemyPlanets)
         {
             planet.GetComponent<TargetGlow>()._isEnable = false;
         }
 
-        foreach (Planet planet in PlanetManager.Instance.friendlyPlanets)
+        foreach (Planet planet in PlanetManager.instance.friendlyPlanets)
         {
             planet.GetComponent<TargetGlow>()._isEnable = false;
         }
 
-        foreach (Planet planet in PlanetManager.Instance.neutralPlanets)
+        foreach (Planet planet in PlanetManager.instance.neutralPlanets)
         {
             planet.GetComponent<TargetGlow>()._isEnable = false;
         }
@@ -194,18 +194,18 @@ public class GameManager : Singleton<GameManager>
 
     private void EnablePlanetFunctions()
     {
-        MouseInputs.Instance._isEnable = true;
-        foreach (Planet planet in PlanetManager.Instance.enemyPlanets)
+        MouseInputs.instance._isEnable = true;
+        foreach (Planet planet in PlanetManager.instance.enemyPlanets)
         {
             planet.GetComponent<TargetGlow>()._isEnable = true;
         }
 
-        foreach (Planet planet in PlanetManager.Instance.friendlyPlanets)
+        foreach (Planet planet in PlanetManager.instance.friendlyPlanets)
         {
             planet.GetComponent<TargetGlow>()._isEnable = true;
         }
 
-        foreach (Planet planet in PlanetManager.Instance.neutralPlanets)
+        foreach (Planet planet in PlanetManager.instance.neutralPlanets)
         {
             planet.GetComponent<TargetGlow>()._isEnable = true;
         }

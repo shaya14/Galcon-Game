@@ -4,20 +4,17 @@ using UnityEngine;
 
 public class Singleton<T> : MonoBehaviour where T : Singleton<T>
 {
-    // CR: (style)
-    //     private static T _instance;
-    //     public static T instance => _instance;
-    private static T instance;
-    public static T Instance { get { return instance; } }
+    private static T _instance;
+    public static T instance => _instance;
     protected virtual void Awake()
     {
-        if (instance != null && this.gameObject != null)
+        if (_instance != null && this.gameObject != null)
         {
             Destroy(gameObject);
         }
         else
         {
-            instance = (T)this;
+            _instance = (T)this;
         }
     }
 }

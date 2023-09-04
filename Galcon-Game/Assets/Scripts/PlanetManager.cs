@@ -32,16 +32,16 @@ public class PlanetManager : Singleton<PlanetManager>
     {
         base.Awake();
         _mapPlanets = new List<Planet>();
-        if (GameSettings.Instance != null)
+        if (GameSettings.instance != null)
         {
-            MapMode(GameSettings.Instance.MapMode());
+            MapMode(GameSettings.instance.MapMode());
         }
 
         if (_randomMap)
         {
-            if (GameSettings.Instance != null)
+            if (GameSettings.instance != null)
             {
-                UpdateNumOfRandomPlanets(GameSettings.Instance.NumberOfRandomPlanets);
+                UpdateNumOfRandomPlanets(GameSettings.instance.NumberOfRandomPlanets);
             }
 
             InstatiatePlanets();
@@ -50,11 +50,11 @@ public class PlanetManager : Singleton<PlanetManager>
 
         if (_custonMap)
         {
-            if (GameSettings.Instance != null)
+            if (GameSettings.instance != null)
             {
-                UpdateNumOfPlanets(GameSettings.Instance.NumberOfFriendlyPlanets,
-                GameSettings.Instance.NumberOfEnemyPlanets,
-                GameSettings.Instance.NumberOfNeutralPlanets);
+                UpdateNumOfPlanets(GameSettings.instance.NumberOfFriendlyPlanets,
+                GameSettings.instance.NumberOfEnemyPlanets,
+                GameSettings.instance.NumberOfNeutralPlanets);
             }
             InstantiateSpecPlanets();
             PlanetCollision();
@@ -75,7 +75,7 @@ public class PlanetManager : Singleton<PlanetManager>
             for (int i = 0; i < planet.numberOfShips; i++)
             {
                 Ship ship = Instantiate<Ship>(_attackingShips, planet.transform.position, Quaternion.identity);
-                ship.ShipColor("blue");
+                ship.SetShipColor(PlanetColor.Friendly);
                 _numOfShipsGenerated++;
             }
         }
@@ -224,11 +224,11 @@ public class PlanetManager : Singleton<PlanetManager>
 
     public bool MapMode(bool mapMode)
     {
-        if (GameSettings.Instance.IsRandomMap)
+        if (GameSettings.instance.IsRandomMap)
         {
             return _randomMap = true;
         }
-        else if (GameSettings.Instance.IsCustomMap)
+        else if (GameSettings.instance.IsCustomMap)
         {
             return _custonMap = true;
         }
