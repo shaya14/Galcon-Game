@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -89,14 +90,26 @@ public class BoxSelection : Singleton<BoxSelection>
             }
         }
 
-        // Deselect planets that were selected previously but are not in the newlySelectedPlanets list
-        foreach (Planet selectedPlanet in PlanetManager.instance._selectedPlanets)
+        // New Way to deselect planets that were selected previously but are not in the newlySelectedPlanets list
+        // Before it was the second foreach loop On line 106
+        // Work but throw an error
+        foreach (Planet planet in newlySelectedPlanets)
         {
-            if (!newlySelectedPlanets.Contains(selectedPlanet))
+            if (!objectsToSelect.Contains(planet.GetComponent<Collider2D>()))
             {
-                selectedPlanet.GetComponent<TargetGlow>().SetGlowOff();
+                planet.GetComponent<TargetGlow>().SetGlowOff();
+                newlySelectedPlanets.Remove(planet);
             }
         }
+
+        // Deselect planets that were selected previously but are not in the newlySelectedPlanets list
+        // foreach (Planet selectedPlanet in PlanetManager.instance._selectedPlanets)
+        // {
+        //     if (!newlySelectedPlanets.Contains(selectedPlanet))
+        //     {
+        //         selectedPlanet.GetComponent<TargetGlow>().SetGlowOff();
+        //     }
+        // }
 
         PlanetManager.instance._selectedPlanets = newlySelectedPlanets; // Update the selected planets list
     }

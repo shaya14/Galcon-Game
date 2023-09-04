@@ -33,6 +33,7 @@ public class Planet : MonoBehaviour
    private float _size = 1;
    private float _shipPerMinute;
    public int _attackingNumber = 0;
+   public bool _isAddedToSelectedPlanets = false;
    public bool isFriendly => planetColor == PlanetColor.Friendly;
    public bool isEnemy => planetColor == PlanetColor.Enemy;
    public bool isNeutral => planetColor == PlanetColor.Neutral;

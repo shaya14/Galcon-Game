@@ -1486,14 +1486,6 @@ MonoBehaviour:
   winPanel: {fileID: 734372997}
   pausePanel: {fileID: 676552203}
   backgroundPanel: {fileID: 1217467813}
-  mainMenuPanel: {fileID: 0}
-  gameModePanel: {fileID: 0}
-  numOfFriendlyShipsSlider: {fileID: 0}
-  numOfEnemyShipsSlider: {fileID: 0}
-  numOfNeutralShipsSlider: {fileID: 0}
-  numOfFriendlyShipsText: {fileID: 0}
-  numOfEnemyShipsText: {fileID: 0}
-  numOfNeutralShipsText: {fileID: 0}
 --- !u!4 &635665916
 Transform:
   m_ObjectHideFlags: 0
@@ -1945,7 +1937,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 994589463}
-  - component: {fileID: 994589462}
+  - component: {fileID: 994589465}
   - component: {fileID: 994589461}
   - component: {fileID: 994589464}
   m_Layer: 0
@@ -2059,19 +2051,6 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 1
   m_ApplyActiveColorSpace: 1
---- !u!114 &994589462
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 994589460}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc4aa6b0b04206545a3e165fcd330345, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _selectionTime: 0.2
 --- !u!4 &994589463
 Transform:
   m_ObjectHideFlags: 0
@@ -2132,6 +2111,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.1, y: 0.1}
   m_EdgeRadius: 0
+--- !u!114 &994589465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 994589460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc4aa6b0b04206545a3e165fcd330345, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _selectionTime: 0.2
 --- !u!1 &1074186043
 GameObject:
   m_ObjectHideFlags: 0
