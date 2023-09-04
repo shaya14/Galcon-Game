@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlanetManager : Singleton<PlanetManager>
 {
     [Header("Map Prefabs")]
-    [SerializeField] private Planet _mapPlanet; // CR: rename: _planetPrefab
+    [SerializeField] private Planet _planetPrefab;
     public Ship _attackingShips;
 
     [Header("Map Settings")]
@@ -23,8 +23,6 @@ public class PlanetManager : Singleton<PlanetManager>
     [Header("Map & Settings Planets")]
     [SerializeField] private List<Planet> _mapPlanets;
     public List<Planet> _selectedPlanets;
-
-    private static PlanetManager _instance; // CR: delete since you're inheriting 'Instance'.
     public int _numOfShipsGenerated = 0;
 
     // CR: [discuss in class] how can we simplify the 'GameSettings' related code?
@@ -109,7 +107,7 @@ public class PlanetManager : Singleton<PlanetManager>
     {
         for (int i = 0; i < _numberOfRandomPlanets; i++)
         {
-            var planet = Instantiate<Planet>(_mapPlanet);
+            var planet = Instantiate<Planet>(_planetPrefab);
             _mapPlanets.Add(planet);
             planet.gameObject.SetActive(false);
         }
@@ -133,7 +131,7 @@ public class PlanetManager : Singleton<PlanetManager>
     {
         for (int i = 0; i < numOfPlanets; i++)
         {
-            var planet = Instantiate<Planet>(_mapPlanet, position, Quaternion.identity);
+            var planet = Instantiate<Planet>(_planetPrefab, position, Quaternion.identity);
             planet.SetSettings(planetColor, numOfShips, size);
             planet.transform.position = position;
             planet.shipPerSecond *= size;
@@ -149,7 +147,7 @@ public class PlanetManager : Singleton<PlanetManager>
     {
         for (int i = 0; i < numOfPlanets; i++)
         {
-            var planet = Instantiate<Planet>(_mapPlanet, position, Quaternion.identity);
+            var planet = Instantiate<Planet>(_planetPrefab, position, Quaternion.identity);
             var size = Random.Range(0.6f, 1.5f);
             planet.SetSettings(planetColor, size);
             planet.transform.position = position;
@@ -193,16 +191,9 @@ public class PlanetManager : Singleton<PlanetManager>
                 {
                     _mapPlanets[i].transform.position = new Vector3(Random.Range(6f, 8f), Random.Range(-4f, 4f), -0.1f);
                 }
-                // CR: (nit) if a planet is not friendly or enemy, it's neutral.
-                //     else {
-                //       _mapPlanets[i].transform.position = ...
-                //     }
-                else if (_mapPlanets[i].isNeutral)
-                {
-                    _mapPlanets[i].transform.position = new Vector3(Random.Range(-8f, 8f), Random.Range(-4f, 4f), -0.1f);
-                }
                 else
                 {
+                    _mapPlanets[i].transform.position = new Vector3(Random.Range(-8f, 8f), Random.Range(-4f, 4f), -0.1f);
                 }
             }
             _mapPlanets[i].gameObject.SetActive(true);
@@ -238,22 +229,7 @@ public class PlanetManager : Singleton<PlanetManager>
         }
     }
     #endregion
-
-    /// <summary>
-    /// Thats The Same is the public List<Planet> friendlyPlanets
-    /// </summary>
-    // public List<Planet> GetFriendlyPlanets() {
-    //    var planets = new List<Planet>();
-
-    //     foreach (Planet planet in _mapPlanets) {
-    //       if (planet.isFriendly) {
-    //         planets.Add(planet);
-    //       }
-    //     }
-
-    //     return planets;
-    // } 
-
+    #region Planet lists
     public List<Planet> friendlyPlanets
     {
         get
@@ -325,4 +301,5 @@ public class PlanetManager : Singleton<PlanetManager>
             return planets;
         }
     }
+    #endregion
 }
