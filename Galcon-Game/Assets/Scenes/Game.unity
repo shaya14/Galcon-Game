@@ -3893,6 +3893,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2943105046724601796, guid: c21138694c486b24b836bbaf0ba3d90a, type: 3}
+      propertyPath: _planetPrefab
+      value: 
+      objectReference: {fileID: 901599458154512910, guid: 45c3211db3410f744ab7389d0e57b5d1, type: 3}
+    - target: {fileID: 2943105046724601796, guid: c21138694c486b24b836bbaf0ba3d90a, type: 3}
       propertyPath: _randomeGenetate
       value: 0
       objectReference: {fileID: 0}
