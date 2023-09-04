@@ -10,9 +10,6 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private float _maxTimeBetweenAttacks;
     private float _timeBetweenAttacks = 5f;
     private float _timer;
-
-    // CR: see below on how to remove the '_hasTargets' state.
-    public bool _hasTargets = true;
     private Planet _thisPlanet;
     private float _attackingMinimum;
 
