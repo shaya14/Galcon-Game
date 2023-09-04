@@ -5,11 +5,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-// CR: You should split the 'GameManager' into a 'GameManager' for the 'Game' Scene,
-//     and a 'MainMenuManager' for the 'MainMenu' Scene.
-//     most of the code here is irrelevant for the 'MainMenu' scene 
-//     (and some is irrelevant for the 'Game' scene)
-
 public class GameManager : Singleton<GameManager>   
 {
     private bool _isPaused = false;
@@ -72,7 +67,7 @@ public class GameManager : Singleton<GameManager>
         StartTime();
     }
     #endregion
-    
+
     #region Screens
     public void LoseScreen()
     {

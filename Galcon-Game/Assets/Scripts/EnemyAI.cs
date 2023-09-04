@@ -4,18 +4,17 @@ using UnityEngine;
 
 public class EnemyAI : MonoBehaviour
 {
-    [SerializeField] private Ship _attackingShip; // CR: rename _shipPrefab
+    [SerializeField] private Ship _shipPrefab;
     [SerializeField] private Color _enemyColor;
-    [SerializeField] private float _minAttackRate;
-    [SerializeField] private float _maxAttackRate;
-    private float _attackRate = 5f;
+    [SerializeField] private float _minTimeBetweenAttacks;
+    [SerializeField] private float _maxTimeBetweenAttacks;
+    private float _timeBetweenAttacks = 5f;
     private float _timer;
 
     // CR: see below on how to remove the '_hasTargets' state.
     public bool _hasTargets = true;
     private Planet _thisPlanet;
-
-    public float _attackingMinimum; // CR: private
+    private float _attackingMinimum;
 
     void Start()
     {
@@ -34,16 +33,6 @@ public class EnemyAI : MonoBehaviour
         if (_thisPlanet.numberOfShips >= _attackingMinimum / 2)
         {
             TimeToNextAttack();
-        }
-
-        // CR: see below on how to avoid the '_hasTargets' state.
-        if (PlanetManager.instance.friendlyPlanets.Count <= 0 && PlanetManager.instance.neutralPlanets.Count <= 0)
-        {
-            _hasTargets = false;
-        }
-        else
-        {
-            _hasTargets = true;
         }
     }
 
@@ -100,47 +89,39 @@ public class EnemyAI : MonoBehaviour
         return target;
     }
 
-    // CR: (style) function parameters should be 'localCamelCase' - so rename '_target' -> 'target'.
-    private void InstatiateAttackingShips(Planet _target)
+    private void InstatiateAttackingShips(Planet target)
     {
         _thisPlanet.numberOfShips /= 2;
         _thisPlanet.UpdateNumOfShipsText();
         for (int i = 0; i < _thisPlanet.numberOfShips; i++)
         {
-            Ship ship = Instantiate<Ship>(_attackingShip, this.transform.position, Quaternion.identity);
+            Ship ship = Instantiate<Ship>(_shipPrefab, this.transform.position, Quaternion.identity);
             ship.SetShipColor(PlanetColor.Enemy);
-            _target.GetComponent<CircleCollider2D>().isTrigger = true;
-            _target._enemyTargetArrows.SetActive(true);
-            ship._targetPlanet = _target;
-            _target._attackingNumber++;
+            target.GetComponent<CircleCollider2D>().isTrigger = true;
+            target._enemyTargetArrows.SetActive(true);
+            ship._targetPlanet = target;
+            target._attackingNumber++;
         }
     }
 
     private void TimeToNextAttack()
     {
         _timer += Time.deltaTime;
-        // CR: like we talked about in class: remember that the RATE has units [1/s]. While _timer is in units [s].
-        //     Either:
-        //       1. rename _attackRate to '_timeBetweenAttacks';
-        //       2. change the condition to 'if (_timer >= 1f / _attackRate)';
-        if (_timer >= _attackRate)
+        if (_timer >= _timeBetweenAttacks)
         {
-            _attackRate = Random.Range(_minAttackRate, _maxAttackRate);
-            // CR: same idea of avoiding state that needs to be updated every loop.
-            //     Add a function like this:
-            //       private bool HasTargets() {
-            //         return PlanetManager.instance.friendlyPlanets.Count > 0 || 
-            //                PlanetManager.instance.neutralPlanets.Count > 0;
-            //       }
-            //     Then, you can just do:
-            //     if (HasTargets()) {
-            //       Attack();
-            //     } 
-            // CR: Every 'if' MUST have '{}'. It's VERY important.
-            if (_hasTargets)
+            _timeBetweenAttacks = Random.Range(_minTimeBetweenAttacks, _maxTimeBetweenAttacks);
+            if (HasTargets())
+            {
                 Attack();
+            }
             _timer = 0;
         }
+    }
+
+    private bool HasTargets()
+    {
+        return PlanetManager.instance.friendlyPlanets.Count > 0 ||
+               PlanetManager.instance.neutralPlanets.Count > 0;
     }
 
     public void AttackMinimumNumberBySize(float num)
@@ -148,16 +129,16 @@ public class EnemyAI : MonoBehaviour
         if (num <= 8)
         {
             _attackingMinimum *= 6;
-        }   
+        }
         else if (num > 8 && num <= 12)
         {
             _attackingMinimum *= 4;
         }
-        else if(num > 12 && num <= 16)
+        else if (num > 12 && num <= 16)
         {
             _attackingMinimum *= 3;
         }
-        else if (num > 16 && num <=25)
+        else if (num > 16 && num <= 25)
         {
             _attackingMinimum *= 2;
         }
