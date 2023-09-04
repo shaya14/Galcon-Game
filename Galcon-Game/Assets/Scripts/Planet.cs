@@ -14,8 +14,6 @@ public class Planet : MonoBehaviour
 {
    [Header("Planet Settings")]
    public PlanetColor planetColor;
-
-   [SerializeField] private float _shipCreationDelay;  // CR: delete
    [SerializeField] private float _shipsPerSecond;
    [SerializeField] private int _iniaitalShips;
    [HideInInspector] public int numberOfShips;
@@ -35,8 +33,6 @@ public class Planet : MonoBehaviour
    private float _size = 1;
    private float _shipPerMinute;
    public int _attackingNumber = 0;
-   public bool _isAdded = false; // CR: delete
-
    public bool isFriendly => planetColor == PlanetColor.Friendly;
    public bool isEnemy => planetColor == PlanetColor.Enemy;
    public bool isNeutral => planetColor == PlanetColor.Neutral;
@@ -50,11 +46,6 @@ public class Planet : MonoBehaviour
    {
       _shipCounterText.text = numberOfShips.ToString();
       _shipPerMinuteText.text = shipPerMinute.ToString();
-      // CR: it should be the other way around:
-      //     GetComponent<SpriteRenderer>().color = _neutralColor;
-      //     it will feel very weird to the game designer if he changes a [SerializeField]
-      //     in the editor, but nothing happens..
-      _neutralColor = GetComponent<SpriteRenderer>().color;
       _spriteRenderer = GetComponent<SpriteRenderer>();
    }
    private void Start()
@@ -100,8 +91,6 @@ public class Planet : MonoBehaviour
          {
             numberOfShips++;
          }
-         // CR: delete this line (Update() will always call UpdateNumOfShipText anyway)
-         _shipCounterText.text = numberOfShips.ToString(); 
       }
       else
       {
@@ -121,23 +110,6 @@ public class Planet : MonoBehaviour
    }
    #endregion
    #region Planet Settings
-   public void RandomizePlanet() // CR: unused, delete.
-   {
-      int randomColor = Random.Range(0, 3);
-      switch (randomColor)
-      {
-         case 0:
-            planetColor = PlanetColor.Friendly;
-            break;
-         case 1:
-            planetColor = PlanetColor.Enemy;
-            break;
-         case 2:
-            planetColor = PlanetColor.Neutral;
-            break;
-      }
-   }
-
    public PlanetColor RandomizePlanetColor()
    {
       int randomColor = Random.Range(0, 3);
@@ -218,12 +190,6 @@ public class Planet : MonoBehaviour
          numberOfShips = 1;
          planetColor = ship.shipColor;
          SoundFx.instance.PlaySound(SoundFx.instance._conquerSound, 1f);
-         // CR: delete this 'if': the condition will never be true
-         //     because one line before this, you set 'planetColor = ship.shipColor';
-         if (planetColor != ship.shipColor)
-         {
-            numberOfShips--;
-         }
          return;
       }
       if (planetColor == ship.shipColor)
