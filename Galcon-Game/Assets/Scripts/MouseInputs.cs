@@ -37,7 +37,6 @@ public class MouseInputs : Singleton<MouseInputs>
                 foreach (Planet selectedPlanet in PlanetManager.instance._selectedPlanets)
                 {
                     selectedPlanet.GetComponent<TargetGlow>().SetGlowOff();
-                    selectedPlanet._isAdded = false;
                     foreach (Planet enemy in PlanetManager.instance.neutralAndEnemyPlanets)
                     {
                         enemy.GetComponent<TargetGlow>()._glowingEnabled = false;
@@ -54,7 +53,10 @@ public class MouseInputs : Singleton<MouseInputs>
             {
                 return;
             }
-
+            if(PlanetManager.instance._selectedPlanets.Count <= 0)
+            {
+                return;
+            }
             if (planet.isFriendly)
             {
                 PlanetManager.instance._attackingShips.GetComponent<Ship>()._targetPlanet = planet;
