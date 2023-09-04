@@ -49,8 +49,8 @@ public class GameManager : Singleton<GameManager>
     public void PlayRandomGame()
     {
         SceneManager.LoadScene("Game");
-        GameSettings.instance.IsRandomMap = true;
-        GameSettings.instance.NumberOfRandomPlanets = Random.Range(12, 15);
+        GameSettings.instance.isRandomMap = true;
+        GameSettings.instance.numberOfRandomPlanets = Random.Range(12, 15);
         SoundFx.instance.PlaySound(SoundFx.instance._clickSound, .3f);
         SoundFx.instance.PlaySound(SoundFx.instance._gameStartSound, .3f);
     }
@@ -58,7 +58,7 @@ public class GameManager : Singleton<GameManager>
     public void StartGeneratedGame()
     {
         SceneManager.LoadScene("Game");
-        GameSettings.instance.IsCustomMap = true;
+        GameSettings.instance.isCustomMap = true;
         SoundFx.instance.PlaySound(SoundFx.instance._clickSound, .3f);
         SoundFx.instance.PlaySound(SoundFx.instance._gameStartSound, .3f);
     }
@@ -151,9 +151,9 @@ public class GameManager : Singleton<GameManager>
 
     public void SliderValueChange()
     {
-        GameSettings.instance.NumberOfFriendlyPlanets = (int)UIManager.instance.numOfFriendlyShipsSlider.value;
-        GameSettings.instance.NumberOfEnemyPlanets = (int)UIManager.instance.numOfEnemyShipsSlider.value;
-        GameSettings.instance.NumberOfNeutralPlanets = (int)UIManager.instance.numOfNeutralShipsSlider.value;
+        GameSettings.instance.numberOfFriendlyPlanets = (int)UIManager.instance.numOfFriendlyShipsSlider.value;
+        GameSettings.instance.numberOfEnemyPlanets = (int)UIManager.instance.numOfEnemyShipsSlider.value;
+        GameSettings.instance.numberOfNeutralPlanets = (int)UIManager.instance.numOfNeutralShipsSlider.value;
         PlaySoundEachOneSlide(UIManager.instance.numOfFriendlyShipsSlider);
         PlaySoundEachOneSlide(UIManager.instance.numOfEnemyShipsSlider);
         PlaySoundEachOneSlide(UIManager.instance.numOfNeutralShipsSlider);

@@ -11,13 +11,12 @@ public class GameSettings : Singleton<GameSettings>
     private static int _numberOfNeutralPlanets;
     private static bool _isRandomMap;
     private static bool _isCustomMap;
-    // CR: (style) lowerCaseCamel: 'numberOfRandomPlanets', etc. (See 'camera.Main');
-    public int NumberOfRandomPlanets { get; set; }
-    public int NumberOfEnemyPlanets { get; set; }
-    public int NumberOfFriendlyPlanets { get; set; }
-    public int NumberOfNeutralPlanets { get; set; }
-    public bool IsRandomMap { get; set; } = false;
-    public bool IsCustomMap { get; set; } = false;
+    public int numberOfRandomPlanets { get; set; }
+    public int numberOfEnemyPlanets { get; set; }
+    public int numberOfFriendlyPlanets { get; set; }
+    public int numberOfNeutralPlanets { get; set; }
+    public bool isRandomMap { get; set; } = false;
+    public bool isCustomMap { get; set; } = false;
 
     protected override void Awake()
     {
@@ -27,16 +26,16 @@ public class GameSettings : Singleton<GameSettings>
 
     private void Update()
     {
-        UIManager.instance.UpdateNumOfShips(NumberOfFriendlyPlanets, NumberOfEnemyPlanets, NumberOfNeutralPlanets);
+        UIManager.instance.UpdateNumOfShips(numberOfFriendlyPlanets, numberOfEnemyPlanets, numberOfNeutralPlanets);
     }
 
     public bool MapMode()
     {
-        if (IsRandomMap)
+        if (isRandomMap)
         {
             return true;
         }
-        else if (IsCustomMap)
+        else if (isCustomMap)
         {
             return true;
         }
