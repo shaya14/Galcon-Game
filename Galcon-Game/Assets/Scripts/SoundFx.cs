@@ -6,6 +6,13 @@ using UnityEngine;
 public class SoundFx : Singleton<SoundFx>
 {
     public AudioSource _audioSource;
+    // CR: these don't need to be public (they are never edited from outside the class!)
+    //     [SerializeField] private AudioClip _clickSound;
+    //     [SerializeField] private AudioClip _selectSound;
+    //     ...
+    //     public AudioClip clickSound => _clickSound;
+    //     public AudioClip selectSound => _selectSound;
+    //     ...
     public AudioClip _clickSound;
     public AudioClip _selectSound;
     public AudioClip _attackSound;

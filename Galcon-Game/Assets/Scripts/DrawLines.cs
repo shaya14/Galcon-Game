@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class DrawLines : MonoBehaviour
 {
-    public static DrawLines _instance;
-    private LineRenderer _lineRenderer;
+    public static DrawLines _instance; // CR: use the 'Singleton' class
+    private LineRenderer _lineRenderer; // CR: rename '_lineRendererPrefab'
     public List<LineRenderer> _activeLines = new List<LineRenderer>();
     void Start()
     {
@@ -13,12 +13,14 @@ public class DrawLines : MonoBehaviour
         _lineRenderer = GetComponent<LineRenderer>();
     }
 
+    // CR: unused, delete.
     public void DrawLine(Transform origin, Transform target)
     {
         _lineRenderer.SetPosition(0, origin.position);
         _lineRenderer.SetPosition(1, target.position);
     }
 
+    // CR: rename to 'DrawLine'
     public void DrawFewLines(Transform origin, Transform targets)
     {
         LineRenderer line = Instantiate(_lineRenderer, origin.position, Quaternion.identity);
