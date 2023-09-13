@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GameSettings : Singleton<GameSettings>
 {
+    // CR: There is no benefit to having these be properties. simplify:
+    //       public in numberOfRandomPlanets;
     public int numberOfRandomPlanets { get; set; }
     public int numberOfEnemyPlanets { get; set; }
     public int numberOfFriendlyPlanets { get; set; }

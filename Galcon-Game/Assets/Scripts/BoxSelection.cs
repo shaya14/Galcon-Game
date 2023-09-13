@@ -10,7 +10,7 @@ public class BoxSelection : Singleton<BoxSelection>
     private LineRenderer _lineRenderer;
     private Vector2 _initalMousePosition, _currentMousePosition;
     private BoxCollider2D _boxCollider2D;
-    [SerializeField] private float _selectionTime = 0.2f;
+    [SerializeField] private float _selectionTime = 0.2f; // CR: no defaults in the code.
     private float _timer = 0f;
     private List<Planet> newlySelectedPlanets = new List<Planet>(); // To store planets newly selected in this frame
 

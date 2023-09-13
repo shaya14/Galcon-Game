@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+// CR: reminder to use camera-space canvas for the background, to avoid the blue borders.
+
 public class GameManager : Singleton<GameManager>   
 {
     private bool _isPaused = false;
@@ -118,6 +120,18 @@ public class GameManager : Singleton<GameManager>
     private void DisablePlanetFunctions()
     {
         MouseInputs.instance._isEnable = false;
+        
+        // CR: instead of duplicating this code 3 times, how about:
+        //       foreach (Planet planet in PlanetManager.instance.allPlanets) {
+        //         planet.GetComponent<TargetGlow>()._isEnable = false;
+        //       }
+        //      
+        //      In PlanetManager - just add:
+        //        List<Planet> allPlanets => _mapPlanets;
+        //
+        //      Same below.
+         
+
         foreach (Planet planet in PlanetManager.instance.enemyPlanets)
         {
             planet.GetComponent<TargetGlow>()._isEnable = false;

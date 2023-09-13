@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// CR: [discuss]
 public class EnemyAI : MonoBehaviour
 {
     [SerializeField] private Ship _shipPrefab;
-    [SerializeField] private Color _enemyColor;
+    [SerializeField] private Color _enemyColor; // CR: unused, delete
     [SerializeField] private float _minTimeBetweenAttacks;
     [SerializeField] private float _maxTimeBetweenAttacks;
     private float _timeBetweenAttacks = 5f;
@@ -92,6 +93,7 @@ public class EnemyAI : MonoBehaviour
         _thisPlanet.UpdateNumOfShipsText();
         for (int i = 0; i < _thisPlanet.numberOfShips; i++)
         {
+            // CR: [discuss]
             Ship ship = Instantiate<Ship>(_shipPrefab, this.transform.position, Quaternion.identity);
             ship.SetShipColor(PlanetColor.Enemy);
             target.GetComponent<CircleCollider2D>().isTrigger = true;

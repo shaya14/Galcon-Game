@@ -5,6 +5,7 @@ using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 
+// CR: [discuss how to simplify the code]
 public class TargetGlow : MonoBehaviour
 {
     [SerializeField] GameObject _selectedGlow;
