@@ -14,7 +14,7 @@ public class PlanetManager : Singleton<PlanetManager>
     [SerializeField] private int _numberOfEnemyPlanets;
     [SerializeField] private int _numberOfFriendlyPlanets;
     [SerializeField] private int _numberOfNeutralPlanets;
-    [SerializeField] private float _distanceBetweenPlanets = 2f; // CR: no defaults in the code.
+    [SerializeField] private float _distanceBetweenPlanets;
 
     [Header("Game Mode")]
     [SerializeField] private bool _randomMap;
@@ -68,17 +68,12 @@ public class PlanetManager : Singleton<PlanetManager>
     {
         foreach (Planet planet in _selectedPlanets)
         {
-            // CR: fix 'division by 2' bug like we did in class
-            planet.numberOfShips /= 2;
+            int shipToAttack = planet.numberOfShips / 2;
+            planet.numberOfShips -= shipToAttack;
             planet.UpdateNumOfShipsText();
-            for (int i = 0; i < planet.numberOfShips; i++)
+            for (int i = 0; i < shipToAttack; i++)
             {
-                // CR: I suggest:
-                //       var ship = Instantiate<Ship>(...);
-                //     This will remove the need to repeat the name of the class.
-                //     [only use 'Var' when it is clear from the right side of the '=' what's
-                //      the type of the variable]
-                Ship ship = Instantiate<Ship>(_attackingShips, planet.transform.position, Quaternion.identity);
+                var ship = Instantiate(_attackingShips, planet.transform.position, Quaternion.identity);
                 ship.SetShipColor(PlanetColor.Friendly);
                 _numOfShipsGenerated++;
             }
