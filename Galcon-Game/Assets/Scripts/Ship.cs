@@ -6,7 +6,7 @@ public class Ship : MonoBehaviour
 {
     [SerializeField] private float _speed;
     [HideInInspector] public Planet _targetPlanet;
-    public ParticleSystem _BlastParticlePrefab; // CR: serializefield private
+    [SerializeField] ParticleSystem _BlastParticlePrefab;
     private PlanetColor _shipColor;
     public PlanetColor shipColor => _shipColor;
     [SerializeField] private Color _playerColor;
