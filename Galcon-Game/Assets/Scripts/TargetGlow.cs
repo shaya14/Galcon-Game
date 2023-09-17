@@ -25,7 +25,7 @@ public class TargetGlow : MonoBehaviour
     {
         if (_isEnable)
         {
-            _isHoveredOrSelected = !_isHoveredOrSelected;
+            _isHoveredOrSelected = true;
             _maxShipTextObject.SetActive(true);
             if (GetComponent<Planet>().isFriendly)
             {
