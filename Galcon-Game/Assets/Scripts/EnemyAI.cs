@@ -88,9 +88,10 @@ public class EnemyAI : MonoBehaviour
 
     private void InstatiateAttackingShips(Planet target)
     {
-        _thisPlanet.numberOfShips /= 2;
-        _thisPlanet.UpdateNumOfShipsText();
-        for (int i = 0; i < _thisPlanet.numberOfShips; i++)
+        int shipToAttack = _thisPlanet.numberOfShips / 2;    
+        _thisPlanet.numberOfShips -= shipToAttack;
+      
+        for (int i = 0; i < shipToAttack; i++)
         {
             // CR: [discuss]
             var ship = Instantiate(_shipPrefab, this.transform.position, Quaternion.identity);

@@ -70,7 +70,7 @@ public class PlanetManager : Singleton<PlanetManager>
         {
             int shipToAttack = planet.numberOfShips / 2;
             planet.numberOfShips -= shipToAttack;
-            planet.UpdateNumOfShipsText();
+            
             for (int i = 0; i < shipToAttack; i++)
             {
                 var ship = Instantiate(_attackingShips, planet.transform.position, Quaternion.identity);
