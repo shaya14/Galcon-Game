@@ -12,29 +12,29 @@ public class MainMenuManager : MonoBehaviour
         SceneManager.LoadScene("Game");
         GameSettings.instance.isRandomMap = true;
         GameSettings.instance.numberOfRandomPlanets = Random.Range(12, 15);
-        SoundFx.instance.PlaySound(SoundFx.instance._clickSound, .3f);
-        SoundFx.instance.PlaySound(SoundFx.instance._gameStartSound, .3f);
+        SoundFx.instance.PlaySound(SoundFx.instance.clickSound, .3f);
+        SoundFx.instance.PlaySound(SoundFx.instance.gameStartSound, .3f);
     }
 
     public void StartGeneratedGame()
     {
         SceneManager.LoadScene("Game");
         GameSettings.instance.isCustomMap = true;
-        SoundFx.instance.PlaySound(SoundFx.instance._clickSound, .3f);
-        SoundFx.instance.PlaySound(SoundFx.instance._gameStartSound, .3f);
+        SoundFx.instance.PlaySound(SoundFx.instance.clickSound, .3f);
+        SoundFx.instance.PlaySound(SoundFx.instance.gameStartSound, .3f);
     }
 
     public void GenerateButton()
     {
         MainMenuUIManager.instance.mainMenuPanel.GetComponent<RectTransform>().anchoredPosition = new Vector2(700, 0);
         MainMenuUIManager.instance.gameModePanel.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
-        SoundFx.instance.PlaySound(SoundFx.instance._clickSound, .3f);
+        SoundFx.instance.PlaySound(SoundFx.instance.clickSound, .3f);
     }
     public void BackButton()
     {
         MainMenuUIManager.instance.mainMenuPanel.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
         MainMenuUIManager.instance.gameModePanel.GetComponent<RectTransform>().anchoredPosition = new Vector2(700, 0);
-        SoundFx.instance.PlaySound(SoundFx.instance._clickSound, .3f);
+        SoundFx.instance.PlaySound(SoundFx.instance.clickSound, .3f);
     }
     #endregion
     public void SliderValueChange()
@@ -53,7 +53,7 @@ public class MainMenuManager : MonoBehaviour
         {
             if (Mathf.Approximately(slider.value, i))
             {
-                SoundFx.instance.PlaySound(SoundFx.instance._selectSound, .3f);
+                SoundFx.instance.PlaySound(SoundFx.instance.selectSound, .3f);
             }
         }
     }

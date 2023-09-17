@@ -5,28 +5,36 @@ using UnityEngine;
 
 public class SoundFx : Singleton<SoundFx>
 {
-    public AudioSource _audioSource;
-    // CR: these don't need to be public (they are never edited from outside the class!)
-    //     [SerializeField] private AudioClip _clickSound;
-    //     [SerializeField] private AudioClip _selectSound;
-    //     ...
-    //     public AudioClip clickSound => _clickSound;
-    //     public AudioClip selectSound => _selectSound;
-    //     ...
-    public AudioClip _clickSound;
-    public AudioClip _selectSound;
-    public AudioClip _attackSound;
-    public AudioClip _hitSound;
-    public AudioClip _conquerSound;
-    public AudioClip _winSound;
-    public AudioClip _gameOverSound;
-    public AudioClip _gameStartSound;
-    public AudioClip _gameRestartSound;
-    public AudioClip _gamePauseSound;
-    public AudioClip _gameResumeSound;
-    public AudioClip _gameQuitSound;
-    public AudioClip _gameOverMusic;
-    public AudioClip _gameMusic;
+    [SerializeField] AudioSource _audioSource;
+    [SerializeField] AudioClip _clickSound;
+    [SerializeField] AudioClip _selectSound;
+    [SerializeField] AudioClip _attackSound;
+    [SerializeField] AudioClip _hitSound;
+    [SerializeField] AudioClip _conquerSound;
+    [SerializeField] AudioClip _winSound;
+    [SerializeField] AudioClip _gameOverSound;
+    [SerializeField] AudioClip _gameStartSound;
+    [SerializeField] AudioClip _gameRestartSound;
+    [SerializeField] AudioClip _gamePauseSound;
+    [SerializeField] AudioClip _gameResumeSound;
+    [SerializeField] AudioClip _gameQuitSound;
+    [SerializeField] AudioClip _gameOverMusic;
+    [SerializeField] AudioClip _gameMusic;
+
+    public AudioClip clickSound => _clickSound;
+    public AudioClip selectSound => _selectSound;
+    public AudioClip attackSound => _attackSound;
+    public AudioClip hitSound => _hitSound;
+    public AudioClip conquerSound => _conquerSound;
+    public AudioClip winSound => _winSound;
+    public AudioClip gameOverSound => _gameOverSound;
+    public AudioClip gameStartSound => _gameStartSound;
+    public AudioClip gameRestartSound => _gameRestartSound;
+    public AudioClip gamePauseSound => _gamePauseSound;
+    public AudioClip gameResumeSound => _gameResumeSound;
+    public AudioClip gameQuitSound => _gameQuitSound;
+    public AudioClip gameOverMusic => _gameOverMusic;
+    public AudioClip gameMusic => _gameMusic;
 
     protected override void Awake()
     {

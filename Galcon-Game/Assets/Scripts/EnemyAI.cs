@@ -37,7 +37,7 @@ public class EnemyAI : MonoBehaviour
     public void Attack()
     {
         InstatiateAttackingShips(ChooseTarget());
-        SoundFx.instance.PlaySound(SoundFx.instance._attackSound, .3f);
+        SoundFx.instance.PlaySound(SoundFx.instance.attackSound, .3f);
     }
 
     // CR: [discuss in class]

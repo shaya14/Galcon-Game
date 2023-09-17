@@ -48,8 +48,8 @@ public class GameManager : Singleton<GameManager>
         _isPaused = !_isPaused;
         PauseScreen(_isPaused);
         EnablePlanetFunctions();
-        SoundFx.instance.PlaySound(SoundFx.instance._clickSound, .3f);
-        SoundFx.instance.PlaySound(SoundFx.instance._gameResumeSound, .3f);
+        SoundFx.instance.PlaySound(SoundFx.instance.clickSound, .3f);
+        SoundFx.instance.PlaySound(SoundFx.instance.gameResumeSound, .3f);
     }
 
     public void RestartButton()
@@ -58,14 +58,14 @@ public class GameManager : Singleton<GameManager>
         _screenOn = false;
         SceneManager.LoadScene("Game");
         EnablePlanetFunctions();
-        SoundFx.instance.PlaySound(SoundFx.instance._clickSound, .3f);
-        SoundFx.instance.PlaySound(SoundFx.instance._gameRestartSound, .3f);
+        SoundFx.instance.PlaySound(SoundFx.instance.clickSound, .3f);
+        SoundFx.instance.PlaySound(SoundFx.instance.gameRestartSound, .3f);
     }
 
     public void ExitButton()
     {
         SceneManager.LoadScene("MainMenu");
-        SoundFx.instance.PlaySound(SoundFx.instance._clickSound, .3f);
+        SoundFx.instance.PlaySound(SoundFx.instance.clickSound, .3f);
         StartTime();
     }
     #endregion

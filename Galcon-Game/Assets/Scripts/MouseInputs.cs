@@ -66,7 +66,7 @@ public class MouseInputs : Singleton<MouseInputs>
                 PlanetManager.instance.SpawnShips();
                 DrawLines._instance.ClearLines();
                 PlanetManager.instance._selectedPlanets.Clear();
-                SoundFx.instance.PlaySound(SoundFx.instance._attackSound, 0.3f);
+                SoundFx.instance.PlaySound(SoundFx.instance.attackSound, 0.3f);
                 planet._attackingNumber += PlanetManager.instance._numOfShipsGenerated;
                 PlanetManager.instance._numOfShipsGenerated = 0;
             }
@@ -78,7 +78,7 @@ public class MouseInputs : Singleton<MouseInputs>
                 PlanetManager.instance.SpawnShips();
                 DrawLines._instance.ClearLines();
                 PlanetManager.instance._selectedPlanets.Clear();
-                SoundFx.instance.PlaySound(SoundFx.instance._attackSound, 0.3f);
+                SoundFx.instance.PlaySound(SoundFx.instance.attackSound, 0.3f);
                 planet._attackingNumber += PlanetManager.instance._numOfShipsGenerated;
                 PlanetManager.instance._numOfShipsGenerated = 0;
             }

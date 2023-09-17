@@ -190,7 +190,7 @@ public class Planet : MonoBehaviour
       {
          numberOfShips = 1;
          planetColor = ship.shipColor;
-         SoundFx.instance.PlaySound(SoundFx.instance._conquerSound, 1f);
+         SoundFx.instance.PlaySound(SoundFx.instance.conquerSound, 1f);
          return;
       }
       if (planetColor == ship.shipColor)
