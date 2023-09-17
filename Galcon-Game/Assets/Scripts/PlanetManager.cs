@@ -302,5 +302,7 @@ public class PlanetManager : Singleton<PlanetManager>
             return planets;
         }
     }
+
+    public List<Planet> allPlanets => _mapPlanets;
     #endregion
 }
