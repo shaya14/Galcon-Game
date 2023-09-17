@@ -4,14 +4,12 @@ using UnityEngine;
 
 public class GameSettings : Singleton<GameSettings>
 {
-    // CR: There is no benefit to having these be properties. simplify:
-    //       public in numberOfRandomPlanets;
-    public int numberOfRandomPlanets { get; set; }
-    public int numberOfEnemyPlanets { get; set; }
-    public int numberOfFriendlyPlanets { get; set; }
-    public int numberOfNeutralPlanets { get; set; }
-    public bool isRandomMap { get; set; } = false;
-    public bool isCustomMap { get; set; } = false;
+    public int numberOfRandomPlanets;
+    public int numberOfEnemyPlanets;
+    public int numberOfFriendlyPlanets;
+    public int numberOfNeutralPlanets;
+    public bool isRandomMap;
+    public bool isCustomMap;
 
     protected override void Awake()
     {
