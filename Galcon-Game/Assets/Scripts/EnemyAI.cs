@@ -6,7 +6,6 @@ using UnityEngine;
 public class EnemyAI : MonoBehaviour
 {
     [SerializeField] private Ship _shipPrefab;
-    [SerializeField] private Color _enemyColor; // CR: unused, delete
     [SerializeField] private float _minTimeBetweenAttacks;
     [SerializeField] private float _maxTimeBetweenAttacks;
     private float _timeBetweenAttacks = 5f;
@@ -37,7 +36,7 @@ public class EnemyAI : MonoBehaviour
     public void Attack()
     {
         InstatiateAttackingShips(ChooseTarget());
-        SoundFx.instance.PlaySound(SoundFx.instance.attackSound, .3f);
+        SoundFx.Instance.PlaySound(SoundFx.Instance.attackSound, .3f);
     }
 
     // CR: [discuss in class]
@@ -51,29 +50,29 @@ public class EnemyAI : MonoBehaviour
         switch (randomChoose)
         {
             case 0:
-                if (PlanetManager.instance.friendlyPlanets.Count <= 0)
+                if (PlanetManager.Instance.friendlyPlanets.Count <= 0)
                 {
                     return ChooseTarget();
                 }
-                friendlyTarget = PlanetManager.instance.friendlyPlanets[Random.Range(0, PlanetManager.instance.friendlyPlanets.Count)];
+                friendlyTarget = PlanetManager.Instance.friendlyPlanets[Random.Range(0, PlanetManager.Instance.friendlyPlanets.Count)];
                 target = friendlyTarget;
                 break;
             case 1:
-                if (PlanetManager.instance.neutralPlanets.Count <= 0)
+                if (PlanetManager.Instance.neutralPlanets.Count <= 0)
                 {
                     return ChooseTarget();
                 }
-                neutralTarget = PlanetManager.instance.neutralPlanets[Random.Range(0, PlanetManager.instance.neutralPlanets.Count)];
+                neutralTarget = PlanetManager.Instance.neutralPlanets[Random.Range(0, PlanetManager.Instance.neutralPlanets.Count)];
                 target = neutralTarget;
                 break;
         }
 
-        if (PlanetManager.instance.friendlyPlanets.Count <= 0)
+        if (PlanetManager.Instance.friendlyPlanets.Count <= 0)
         {
             friendlyTarget = neutralTarget;
             target = friendlyTarget;
         }
-        else if (PlanetManager.instance.neutralPlanets.Count <= 0)
+        else if (PlanetManager.Instance.neutralPlanets.Count <= 0)
         {
             neutralTarget = friendlyTarget;
             target = neutralTarget;
@@ -94,7 +93,7 @@ public class EnemyAI : MonoBehaviour
         for (int i = 0; i < _thisPlanet.numberOfShips; i++)
         {
             // CR: [discuss]
-            Ship ship = Instantiate<Ship>(_shipPrefab, this.transform.position, Quaternion.identity);
+            var ship = Instantiate(_shipPrefab, this.transform.position, Quaternion.identity);
             ship.SetShipColor(PlanetColor.Enemy);
             target.GetComponent<CircleCollider2D>().isTrigger = true;
             target._enemyTargetArrows.SetActive(true);
@@ -119,8 +118,8 @@ public class EnemyAI : MonoBehaviour
 
     private bool HasTargets()
     {
-        return PlanetManager.instance.friendlyPlanets.Count > 0 ||
-               PlanetManager.instance.neutralPlanets.Count > 0;
+        return PlanetManager.Instance.friendlyPlanets.Count > 0 ||
+               PlanetManager.Instance.neutralPlanets.Count > 0;
     }
 
     public void AttackMinimumNumberBySize(float num)

@@ -83,7 +83,7 @@ public class BoxSelection : Singleton<BoxSelection>
                     newlySelectedPlanets.Add(planet);
                 }
 
-                foreach (Planet enemy in PlanetManager.instance.neutralAndEnemyPlanets)
+                foreach (Planet enemy in PlanetManager.Instance.neutralAndEnemyPlanets)
                 {
                     enemy.GetComponent<TargetGlow>()._glowingEnabled = true;
                 }
@@ -111,7 +111,7 @@ public class BoxSelection : Singleton<BoxSelection>
         //     }
         // }
 
-        PlanetManager.instance._selectedPlanets = newlySelectedPlanets; // Update the selected planets list
+        PlanetManager.Instance._selectedPlanets = newlySelectedPlanets; // Update the selected planets list
     }
 }
 

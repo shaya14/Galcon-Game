@@ -19,7 +19,7 @@ public class GameSettings : Singleton<GameSettings>
 
     private void Update()
     {
-        MainMenuUIManager.instance.UpdateNumOfShips(numberOfFriendlyPlanets, numberOfEnemyPlanets, numberOfNeutralPlanets);
+        MainMenuUIManager.Instance.UpdateNumOfShips(numberOfFriendlyPlanets, numberOfEnemyPlanets, numberOfNeutralPlanets);
     }
 
     public bool MapMode()

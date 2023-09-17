@@ -30,16 +30,16 @@ public class PlanetManager : Singleton<PlanetManager>
     {
         base.Awake();
         _mapPlanets = new List<Planet>();
-        if (GameSettings.instance != null)
+        if (GameSettings.Instance != null)
         {
-            MapMode(GameSettings.instance.MapMode());
+            MapMode(GameSettings.Instance.MapMode());
         }
 
         if (_randomMap)
         {
-            if (GameSettings.instance != null)
+            if (GameSettings.Instance != null)
             {
-                UpdateNumOfRandomPlanets(GameSettings.instance.numberOfRandomPlanets);
+                UpdateNumOfRandomPlanets(GameSettings.Instance.numberOfRandomPlanets);
             }
 
             InstatiatePlanets();
@@ -48,11 +48,11 @@ public class PlanetManager : Singleton<PlanetManager>
 
         if (_custonMap)
         {
-            if (GameSettings.instance != null)
+            if (GameSettings.Instance != null)
             {
-                UpdateNumOfPlanets(GameSettings.instance.numberOfFriendlyPlanets,
-                GameSettings.instance.numberOfEnemyPlanets,
-                GameSettings.instance.numberOfNeutralPlanets);
+                UpdateNumOfPlanets(GameSettings.Instance.numberOfFriendlyPlanets,
+                GameSettings.Instance.numberOfEnemyPlanets,
+                GameSettings.Instance.numberOfNeutralPlanets);
             }
             InstantiateSpecPlanets();
             PlanetCollision();
@@ -216,11 +216,11 @@ public class PlanetManager : Singleton<PlanetManager>
 
     public bool MapMode(bool mapMode)
     {
-        if (GameSettings.instance.isRandomMap)
+        if (GameSettings.Instance.isRandomMap)
         {
             return _randomMap = true;
         }
-        else if (GameSettings.instance.isCustomMap)
+        else if (GameSettings.Instance.isCustomMap)
         {
             return _custonMap = true;
         }

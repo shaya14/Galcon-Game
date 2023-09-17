@@ -150,7 +150,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _shipPrefab: {fileID: 9215633573012952669, guid: fc58eca5d4a511a4f93ef0efa92c5d83, type: 3}
-  _enemyColor: {r: 0.8, g: 0.20784314, b: 0.20784314, a: 0.88235295}
   _minTimeBetweenAttacks: 0.2
   _maxTimeBetweenAttacks: 1
 --- !u!58 &7196761770172136966

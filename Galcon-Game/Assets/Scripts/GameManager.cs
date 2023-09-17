@@ -15,7 +15,7 @@ public class GameManager : Singleton<GameManager>
     }
     void Update()
     {
-        if (GameUIManager.instance.losePanel == null)
+        if (GameUIManager.Instance.losePanel == null)
         {
             return;
         }
@@ -28,13 +28,13 @@ public class GameManager : Singleton<GameManager>
             }
         }
 
-        if (PlanetManager.instance != null)
+        if (PlanetManager.Instance != null)
         {
-            if (PlanetManager.instance.friendlyPlanets.Count <= 0)
+            if (PlanetManager.Instance.friendlyPlanets.Count <= 0)
             {
                 LoseScreen();
             }
-            else if (PlanetManager.instance.enemyPlanets.Count <= 0)
+            else if (PlanetManager.Instance.enemyPlanets.Count <= 0)
             {
                 WinScreen();
             }
@@ -46,8 +46,8 @@ public class GameManager : Singleton<GameManager>
         _isPaused = !_isPaused;
         PauseScreen(_isPaused);
         EnablePlanetFunctions();
-        SoundFx.instance.PlaySound(SoundFx.instance.clickSound, .3f);
-        SoundFx.instance.PlaySound(SoundFx.instance.gameResumeSound, .3f);
+        SoundFx.Instance.PlaySound(SoundFx.Instance.clickSound, .3f);
+        SoundFx.Instance.PlaySound(SoundFx.Instance.gameResumeSound, .3f);
     }
 
     public void RestartButton()
@@ -56,14 +56,14 @@ public class GameManager : Singleton<GameManager>
         _screenOn = false;
         SceneManager.LoadScene("Game");
         EnablePlanetFunctions();
-        SoundFx.instance.PlaySound(SoundFx.instance.clickSound, .3f);
-        SoundFx.instance.PlaySound(SoundFx.instance.gameRestartSound, .3f);
+        SoundFx.Instance.PlaySound(SoundFx.Instance.clickSound, .3f);
+        SoundFx.Instance.PlaySound(SoundFx.Instance.gameRestartSound, .3f);
     }
 
     public void ExitButton()
     {
         SceneManager.LoadScene("MainMenu");
-        SoundFx.instance.PlaySound(SoundFx.instance.clickSound, .3f);
+        SoundFx.Instance.PlaySound(SoundFx.Instance.clickSound, .3f);
         StartTime();
     }
     #endregion
@@ -73,8 +73,8 @@ public class GameManager : Singleton<GameManager>
     {
         StopTime();
         _screenOn = true;
-        GameUIManager.instance.losePanel.SetActive(true);
-        GameUIManager.instance.backgroundPanel.SetActive(true);
+        GameUIManager.Instance.losePanel.SetActive(true);
+        GameUIManager.Instance.backgroundPanel.SetActive(true);
         DisablePlanetFunctions();
     }
 
@@ -82,16 +82,16 @@ public class GameManager : Singleton<GameManager>
     {
         StopTime();
         _screenOn = true;
-        GameUIManager.instance.winPanel.SetActive(true);
-        GameUIManager.instance.backgroundPanel.SetActive(true);
+        GameUIManager.Instance.winPanel.SetActive(true);
+        GameUIManager.Instance.backgroundPanel.SetActive(true);
         DisablePlanetFunctions();
     }
 
     private void PauseScreen(bool isPaused)
     {
         StopTime();
-        GameUIManager.instance.pausePanel.SetActive(isPaused);
-        GameUIManager.instance.backgroundPanel.SetActive(isPaused);
+        GameUIManager.Instance.pausePanel.SetActive(isPaused);
+        GameUIManager.Instance.backgroundPanel.SetActive(isPaused);
         DisablePlanetFunctions();
         if (!isPaused)
         {
@@ -117,9 +117,9 @@ public class GameManager : Singleton<GameManager>
 
     private void DisablePlanetFunctions()
     {
-        MouseInputs.instance._isEnable = false;
+        MouseInputs.Instance._isEnable = false;
 
-        foreach (Planet planet in PlanetManager.instance.allPlanets)
+        foreach (Planet planet in PlanetManager.Instance.allPlanets)
         {
             planet.GetComponent<TargetGlow>()._isEnable = false;
         }
@@ -127,9 +127,9 @@ public class GameManager : Singleton<GameManager>
 
     private void EnablePlanetFunctions()
     {
-        MouseInputs.instance._isEnable = true;
+        MouseInputs.Instance._isEnable = true;
 
-        foreach (Planet planet in PlanetManager.instance.allPlanets)
+        foreach (Planet planet in PlanetManager.Instance.allPlanets)
         {
             planet.GetComponent<TargetGlow>()._isEnable = true;
         }

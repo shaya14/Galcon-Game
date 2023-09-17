@@ -25,25 +25,25 @@ public class MouseInputs : Singleton<MouseInputs>
             if (planet != null && planet.isFriendly && !planet.isSelected)
             {
                 planet.GetComponent<TargetGlow>()._isClicked = true;
-                PlanetManager.instance._selectedPlanets.Add(planet);
+                PlanetManager.Instance._selectedPlanets.Add(planet);
                 DrawLines._instance.ClearLines();
-                foreach (Planet enemy in PlanetManager.instance.neutralAndEnemyPlanets)
+                foreach (Planet enemy in PlanetManager.Instance.neutralAndEnemyPlanets)
                 {
                     enemy.GetComponent<TargetGlow>()._glowingEnabled = true;
                 }
             }
             else if (rayHit.collider.gameObject.tag == "Background")
             {
-                foreach (Planet selectedPlanet in PlanetManager.instance._selectedPlanets)
+                foreach (Planet selectedPlanet in PlanetManager.Instance._selectedPlanets)
                 {
                     selectedPlanet.GetComponent<TargetGlow>().SetGlowOff();
                     selectedPlanet._isAddedToSelectedPlanets = false;
-                    foreach (Planet enemy in PlanetManager.instance.neutralAndEnemyPlanets)
+                    foreach (Planet enemy in PlanetManager.Instance.neutralAndEnemyPlanets)
                     {
                         enemy.GetComponent<TargetGlow>()._glowingEnabled = false;
                     }
                 }
-                PlanetManager.instance._selectedPlanets.Clear();
+                PlanetManager.Instance._selectedPlanets.Clear();
             }
         }
 
@@ -54,33 +54,33 @@ public class MouseInputs : Singleton<MouseInputs>
             {
                 return;
             }
-            if(PlanetManager.instance._selectedPlanets.Count <= 0)
+            if(PlanetManager.Instance._selectedPlanets.Count <= 0)
             {
                 return;
             }
             if (planet.isFriendly)
             {
-                PlanetManager.instance._attackingShips.GetComponent<Ship>()._targetPlanet = planet;
+                PlanetManager.Instance._attackingShips.GetComponent<Ship>()._targetPlanet = planet;
                 planet.GetComponent<CircleCollider2D>().isTrigger = true;
                 planet._friendlyTargetArrows.SetActive(true);
-                PlanetManager.instance.SpawnShips();
+                PlanetManager.Instance.SpawnShips();
                 DrawLines._instance.ClearLines();
-                PlanetManager.instance._selectedPlanets.Clear();
-                SoundFx.instance.PlaySound(SoundFx.instance.attackSound, 0.3f);
-                planet._attackingNumber += PlanetManager.instance._numOfShipsGenerated;
-                PlanetManager.instance._numOfShipsGenerated = 0;
+                PlanetManager.Instance._selectedPlanets.Clear();
+                SoundFx.Instance.PlaySound(SoundFx.Instance.attackSound, 0.3f);
+                planet._attackingNumber += PlanetManager.Instance._numOfShipsGenerated;
+                PlanetManager.Instance._numOfShipsGenerated = 0;
             }
             else if (planet.isEnemy || planet.isNeutral)
             {
-                PlanetManager.instance._attackingShips.GetComponent<Ship>()._targetPlanet = planet;
+                PlanetManager.Instance._attackingShips.GetComponent<Ship>()._targetPlanet = planet;
                 planet.GetComponent<CircleCollider2D>().isTrigger = true;
                 planet._friendlyTargetArrows.SetActive(true);
-                PlanetManager.instance.SpawnShips();
+                PlanetManager.Instance.SpawnShips();
                 DrawLines._instance.ClearLines();
-                PlanetManager.instance._selectedPlanets.Clear();
-                SoundFx.instance.PlaySound(SoundFx.instance.attackSound, 0.3f);
-                planet._attackingNumber += PlanetManager.instance._numOfShipsGenerated;
-                PlanetManager.instance._numOfShipsGenerated = 0;
+                PlanetManager.Instance._selectedPlanets.Clear();
+                SoundFx.Instance.PlaySound(SoundFx.Instance.attackSound, 0.3f);
+                planet._attackingNumber += PlanetManager.Instance._numOfShipsGenerated;
+                PlanetManager.Instance._numOfShipsGenerated = 0;
             }
         }
     }

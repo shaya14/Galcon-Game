@@ -43,7 +43,7 @@ public class Ship : MonoBehaviour
         if (collision.gameObject.GetInstanceID() == _targetPlanet.gameObject.GetInstanceID())
         {
             _targetPlanet.Hit(this);
-            SoundFx.instance.PlaySound(SoundFx.instance.hitSound, 0.1f, Random.Range(0.95f, 1.05f));
+            SoundFx.Instance.PlaySound(SoundFx.Instance.hitSound, 0.1f, Random.Range(0.95f, 1.05f));
 
             if (_targetPlanet.planetColor != _shipColor)
             {

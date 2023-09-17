@@ -4,26 +4,18 @@ using UnityEngine;
 
 public class DrawLines : MonoBehaviour
 {
-    public static DrawLines _instance; // CR: use the 'Singleton' class
-    private LineRenderer _lineRenderer; // CR: rename '_lineRendererPrefab'
+    public static DrawLines _instance; // CR: use the 'Singleton' class // its stop working when i use singleton class , why?
+    private LineRenderer _lineRendererPrefab;
     public List<LineRenderer> _activeLines = new List<LineRenderer>();
     void Start()
     {
         _instance = this;
-        _lineRenderer = GetComponent<LineRenderer>();
+        _lineRendererPrefab = GetComponent<LineRenderer>();
     }
 
-    // CR: unused, delete.
-    public void DrawLine(Transform origin, Transform target)
+    public void DrawLine(Transform origin, Transform targets)
     {
-        _lineRenderer.SetPosition(0, origin.position);
-        _lineRenderer.SetPosition(1, target.position);
-    }
-
-    // CR: rename to 'DrawLine'
-    public void DrawFewLines(Transform origin, Transform targets)
-    {
-        LineRenderer line = Instantiate(_lineRenderer, origin.position, Quaternion.identity);
+        LineRenderer line = Instantiate(_lineRendererPrefab, origin.position, Quaternion.identity);
         line.SetPosition(0, origin.position);
         line.SetPosition(1, targets.position);
         _activeLines.Add(line);
@@ -31,8 +23,8 @@ public class DrawLines : MonoBehaviour
 
     public void ClearLines()
     {
-        _lineRenderer.SetPosition(0, Vector3.zero);
-        _lineRenderer.SetPosition(1, Vector3.zero);
+        _lineRendererPrefab.SetPosition(0, Vector3.zero);
+        _lineRendererPrefab.SetPosition(1, Vector3.zero);
 
         foreach (LineRenderer line in _activeLines)
         {

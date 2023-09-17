@@ -7,7 +7,7 @@ public class SoundOn : StateMachineBehaviour
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-       SoundFx.instance.PlaySound(SoundFx.instance.selectSound, .3f);
+       SoundFx.Instance.PlaySound(SoundFx.Instance.selectSound, .3f);
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

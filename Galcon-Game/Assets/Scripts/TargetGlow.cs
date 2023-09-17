@@ -34,11 +34,11 @@ public class TargetGlow : MonoBehaviour
                     if (_isHoveredOrSelected)
                     {
                         _selectedGlow.SetActive(true);
-                        foreach (Planet targetPlanet in PlanetManager.instance._selectedPlanets)
+                        foreach (Planet targetPlanet in PlanetManager.Instance._selectedPlanets)
                         {
                             if (targetPlanet != this && targetPlanet.GetComponent<TargetGlow>()._isHoveredOrSelected)
                             {
-                                DrawLines._instance.DrawFewLines(targetPlanet.transform, this.transform);
+                                DrawLines._instance.DrawLine(targetPlanet.transform, this.transform);
                             }
                         }
                     }
@@ -55,11 +55,11 @@ public class TargetGlow : MonoBehaviour
                     if (_isHoveredOrSelected)
                     {
                         _selectedGlow.SetActive(true);
-                        foreach (Planet targetPlanet in PlanetManager.instance._selectedPlanets)
+                        foreach (Planet targetPlanet in PlanetManager.Instance._selectedPlanets)
                         {
                             if (targetPlanet != this && targetPlanet.GetComponent<TargetGlow>()._isHoveredOrSelected)
                             {
-                                DrawLines._instance.DrawFewLines(targetPlanet.transform, this.transform);
+                                DrawLines._instance.DrawLine(targetPlanet.transform, this.transform);
                             }
                         }
                     }
