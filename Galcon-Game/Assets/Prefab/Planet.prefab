@@ -134,7 +134,6 @@ MonoBehaviour:
   _selectedGlow: {fileID: 4787735927061252381}
   _maxShipTextObject: {fileID: 9127071577771806120}
   _isClicked: 0
-  _isHoveredOrSelected: 0
   _glowingEnabled: 0
   _isEnable: 1
 --- !u!114 &6283401622858081399
