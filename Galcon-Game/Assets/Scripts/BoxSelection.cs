@@ -61,7 +61,6 @@ public class BoxSelection : Singleton<BoxSelection>
             _lineRenderer.positionCount = 0;
             Destroy(_boxCollider2D);
             transform.position = Vector3.zero;
-            DrawLines._instance.ClearLines();
         }
     }
 

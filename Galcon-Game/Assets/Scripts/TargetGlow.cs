@@ -24,7 +24,6 @@ public class TargetGlow : MonoBehaviour
     {
         if (_isEnable)
         {
-
             _maxShipTextObject.SetActive(true);
             if (GetComponent<Planet>().isFriendly)
             {
