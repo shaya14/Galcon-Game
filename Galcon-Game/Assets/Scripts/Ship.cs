@@ -5,12 +5,27 @@ using UnityEngine;
 public class Ship : MonoBehaviour
 {
     [SerializeField] private float _speed;
-    [HideInInspector] public Planet _targetPlanet;
+    private Planet _targetPlanet;
     [SerializeField] ParticleSystem _BlastParticlePrefab;
     private PlanetColor _shipColor;
     public PlanetColor shipColor => _shipColor;
     [SerializeField] private Color _playerColor;
     [SerializeField] private Color _enemyColor;
+
+    public void Init(PlanetColor color, Planet target) {
+        _shipColor = color;
+
+        switch (_shipColor) {
+        case PlanetColor.Enemy:
+            GetComponent<SpriteRenderer>().color = _enemyColor;
+            break;
+        case PlanetColor.Friendly:
+            GetComponent<SpriteRenderer>().color = _playerColor;
+            break;
+        }
+
+        _targetPlanet = target;
+    }
 
     void Update()
     {
@@ -21,21 +36,6 @@ public class Ship : MonoBehaviour
     {
         transform.position = Vector3.MoveTowards(transform.position, _targetPlanet.transform.position, _speed * Time.deltaTime);
         transform.up = _targetPlanet.transform.position - transform.position;
-    }
-
-    public void SetShipColor(PlanetColor color)
-    {
-        switch (color)
-        {
-            case PlanetColor.Enemy:
-                _shipColor = PlanetColor.Enemy;
-                GetComponent<SpriteRenderer>().color = _enemyColor;
-                break;
-            case PlanetColor.Friendly:
-                _shipColor = PlanetColor.Friendly;
-                GetComponent<SpriteRenderer>().color = _playerColor;
-                break;
-        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

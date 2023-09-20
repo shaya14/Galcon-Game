@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-// CR: [discuss]
 public class EnemyAI : MonoBehaviour
 {
     [SerializeField] private Ship _shipPrefab;
@@ -39,51 +39,26 @@ public class EnemyAI : MonoBehaviour
         SoundFx.Instance.PlaySound(SoundFx.Instance.attackSound, .3f);
     }
 
-    // CR: [discuss in class]
+    // Assumes that 'HasTargets' was already called, and is true.
     private Planet ChooseTarget()
     {
-        Planet friendlyTarget = null;
-        Planet neutralTarget = null;
-        Planet target = null;
+        if (PlanetManager.Instance.friendlyPlanets.Count <= 0) {
+            return PlanetManager.Instance.neutralPlanets[UnityEngine.Random.Range(0, PlanetManager.Instance.neutralPlanets.Count)];
+        }
+        if (PlanetManager.Instance.neutralPlanets.Count <= 0) {
+            return PlanetManager.Instance.friendlyPlanets[UnityEngine.Random.Range(0, PlanetManager.Instance.friendlyPlanets.Count)];
+        }
 
-        int randomChoose = Random.Range(0, 2);
+        int randomChoose = UnityEngine.Random.Range(0, 2);
         switch (randomChoose)
         {
             case 0:
-                if (PlanetManager.Instance.friendlyPlanets.Count <= 0)
-                {
-                    return ChooseTarget();
-                }
-                friendlyTarget = PlanetManager.Instance.friendlyPlanets[Random.Range(0, PlanetManager.Instance.friendlyPlanets.Count)];
-                target = friendlyTarget;
-                break;
+                return PlanetManager.Instance.friendlyPlanets[UnityEngine.Random.Range(0, PlanetManager.Instance.friendlyPlanets.Count)];
             case 1:
-                if (PlanetManager.Instance.neutralPlanets.Count <= 0)
-                {
-                    return ChooseTarget();
-                }
-                neutralTarget = PlanetManager.Instance.neutralPlanets[Random.Range(0, PlanetManager.Instance.neutralPlanets.Count)];
-                target = neutralTarget;
-                break;
+                return PlanetManager.Instance.neutralPlanets[UnityEngine.Random.Range(0, PlanetManager.Instance.neutralPlanets.Count)];            
         }
 
-        if (PlanetManager.Instance.friendlyPlanets.Count <= 0)
-        {
-            friendlyTarget = neutralTarget;
-            target = friendlyTarget;
-        }
-        else if (PlanetManager.Instance.neutralPlanets.Count <= 0)
-        {
-            neutralTarget = friendlyTarget;
-            target = neutralTarget;
-        }
-
-        // if (target.isEnemy)
-        // {
-        //    // add code to choose another target or help the other enemy
-        // }
-
-        return target;
+        throw new Exception("Unexpected random value!");
     }
 
     private void InstatiateAttackingShips(Planet target)
@@ -93,12 +68,10 @@ public class EnemyAI : MonoBehaviour
       
         for (int i = 0; i < shipToAttack; i++)
         {
-            // CR: [discuss]
             var ship = Instantiate(_shipPrefab, this.transform.position, Quaternion.identity);
-            ship.SetShipColor(PlanetColor.Enemy);
+            ship.Init(PlanetColor.Enemy, target);
             target.GetComponent<CircleCollider2D>().isTrigger = true;
             target._enemyTargetArrows.SetActive(true);
-            ship._targetPlanet = target;
             target._attackingNumber++;
         }
     }
@@ -108,7 +81,7 @@ public class EnemyAI : MonoBehaviour
         _timer += Time.deltaTime;
         if (_timer >= _timeBetweenAttacks)
         {
-            _timeBetweenAttacks = Random.Range(_minTimeBetweenAttacks, _maxTimeBetweenAttacks);
+            _timeBetweenAttacks = UnityEngine.Random.Range(_minTimeBetweenAttacks, _maxTimeBetweenAttacks);
             if (HasTargets())
             {
                 Attack();

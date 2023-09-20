@@ -60,10 +60,9 @@ public class MouseInputs : Singleton<MouseInputs>
             }
             if (planet.isFriendly)
             {
-                PlanetManager.Instance._attackingShips.GetComponent<Ship>()._targetPlanet = planet;
                 planet.GetComponent<CircleCollider2D>().isTrigger = true;
                 planet._friendlyTargetArrows.SetActive(true);
-                PlanetManager.Instance.SpawnShips();
+                PlanetManager.Instance.SpawnShips(planet);
                 DrawLines._instance.ClearLines();
                 PlanetManager.Instance._selectedPlanets.Clear();
                 SoundFx.Instance.PlaySound(SoundFx.Instance.attackSound, 0.3f);
@@ -72,10 +71,9 @@ public class MouseInputs : Singleton<MouseInputs>
             }
             else if (planet.isEnemy || planet.isNeutral)
             {
-                PlanetManager.Instance._attackingShips.GetComponent<Ship>()._targetPlanet = planet;
                 planet.GetComponent<CircleCollider2D>().isTrigger = true;
                 planet._friendlyTargetArrows.SetActive(true);
-                PlanetManager.Instance.SpawnShips();
+                PlanetManager.Instance.SpawnShips(planet);
                 DrawLines._instance.ClearLines();
                 PlanetManager.Instance._selectedPlanets.Clear();
                 SoundFx.Instance.PlaySound(SoundFx.Instance.attackSound, 0.3f);

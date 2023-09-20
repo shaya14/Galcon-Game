@@ -64,7 +64,7 @@ public class PlanetManager : Singleton<PlanetManager>
         _selectedPlanets = new List<Planet>();
     }
 
-    public void SpawnShips()
+    public void SpawnShips(Planet target)
     {
         foreach (Planet planet in _selectedPlanets)
         {
@@ -74,7 +74,7 @@ public class PlanetManager : Singleton<PlanetManager>
             for (int i = 0; i < shipToAttack; i++)
             {
                 var ship = Instantiate(_attackingShips, planet.transform.position, Quaternion.identity);
-                ship.SetShipColor(PlanetColor.Friendly);
+                ship.Init(PlanetColor.Friendly, target);
                 _numOfShipsGenerated++;
             }
         }
