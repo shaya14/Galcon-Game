@@ -119,8 +119,6 @@ public class PlanetManager : Singleton<PlanetManager>
             planet.transform.position = position;
             float size = Random.Range(0.6f, 1.5f);
             planet.shipPerSecond *= size;
-            planet.shipPerMinute = planet.shipPerSecond * 60;
-            planet.shipPerMinute = (int)planet.shipPerMinute;
             planet.SetSettings(planet.RandomizePlanetColor(), size);
             planet.UpdateMaxNumOfShipsText();
             planet.UpdateNumOfShipsText();
@@ -136,8 +134,6 @@ public class PlanetManager : Singleton<PlanetManager>
             planet.SetSettings(planetColor, numOfShips, size);
             planet.transform.position = position;
             planet.shipPerSecond *= size;
-            planet.shipPerMinute = planet.shipPerSecond * 60;
-            planet.shipPerMinute = (int)planet.shipPerMinute;
             planet.UpdateMaxNumOfShipsText();
             planet.gameObject.SetActive(false);
             _mapPlanets.Add(planet);
@@ -153,8 +149,6 @@ public class PlanetManager : Singleton<PlanetManager>
             planet.SetSettings(planetColor, size);
             planet.transform.position = position;
             planet.shipPerSecond *= size;
-            planet.shipPerMinute = planet.shipPerSecond * 60;
-            planet.shipPerMinute = (int)planet.shipPerMinute;
             planet.UpdateMaxNumOfShipsText();
             planet.gameObject.SetActive(false);
             _mapPlanets.Add(planet);

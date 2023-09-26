@@ -31,16 +31,6 @@ public class Planet : MonoBehaviour
    private SpriteRenderer _spriteRenderer;
    private float _timer;
    private float _size = 1;
-
-   // CR: [single source of truth] delete this!
-   //     _shipPerMinute is always 60 * _shipPerSecond, so it shouldn't be a separate field.
-   //     When it is a separate field, it leaves the option of bugs where e.g. _shipPerSecond is 0.5 but 
-   //     _shipPerMinute is 100, or 0, or 10, ... (should be 30 of course).
-   //     replace it with:
-   //       public int shipPerMinute => _shipPerSecond * 60;
-   private float _shipPerMinute;
-
-
    public int _attackingNumber = 0;
    public bool _isAddedToSelectedPlanets = false;
    public bool isFriendly => planetColor == PlanetColor.Friendly;
@@ -50,10 +40,10 @@ public class Planet : MonoBehaviour
    public Color enemyColor => _enemyColor;
    public float size => _size;
    public float shipPerSecond { get => _shipsPerSecond; set => _shipsPerSecond = value; }
-   public float shipPerMinute { get => _shipPerMinute; set => _shipPerMinute = value; }
+   public float shipPerMinute => (int)(_shipsPerSecond * 60);
 
    void Awake()
-   {
+   {      
       _shipCounterText.text = numberOfShips.ToString();
       _shipPerMinuteText.text = shipPerMinute.ToString();
       _spriteRenderer = GetComponent<SpriteRenderer>();
