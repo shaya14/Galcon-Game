@@ -8,6 +8,10 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private Ship _shipPrefab;
     [SerializeField] private float _minTimeBetweenAttacks;
     [SerializeField] private float _maxTimeBetweenAttacks;
+    // CR: no defaults like '5' in the code! Either:
+    //       1. In 'Start':
+    //            _timeBetweenAttacks = UnityEngine.Random.Range(_minTimeBetweenAttacks, _maxTimeBetweenAttacks);
+    //       2. Add a [SerializeField] private float _initialTimeBetweenAttacks;
     private float _timeBetweenAttacks = 5f;
     private float _timer;
     private Planet _thisPlanet;
