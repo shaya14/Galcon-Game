@@ -8,11 +8,10 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private Ship _shipPrefab;
     [SerializeField] private float _minTimeBetweenAttacks;
     [SerializeField] private float _maxTimeBetweenAttacks;
-    // CR: no defaults like '5' in the code! Either:
-    //       1. In 'Start':
-    //            _timeBetweenAttacks = UnityEngine.Random.Range(_minTimeBetweenAttacks, _maxTimeBetweenAttacks);
-    //       2. Add a [SerializeField] private float _initialTimeBetweenAttacks;
-    private float _timeBetweenAttacks = 5f;
+    [SerializeField] private float _initialTimeBetweenAttacks;
+    //       2. Add a [SerializeField] private float _initialTimeBetweenAttacks; ------- why?
+    //       i add this line you said in line 11 but why i need it?
+    private float _timeBetweenAttacks;
     private float _timer;
     private Planet _thisPlanet;
     private float _attackingMinimum;
@@ -22,6 +21,7 @@ public class EnemyAI : MonoBehaviour
         _thisPlanet = GetComponent<Planet>();
         _attackingMinimum = _thisPlanet.numberOfShips * 2;
         AttackMinimumNumberBySize(_attackingMinimum);
+        _timeBetweenAttacks = UnityEngine.Random.Range(_minTimeBetweenAttacks, _maxTimeBetweenAttacks);
     }
 
     void Update()
@@ -46,10 +46,12 @@ public class EnemyAI : MonoBehaviour
     // Assumes that 'HasTargets' was already called, and is true.
     private Planet ChooseTarget()
     {
-        if (PlanetManager.Instance.friendlyPlanets.Count <= 0) {
+        if (PlanetManager.Instance.friendlyPlanets.Count <= 0)
+        {
             return PlanetManager.Instance.neutralPlanets[UnityEngine.Random.Range(0, PlanetManager.Instance.neutralPlanets.Count)];
         }
-        if (PlanetManager.Instance.neutralPlanets.Count <= 0) {
+        if (PlanetManager.Instance.neutralPlanets.Count <= 0)
+        {
             return PlanetManager.Instance.friendlyPlanets[UnityEngine.Random.Range(0, PlanetManager.Instance.friendlyPlanets.Count)];
         }
 
@@ -59,7 +61,7 @@ public class EnemyAI : MonoBehaviour
             case 0:
                 return PlanetManager.Instance.friendlyPlanets[UnityEngine.Random.Range(0, PlanetManager.Instance.friendlyPlanets.Count)];
             case 1:
-                return PlanetManager.Instance.neutralPlanets[UnityEngine.Random.Range(0, PlanetManager.Instance.neutralPlanets.Count)];            
+                return PlanetManager.Instance.neutralPlanets[UnityEngine.Random.Range(0, PlanetManager.Instance.neutralPlanets.Count)];
         }
 
         throw new Exception("Unexpected random value!");
@@ -67,9 +69,9 @@ public class EnemyAI : MonoBehaviour
 
     private void InstatiateAttackingShips(Planet target)
     {
-        int shipToAttack = _thisPlanet.numberOfShips / 2;    
+        int shipToAttack = _thisPlanet.numberOfShips / 2;
         _thisPlanet.numberOfShips -= shipToAttack;
-      
+
         for (int i = 0; i < shipToAttack; i++)
         {
             var ship = Instantiate(_shipPrefab, this.transform.position, Quaternion.identity);
