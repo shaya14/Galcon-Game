@@ -151,6 +151,7 @@ MonoBehaviour:
   _shipPrefab: {fileID: 9215633573012952669, guid: fc58eca5d4a511a4f93ef0efa92c5d83, type: 3}
   _minTimeBetweenAttacks: 0.2
   _maxTimeBetweenAttacks: 1
+  _initialTimeBetweenAttacks: 0
 --- !u!58 &7196761770172136966
 CircleCollider2D:
   m_ObjectHideFlags: 0
