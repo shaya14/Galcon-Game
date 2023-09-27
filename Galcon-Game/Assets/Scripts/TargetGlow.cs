@@ -5,7 +5,6 @@ using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 
-// CR: [discuss how to simplify the code]
 public class TargetGlow : MonoBehaviour
 {
     [SerializeField] private GameObject _selectedGlow;
@@ -43,6 +42,14 @@ public class TargetGlow : MonoBehaviour
         else if (_isHovered && PlanetManager.Instance.selectedPlanets.Count > 0)
         {
             _selectedGlow.SetActive(true);
+
+            foreach (Planet targetPlanet in PlanetManager.Instance.selectedPlanets)
+            {
+                if (targetPlanet != this)
+                {
+                    DrawLines.Instance.DrawLine(targetPlanet.transform, this.transform);
+                }
+            }
         }
         else if (_isHovered && _thisPlanet.isFriendly)
         {
@@ -52,14 +59,6 @@ public class TargetGlow : MonoBehaviour
         {
             _selectedGlow.SetActive(false);
         }
-
-        foreach (Planet targetPlanet in PlanetManager.Instance.selectedPlanets)
-        {
-            if (targetPlanet != this)
-            {
-                DrawLines.Instance.DrawLine(targetPlanet.transform, this.transform);
-            }
-        }
     }
 
     private void OnMouseEnter()
@@ -67,18 +66,9 @@ public class TargetGlow : MonoBehaviour
         _isHovered = true;
     }
 
-
-
     private void OnMouseExit()
     {
         _isHovered = false;
+        DrawLines.Instance.ClearLines();
     }
-
-    // _maxShipTextObject.SetActive(false);
-    // if (!_isClicked)
-    // {
-    //     _selectedGlow.SetActive(false);
-    //     DrawLines.Instance.ClearLines();
-    // }
-
 }
