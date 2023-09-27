@@ -34,7 +34,7 @@ public class TargetGlow : MonoBehaviour
                     {
                         if (targetPlanet != this )
                         {
-                            DrawLines._instance.DrawLine(targetPlanet.transform, this.transform);
+                            DrawLines.Instance.DrawLine(targetPlanet.transform, this.transform);
                         }
                     }
                 }
@@ -48,7 +48,7 @@ public class TargetGlow : MonoBehaviour
                     {
                         if (targetPlanet != this )
                         {
-                            DrawLines._instance.DrawLine(targetPlanet.transform, this.transform);
+                            DrawLines.Instance.DrawLine(targetPlanet.transform, this.transform);
                         }
                     }
                 }
@@ -62,7 +62,7 @@ public class TargetGlow : MonoBehaviour
         if (!_isClicked)
         {
             _selectedGlow.SetActive(false);
-            DrawLines._instance.ClearLines();
+            DrawLines.Instance.ClearLines();
         }
     }
 

@@ -2,17 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DrawLines : MonoBehaviour
+public class DrawLines : Singleton<DrawLines>
 {
-    public static DrawLines _instance; // CR: use the 'Singleton' class // its stop working when i use singleton class , why?
-    private LineRenderer _lineRendererPrefab;
+    [SerializeField] private LineRenderer _lineRendererPrefab;
     public List<LineRenderer> _activeLines = new List<LineRenderer>();
-    void Start()
-    {
-        _instance = this;
-        _lineRendererPrefab = GetComponent<LineRenderer>();
-    }
-
+    
     public void DrawLine(Transform origin, Transform targets)
     {
         LineRenderer line = Instantiate(_lineRendererPrefab, origin.position, Quaternion.identity);

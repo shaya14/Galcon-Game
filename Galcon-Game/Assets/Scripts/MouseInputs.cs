@@ -26,7 +26,7 @@ public class MouseInputs : Singleton<MouseInputs>
             {
                 planet.GetComponent<TargetGlow>()._isClicked = true;
                 PlanetManager.Instance._selectedPlanets.Add(planet);
-                DrawLines._instance.ClearLines();
+                DrawLines.Instance.ClearLines();
                 foreach (Planet enemy in PlanetManager.Instance.neutralAndEnemyPlanets)
                 {
                     enemy.GetComponent<TargetGlow>()._glowingEnabled = true;
@@ -63,7 +63,7 @@ public class MouseInputs : Singleton<MouseInputs>
                 planet.GetComponent<CircleCollider2D>().isTrigger = true;
                 planet._friendlyTargetArrows.SetActive(true);
                 PlanetManager.Instance.SpawnShips(planet);
-                DrawLines._instance.ClearLines();
+                DrawLines.Instance.ClearLines();
                 PlanetManager.Instance._selectedPlanets.Clear();
                 SoundFx.Instance.PlaySound(SoundFx.Instance.attackSound, 0.3f);
                 planet._attackingNumber += PlanetManager.Instance._numOfShipsGenerated;
@@ -74,7 +74,7 @@ public class MouseInputs : Singleton<MouseInputs>
                 planet.GetComponent<CircleCollider2D>().isTrigger = true;
                 planet._friendlyTargetArrows.SetActive(true);
                 PlanetManager.Instance.SpawnShips(planet);
-                DrawLines._instance.ClearLines();
+                DrawLines.Instance.ClearLines();
                 PlanetManager.Instance._selectedPlanets.Clear();
                 SoundFx.Instance.PlaySound(SoundFx.Instance.attackSound, 0.3f);
                 planet._attackingNumber += PlanetManager.Instance._numOfShipsGenerated;
