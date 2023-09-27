@@ -118,7 +118,6 @@ MonoBehaviour:
   _friendlyTargetArrows: {fileID: 3107110211353855523}
   _enemyTargetArrows: {fileID: 2859045486217422414}
   _attackingNumber: 0
-  _isAddedToSelectedPlanets: 0
 --- !u!114 &2130193576567537355
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,9 +132,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _selectedGlow: {fileID: 4787735927061252381}
   _maxShipTextObject: {fileID: 9127071577771806120}
-  _isClicked: 0
-  _glowingEnabled: 0
-  _isEnable: 1
 --- !u!114 &6283401622858081399
 MonoBehaviour:
   m_ObjectHideFlags: 0
