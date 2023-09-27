@@ -110,7 +110,7 @@ public class BoxSelection : Singleton<BoxSelection>
         //     }
         // }
 
-        PlanetManager.Instance._selectedPlanets = newlySelectedPlanets; // Update the selected planets list
+        PlanetManager.Instance.selectedPlanets = newlySelectedPlanets; // Update the selected planets list
     }
 }
 

@@ -214,7 +214,7 @@ public class Planet : MonoBehaviour
    {
       get
       {
-         foreach (Planet planet in PlanetManager.Instance._selectedPlanets)
+         foreach (Planet planet in PlanetManager.Instance.selectedPlanets)
          {
             // if (this == planet) { // 
             if (this.gameObject.GetInstanceID() == planet.gameObject.GetInstanceID())

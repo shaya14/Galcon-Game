@@ -25,7 +25,7 @@ public class MouseInputs : Singleton<MouseInputs>
             if (planet != null && planet.isFriendly && !planet.isSelected)
             {
                 planet.GetComponent<TargetGlow>()._isClicked = true;
-                PlanetManager.Instance._selectedPlanets.Add(planet);
+                PlanetManager.Instance.selectedPlanets.Add(planet);
                 DrawLines.Instance.ClearLines();
                 foreach (Planet enemy in PlanetManager.Instance.neutralAndEnemyPlanets)
                 {
@@ -34,7 +34,7 @@ public class MouseInputs : Singleton<MouseInputs>
             }
             else if (rayHit.collider.gameObject.tag == "Background")
             {
-                foreach (Planet selectedPlanet in PlanetManager.Instance._selectedPlanets)
+                foreach (Planet selectedPlanet in PlanetManager.Instance.selectedPlanets)
                 {
                     selectedPlanet.GetComponent<TargetGlow>().SetGlowOff();
                     selectedPlanet._isAddedToSelectedPlanets = false;
@@ -43,7 +43,7 @@ public class MouseInputs : Singleton<MouseInputs>
                         enemy.GetComponent<TargetGlow>()._glowingEnabled = false;
                     }
                 }
-                PlanetManager.Instance._selectedPlanets.Clear();
+                PlanetManager.Instance.selectedPlanets.Clear();
             }
         }
 
@@ -54,7 +54,7 @@ public class MouseInputs : Singleton<MouseInputs>
             {
                 return;
             }
-            if(PlanetManager.Instance._selectedPlanets.Count <= 0)
+            if(PlanetManager.Instance.selectedPlanets.Count <= 0)
             {
                 return;
             }
@@ -64,7 +64,7 @@ public class MouseInputs : Singleton<MouseInputs>
                 planet._friendlyTargetArrows.SetActive(true);
                 PlanetManager.Instance.SpawnShips(planet);
                 DrawLines.Instance.ClearLines();
-                PlanetManager.Instance._selectedPlanets.Clear();
+                PlanetManager.Instance.selectedPlanets.Clear();
                 SoundFx.Instance.PlaySound(SoundFx.Instance.attackSound, 0.3f);
                 planet._attackingNumber += PlanetManager.Instance._numOfShipsGenerated;
                 PlanetManager.Instance._numOfShipsGenerated = 0;
@@ -75,7 +75,7 @@ public class MouseInputs : Singleton<MouseInputs>
                 planet._friendlyTargetArrows.SetActive(true);
                 PlanetManager.Instance.SpawnShips(planet);
                 DrawLines.Instance.ClearLines();
-                PlanetManager.Instance._selectedPlanets.Clear();
+                PlanetManager.Instance.selectedPlanets.Clear();
                 SoundFx.Instance.PlaySound(SoundFx.Instance.attackSound, 0.3f);
                 planet._attackingNumber += PlanetManager.Instance._numOfShipsGenerated;
                 PlanetManager.Instance._numOfShipsGenerated = 0;

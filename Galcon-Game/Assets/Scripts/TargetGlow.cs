@@ -30,7 +30,7 @@ public class TargetGlow : MonoBehaviour
                 if (!_isClicked)
                 {
                     _selectedGlow.SetActive(true);
-                    foreach (Planet targetPlanet in PlanetManager.Instance._selectedPlanets)
+                    foreach (Planet targetPlanet in PlanetManager.Instance.selectedPlanets)
                     {
                         if (targetPlanet != this )
                         {
@@ -44,7 +44,7 @@ public class TargetGlow : MonoBehaviour
                 if (_glowingEnabled)
                 {
                     _selectedGlow.SetActive(true);
-                    foreach (Planet targetPlanet in PlanetManager.Instance._selectedPlanets)
+                    foreach (Planet targetPlanet in PlanetManager.Instance.selectedPlanets)
                     {
                         if (targetPlanet != this )
                         {

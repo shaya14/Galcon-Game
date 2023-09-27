@@ -22,7 +22,7 @@ public class PlanetManager : Singleton<PlanetManager>
 
     [Header("Map & Settings Planets")]
     [SerializeField] private List<Planet> _mapPlanets;
-    public List<Planet> _selectedPlanets;
+    public List<Planet> selectedPlanets;
     public int _numOfShipsGenerated = 0;
 
     // CR: [discuss in class] how can we simplify the 'GameSettings' related code?
@@ -61,12 +61,12 @@ public class PlanetManager : Singleton<PlanetManager>
 
     void Start()
     {
-        _selectedPlanets = new List<Planet>();
+        selectedPlanets = new List<Planet>();
     }
 
     public void SpawnShips(Planet target)
     {
-        foreach (Planet planet in _selectedPlanets)
+        foreach (Planet planet in selectedPlanets)
         {
             int shipToAttack = planet.numberOfShips / 2;
             planet.numberOfShips -= shipToAttack;
@@ -79,11 +79,11 @@ public class PlanetManager : Singleton<PlanetManager>
             }
         }
 
-        foreach (Planet planet in _selectedPlanets)
+        foreach (Planet planet in selectedPlanets)
         {
             planet.GetComponent<TargetGlow>().SetGlowOff();
         }
-        _selectedPlanets.Clear();
+        selectedPlanets.Clear();
 
         foreach (Planet enemy in neutralAndEnemyPlanets)
         {
