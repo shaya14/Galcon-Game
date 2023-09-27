@@ -76,15 +76,9 @@ public class BoxSelection : Singleton<BoxSelection>
             }
             if (planet.isFriendly && !planet.isSelected)
             {
-                planet.GetComponent<TargetGlow>().SetGlowOn();
                 if (!newlySelectedPlanets.Contains(planet))
                 {
                     newlySelectedPlanets.Add(planet);
-                }
-
-                foreach (Planet enemy in PlanetManager.Instance.neutralAndEnemyPlanets)
-                {
-                    enemy.GetComponent<TargetGlow>()._glowingEnabled = true;
                 }
             }
         }
@@ -96,7 +90,6 @@ public class BoxSelection : Singleton<BoxSelection>
         {
             if (!objectsToSelect.Contains(planet.GetComponent<Collider2D>()))
             {
-                planet.GetComponent<TargetGlow>().SetGlowOff();
                 newlySelectedPlanets.Remove(planet);
             }
         }

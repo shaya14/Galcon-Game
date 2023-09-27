@@ -79,16 +79,7 @@ public class PlanetManager : Singleton<PlanetManager>
             }
         }
 
-        foreach (Planet planet in selectedPlanets)
-        {
-            planet.GetComponent<TargetGlow>().SetGlowOff();
-        }
         selectedPlanets.Clear();
-
-        foreach (Planet enemy in neutralAndEnemyPlanets)
-        {
-            enemy.GetComponent<TargetGlow>()._glowingEnabled = false;
-        }
     }
 
     #region Instatiate Planets
@@ -298,5 +289,15 @@ public class PlanetManager : Singleton<PlanetManager>
     }
 
     public List<Planet> allPlanets => _mapPlanets;
+
+    // Removes a planet from selection (if it was selected)
+    public void Unselect(Planet planet) {
+        for (int i = 0; i < selectedPlanets.Count; i++) {
+            if (selectedPlanets[i].gameObject.GetInstanceID() == planet.gameObject.GetInstanceID()) {
+                selectedPlanets.RemoveAt(i);
+                return;
+            }
+        }
+    }
     #endregion
 }

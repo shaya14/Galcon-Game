@@ -32,7 +32,6 @@ public class Planet : MonoBehaviour
    private float _timer;
    private float _size = 1;
    public int _attackingNumber = 0;
-   public bool _isAddedToSelectedPlanets = false;
    public bool isFriendly => planetColor == PlanetColor.Friendly;
    public bool isEnemy => planetColor == PlanetColor.Enemy;
    public bool isNeutral => planetColor == PlanetColor.Neutral;
@@ -188,6 +187,9 @@ public class Planet : MonoBehaviour
       if (numberOfShips == 0)
       {
          numberOfShips = 1;
+         if (ship.shipColor != PlanetColor.Friendly) {
+            PlanetManager.Instance.Unselect(this);
+         }
          planetColor = ship.shipColor;
          SoundFx.Instance.PlaySound(SoundFx.Instance.conquerSound, 1f);
          return;

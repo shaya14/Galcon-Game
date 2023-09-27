@@ -8,73 +8,57 @@ using UnityEngine;
 // CR: [discuss how to simplify the code]
 public class TargetGlow : MonoBehaviour
 {
-    [SerializeField] GameObject _selectedGlow;
-    [SerializeField] GameObject _maxShipTextObject;
-    public bool _isClicked; // When a planet is clicked, it will glow until it is clicked again or another planet is clicked
-    public bool _glowingEnabled = false;
+    [SerializeField] private GameObject _selectedGlow;
+    [SerializeField] private GameObject _maxShipTextObject;
 
-    public bool _isEnable = true;
+    private bool _isHovered;
+    
+    private Planet _thisPlanet;
 
-    private void Awake()
+    private void Awake() {
+        _thisPlanet = GetComponent<Planet>();
+        _selectedGlow.SetActive(false);
+    }
+
+    private void Update()
     {
-        _glowingEnabled = false;
+        if (!MouseInputs.Instance._isEnable) {
+            return;
+        }
+        if (_isHovered) {
+            _maxShipTextObject.SetActive(true);
+        } else {
+            _maxShipTextObject.SetActive(false);
+        }
+
+        if (_thisPlanet.isSelected) {
+            _selectedGlow.SetActive(true);
+        } else if (_isHovered && PlanetManager.Instance.selectedPlanets.Count > 0) {
+            _selectedGlow.SetActive(true);
+        } else if (_isHovered && _thisPlanet.isFriendly) {
+            _selectedGlow.SetActive(true);
+        } else {
+            _selectedGlow.SetActive(false);
+        }
     }
 
     private void OnMouseEnter()
     {
-        if (_isEnable)
-        {
-            _maxShipTextObject.SetActive(true);
-            if (GetComponent<Planet>().isFriendly)
-            {
-                if (!_isClicked)
-                {
-                    _selectedGlow.SetActive(true);
-                    foreach (Planet targetPlanet in PlanetManager.Instance.selectedPlanets)
-                    {
-                        if (targetPlanet != this )
-                        {
-                            DrawLines.Instance.DrawLine(targetPlanet.transform, this.transform);
-                        }
-                    }
-                }
-            }
-            else if (GetComponent<Planet>().isEnemy || GetComponent<Planet>().isNeutral)
-            {
-                if (_glowingEnabled)
-                {
-                    _selectedGlow.SetActive(true);
-                    foreach (Planet targetPlanet in PlanetManager.Instance.selectedPlanets)
-                    {
-                        if (targetPlanet != this )
-                        {
-                            DrawLines.Instance.DrawLine(targetPlanet.transform, this.transform);
-                        }
-                    }
-                }
-            }
-        }
+        _isHovered = true;
     }
+
+
 
     private void OnMouseExit()
     {
-        _maxShipTextObject.SetActive(false);
-        if (!_isClicked)
-        {
-            _selectedGlow.SetActive(false);
-            DrawLines.Instance.ClearLines();
-        }
+        _isHovered = false;
     }
 
-    public void SetGlowOff()
-    {
-        _selectedGlow.SetActive(false);
-        _isClicked = false;
-    }
+        // _maxShipTextObject.SetActive(false);
+        // if (!_isClicked)
+        // {
+        //     _selectedGlow.SetActive(false);
+        //     DrawLines.Instance.ClearLines();
+        // }
 
-    public void SetGlowOn()
-    {
-        _selectedGlow.SetActive(true);
-        _isClicked = true;
-    }
 }

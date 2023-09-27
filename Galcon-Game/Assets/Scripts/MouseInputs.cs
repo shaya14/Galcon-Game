@@ -24,25 +24,11 @@ public class MouseInputs : Singleton<MouseInputs>
             var planet = rayHit.collider.GetComponent<Planet>();
             if (planet != null && planet.isFriendly && !planet.isSelected)
             {
-                planet.GetComponent<TargetGlow>()._isClicked = true;
                 PlanetManager.Instance.selectedPlanets.Add(planet);
                 DrawLines.Instance.ClearLines();
-                foreach (Planet enemy in PlanetManager.Instance.neutralAndEnemyPlanets)
-                {
-                    enemy.GetComponent<TargetGlow>()._glowingEnabled = true;
-                }
             }
             else if (rayHit.collider.gameObject.tag == "Background")
             {
-                foreach (Planet selectedPlanet in PlanetManager.Instance.selectedPlanets)
-                {
-                    selectedPlanet.GetComponent<TargetGlow>().SetGlowOff();
-                    selectedPlanet._isAddedToSelectedPlanets = false;
-                    foreach (Planet enemy in PlanetManager.Instance.neutralAndEnemyPlanets)
-                    {
-                        enemy.GetComponent<TargetGlow>()._glowingEnabled = false;
-                    }
-                }
                 PlanetManager.Instance.selectedPlanets.Clear();
             }
         }

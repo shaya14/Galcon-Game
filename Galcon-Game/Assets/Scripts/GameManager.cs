@@ -118,21 +118,11 @@ public class GameManager : Singleton<GameManager>
     private void DisablePlanetFunctions()
     {
         MouseInputs.Instance._isEnable = false;
-
-        foreach (Planet planet in PlanetManager.Instance.allPlanets)
-        {
-            planet.GetComponent<TargetGlow>()._isEnable = false;
-        }
     }
 
     private void EnablePlanetFunctions()
     {
         MouseInputs.Instance._isEnable = true;
-
-        foreach (Planet planet in PlanetManager.Instance.allPlanets)
-        {
-            planet.GetComponent<TargetGlow>()._isEnable = true;
-        }
     }
     #endregion
 }
