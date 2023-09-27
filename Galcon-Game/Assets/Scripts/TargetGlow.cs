@@ -12,33 +12,53 @@ public class TargetGlow : MonoBehaviour
     [SerializeField] private GameObject _maxShipTextObject;
 
     private bool _isHovered;
-    
+
     private Planet _thisPlanet;
 
-    private void Awake() {
+    private void Awake()
+    {
         _thisPlanet = GetComponent<Planet>();
         _selectedGlow.SetActive(false);
     }
 
     private void Update()
     {
-        if (!MouseInputs.Instance._isEnable) {
+        if (!MouseInputs.Instance._isEnable)
+        {
             return;
         }
-        if (_isHovered) {
+        if (_isHovered)
+        {
             _maxShipTextObject.SetActive(true);
-        } else {
+        }
+        else
+        {
             _maxShipTextObject.SetActive(false);
         }
 
-        if (_thisPlanet.isSelected) {
+        if (_thisPlanet.isSelected)
+        {
             _selectedGlow.SetActive(true);
-        } else if (_isHovered && PlanetManager.Instance.selectedPlanets.Count > 0) {
+        }
+        else if (_isHovered && PlanetManager.Instance.selectedPlanets.Count > 0)
+        {
             _selectedGlow.SetActive(true);
-        } else if (_isHovered && _thisPlanet.isFriendly) {
+        }
+        else if (_isHovered && _thisPlanet.isFriendly)
+        {
             _selectedGlow.SetActive(true);
-        } else {
+        }
+        else
+        {
             _selectedGlow.SetActive(false);
+        }
+
+        foreach (Planet targetPlanet in PlanetManager.Instance.selectedPlanets)
+        {
+            if (targetPlanet != this)
+            {
+                DrawLines.Instance.DrawLine(targetPlanet.transform, this.transform);
+            }
         }
     }
 
@@ -54,11 +74,11 @@ public class TargetGlow : MonoBehaviour
         _isHovered = false;
     }
 
-        // _maxShipTextObject.SetActive(false);
-        // if (!_isClicked)
-        // {
-        //     _selectedGlow.SetActive(false);
-        //     DrawLines.Instance.ClearLines();
-        // }
+    // _maxShipTextObject.SetActive(false);
+    // if (!_isClicked)
+    // {
+    //     _selectedGlow.SetActive(false);
+    //     DrawLines.Instance.ClearLines();
+    // }
 
 }
