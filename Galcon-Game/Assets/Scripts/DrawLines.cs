@@ -17,12 +17,8 @@ public class DrawLines : Singleton<DrawLines>
 
     public void ClearLines()
     {
-        _lineRendererPrefab.SetPosition(0, Vector3.zero);
-        _lineRendererPrefab.SetPosition(1, Vector3.zero);
-
         foreach (LineRenderer line in _activeLines)
         {
-            // bug: this is not working
             Destroy(line.gameObject);
         }
         _activeLines.Clear();

@@ -26,6 +26,13 @@ public class TargetGlow : MonoBehaviour
         {
             return;
         }
+
+        UpdateGenerationRateText();
+        UpdateGlow();
+        UpdateLines();
+    }
+
+    private void UpdateGenerationRateText() {
         if (_isHovered)
         {
             _maxShipTextObject.SetActive(true);
@@ -34,7 +41,9 @@ public class TargetGlow : MonoBehaviour
         {
             _maxShipTextObject.SetActive(false);
         }
+    }
 
+    private void UpdateGlow() {
         if (_thisPlanet.isSelected)
         {
             _selectedGlow.SetActive(true);
@@ -61,6 +70,17 @@ public class TargetGlow : MonoBehaviour
         }
     }
 
+    private void UpdateLines() {
+        if (!_isHovered) {
+            return;
+        }
+
+        DrawLines.Instance.ClearLines();
+        foreach (Planet planet in PlanetManager.Instance.selectedPlanets) {
+            DrawLines.Instance.DrawLine(planet.transform, _thisPlanet.transform);
+        }
+    }
+
     private void OnMouseEnter()
     {
         _isHovered = true;
@@ -68,7 +88,7 @@ public class TargetGlow : MonoBehaviour
 
     private void OnMouseExit()
     {
-        _isHovered = false;
         DrawLines.Instance.ClearLines();
+        _isHovered = false;
     }
 }
